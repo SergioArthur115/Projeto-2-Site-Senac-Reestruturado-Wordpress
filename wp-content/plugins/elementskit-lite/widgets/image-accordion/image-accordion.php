@@ -966,7 +966,7 @@ class ElementsKit_Widget_Image_Accordion extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		extract($settings);
 		?>
-		<div class="ekit-image-accordion elementskit-image-accordion-wraper">
+		<div class="ekit-image-accordion elementskit-image-accordion-wraper" role="radiogroup" aria-label="<?php echo esc_attr__( 'Image accordion', 'elementskit-lite' ); ?>">
 			<?php foreach ( $ekit_img_accordion_items as $key => $item ) :
 
 				$this->add_render_attribute( 'wrap-input-' . $key,[

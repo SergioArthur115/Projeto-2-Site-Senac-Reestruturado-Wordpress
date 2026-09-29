@@ -8,7 +8,7 @@ class ElementsKit_Widget_Nav_Menu_Handler extends \ElementsKit_Lite\Core\Handler
     }
 
     static function get_title() {
-        return esc_html__( 'ElementsKit Nav Menu', 'elementskit-lite' );
+        return esc_html__( 'Nav Menu', 'elementskit-lite' );
     }
 
     static function get_icon() {

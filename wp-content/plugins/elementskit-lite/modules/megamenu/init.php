@@ -56,6 +56,17 @@ class Init {
 		if ( $screen->base == 'nav-menus' ) {
 			wp_enqueue_script( 'fonticonpicker', \ElementsKit_Lite::plugin_url() . 'assets/libs/fonticonpicker/jquery.fonticonpicker.min.js', array( 'jquery' ), \ElementsKit_Lite::version(), true );
 			wp_enqueue_script( 'elementskit-menu-admin-script', $this->url . 'assets/js/admin-script.js', array( 'jquery', 'wp-color-picker' ), \ElementsKit_Lite::version(), true );
+
+			// fontIconPicker builds its pager markup in JS, so the labels the
+			// script adds to the icon-only arrows have to be handed to it here
+			wp_localize_script(
+				'elementskit-menu-admin-script',
+				'elementskit_megamenu_i18n',
+				array(
+					'prev' => __( 'Prev', 'elementskit-lite' ),
+					'next' => __( 'Next', 'elementskit-lite' ),
+				)
+			);
 		}
 	}
 }

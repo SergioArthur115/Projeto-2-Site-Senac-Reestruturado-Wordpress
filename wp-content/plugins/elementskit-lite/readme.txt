@@ -4,7 +4,7 @@ Tags: Elementor addons, mega menu builder,  header footer builder, elementor add
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 4.0.2
+Stable tag: 4.0.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -357,6 +357,36 @@ ElementsKit is brought to you by Wpmet, a name **trusted by 10,00,000 satisfied 
 Visit  [wpmet](https://wpmet.com/?utm_source=org&utm_medium=readme) for essential WordPress [Tutorials, Tips & Tricks](https://wpmet.com/blog)!
 
 == Changelog ==
+= ElementsKit Elementor Addons Version: 4.0.6 (2026-09-21) =
+* Added: Support for Elementor Atomic Elements.
+* Added: Blog Post image widget image position control responisve
+* Improved: Output escaping for media image attributes to enhance security.
+* Fixed: Mega Menu rendering issues in the Elementor editor.
+* Fixed: A stored XSS vulnerability in the Nav Menu widget’s mobile logo image attributes.
+
+= ElementsKit Elementor Addons Version: 4.0.5 (2026-09-09) =
+* Improved: Compatibility with the latest version of WPML.
+* Fixed: PHP warning caused by invalid Nav Menu item references during Mega Menu asset discovery.
+* Fixed: Icon color styling issues in Social widgets.
+* Fixed: Layout and editor panel issues in Testimonial widget .
+* Fixed: PHP warnings in the onboarding process caused by undefined plugin variables
+
+= ElementsKit Elementor Addons Version: 4.0.4 (2026-09-07) =
+* Improved: Elementor nested widget dependency resolution for better compatibility and asset handling.
+* Fixed: Fatal error caused by nested widget asset dependency resolution with Elementor.
+
+= ElementsKit Elementor Addons Version: 4.0.3 (2026-09-06) =
+* Added: Recursive asset discovery for Elementor nested documents to load required CSS/JS within `wp_head`.
+* Added: Header tag control for the FAQ widget.
+* Added: Accessibility support for Nav Menu and Mega Menu.
+* Added: Responsive posts-per-row control for the Blog Posts widget.
+* Improved: Translation support for accessibility labels, slider navigation announcements, and video frame titles.
+* Improved: Nested asset resolution to ensure Header/Footer, Widget Area, and Mega Menu assets load in the correct order.
+* Improved: Mega Menu and Widget Area document lookups with caching to reduce repeated queries and improve performance.
+* Fixed: Nested widget CSS loading after `wp_head`, preventing late styles and CSS cascade issues.
+* Fixed: Custom ordering issue in the Pricing Table widget.
+* Fixed: "Install Now" button issue on the onboarding Forms page.
+
 = ElementsKit Elementor Addons Version: 4.0.2 (2026-08-24) =
 * Added: Introduced an HTML tag option for the member name in the Team widget.
 * Fixed: Resolved an issue where Mailchimp Widget API requests were not processed correctly.

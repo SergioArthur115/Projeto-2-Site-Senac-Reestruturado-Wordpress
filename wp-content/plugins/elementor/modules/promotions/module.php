@@ -86,8 +86,12 @@ class Module extends Base_Module {
 			new Black_Friday();
 		}
 
-		if ( Conversion_Banner::should_display_banner() ) {
-			new Conversion_Banner();
+		if ( ! Utils::has_pro() ) {
+			Conversion_Banner::register_cache_invalidation_hooks();
+
+			if ( Conversion_Banner::should_display_banner() ) {
+				new Conversion_Banner();
+			}
 		}
 
 		add_filter( 'elementor/editor/localize_settings', [ $this, 'add_editing_panel_sticky_promotion' ] );
@@ -211,10 +215,6 @@ class Module extends Base_Module {
 	}
 
 	public function add_editing_panel_sticky_promotion( array $settings ): array {
-		if ( ! Plugin::$instance->experiments->is_feature_active( 'e_panel_promotions' ) ) {
-			return $settings;
-		}
-
 		$settings['editingPanelStickyPromotion'] = Filtered_Promotions_Manager::get_editor_panel_sticky_promotion();
 
 		return $settings;

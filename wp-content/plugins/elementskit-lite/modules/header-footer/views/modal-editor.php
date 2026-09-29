@@ -4,7 +4,7 @@
 			<!-- <input type="hidden" name="post_author" value ="<?php //echo get_current_user_id(); ?>"> -->
 			<div class="attr-modal-content">
 				<div class="attr-modal-header">
-					<button type="button" class="attr-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<button type="button" class="attr-close" data-dismiss="modal" aria-label="<?php echo esc_attr__( 'Close', 'elementskit-lite' ); ?>"><span aria-hidden="true">&times;</span></button>
 					<h4 class="attr-modal-title" id="elementskit_headerfooter_modalLabel"><?php esc_html_e( 'Template Settings', 'elementskit-lite' ); ?></h4>
 				</div>
 				<div class="attr-modal-body" id="elementskit_headerfooter_modal_body">

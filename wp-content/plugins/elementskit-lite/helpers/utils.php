@@ -364,6 +364,16 @@ if ( ! empty( $contact_forms ) && ! is_wp_error( $contact_forms ) ) {
 		return $str;
 	}
 
+	/**
+	 * Get attachment image HTML.
+	 *
+	 * @param array  $settings       Widget settings.
+	 * @param string $image_key      Image control key.
+	 * @param string $image_size_key Optional image size.
+	 * @param array  $image_attr     Optional image attributes.
+	 *
+	 * @return string Image HTML.
+	 */
 	public static function get_attachment_image_html( $settings, $image_key, $image_size_key = null, $image_attr = array() ) {
 		if ( ! $image_key ) {
 			$image_key = $image_size_key;
@@ -374,19 +384,28 @@ if ( ! empty( $contact_forms ) && ! is_wp_error( $contact_forms ) ) {
 		$size = $image_size_key;
 
 		$html = '';
-		if ( ! empty( $image['id'] ) && $image['id'] != '-1' && get_post($image['id'])) {
+
+		if ( ! empty( $image['id'] ) && '-1' !== (string) $image['id'] && get_post( $image['id'] ) ) {
 			$html .= wp_get_attachment_image( $image['id'], $size, false, $image_attr );
 		} else {
 			$html .= sprintf(
 				'<img src="%s" title="%s" alt="%s" class="%s" />',
-				esc_attr($image['url']),
-				\Elementor\Control_Media::get_image_title($image),
-				\Elementor\Control_Media::get_image_alt($image),
-				(isset($image_attr['class']) ? esc_attr($image_attr['class']) : '')
+				esc_url( $image['url'] ),
+				esc_attr( \Elementor\Control_Media::get_image_title( $image ) ),
+				esc_attr( \Elementor\Control_Media::get_image_alt( $image ) ),
+				isset( $image_attr['class'] ) ? esc_attr( $image_attr['class'] ) : ''
 			);
 		}
 
-		$html = preg_replace( array( '/max-width:[^"]*;/', '/width:[^"]*;/', '/height:[^"]*;/' ), '', $html );
+		$html = preg_replace(
+			array(
+				'/max-width:[^"]*;/',
+				'/width:[^"]*;/',
+				'/height:[^"]*;/',
+			),
+			'',
+			$html
+		);
 
 		return $html;
 	}

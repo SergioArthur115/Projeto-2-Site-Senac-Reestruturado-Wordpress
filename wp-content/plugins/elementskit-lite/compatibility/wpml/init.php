@@ -87,12 +87,17 @@ class Init {
 		foreach ( $fields as &$field ) {
 			$translated = $this->get_field_prop( $field, 'field_data_translated' );
 
-			if ( '' === $translated || false === strpos( $translated, '<span>' ) ) {
+			if ( '' === $translated ) {
 				continue;
 			}
 
 			$is_base64 = 'base64' === $this->get_field_prop( $field, 'field_format' );
 			$decoded   = $is_base64 ? base64_decode( $translated ) : $translated;
+
+			if ( false === $decoded || false === strpos( $decoded, '<span>' ) ) {
+				continue;
+			}
+
 			$decoded   = $this->span_to_braces( $decoded );
 			$encoded   = $is_base64 ? base64_encode( $decoded ) : $decoded;
 

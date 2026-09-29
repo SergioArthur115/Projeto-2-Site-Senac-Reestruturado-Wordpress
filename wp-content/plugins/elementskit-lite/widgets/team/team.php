@@ -2406,7 +2406,9 @@ class ElementsKit_Widget_Team extends Widget_Base {
 
                 // Link
                 $this->add_link_attributes( 'social_link_' . $icon['_id'], $icon['ekit_team_link'] );
-				$this->add_render_attribute( 'social_link_' . $icon['_id'], 'aria-label',  $icon['ekit_team_label'] );
+
+				// These links are icon-only, so the Label is their only accessible name.
+				$this->add_render_attribute( 'social_link_' . $icon['_id'], 'aria-label', ( $icon['ekit_team_label'] ?? '' ) ?: __( 'Social link', 'elementskit-lite' ) );
             }
         }
 
@@ -2555,10 +2557,10 @@ class ElementsKit_Widget_Team extends Widget_Base {
 			<?php endif; ?>
 
 		<?php if ( $ekit_team_chose_popup == 'yes' ): ?>
-			<div class="zoom-anim-dialog mfp-hide elementskit-team-popup team-popup-id-<?php echo esc_attr($this->get_id()) ;?>" id="ekit_team_modal_<?php echo esc_attr($this->get_id() . '_' . get_the_ID()); ?>" tabindex="-1" role="dialog" aria-modal="true">
+			<div class="zoom-anim-dialog mfp-hide elementskit-team-popup team-popup-id-<?php echo esc_attr($this->get_id()) ;?>" aria-label="<?php echo esc_attr__( 'Team member details', 'elementskit-lite' ); ?>" id="ekit_team_modal_<?php echo esc_attr($this->get_id() . '_' . get_the_ID()); ?>" tabindex="-1" role="dialog" aria-modal="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
-						<button type="button" class="ekit-team-modal-close">
+						<button type="button" class="ekit-team-modal-close" aria-label="<?php echo esc_attr__( 'Close', 'elementskit-lite' ); ?>">
 							<?php Icons_Manager::render_icon( $ekit_team_close_icon_changes, ['aria-hidden' => 'true'] ); ?>
 						</button>
 

@@ -9,55 +9,15 @@
 		$plugins      = \ElementsKit_Lite\Libs\Framework\Attr::instance()->utils->get_option( 'settings', array() );
 
 		$elementskit = $pluginStatus->get_status( 'elementskit-lite/elementskit-lite.php' );
-		// $dynamic_cpt = $pluginStatus->get_status( 'rox-dynamic-cpt-fields-engine/rox-dynamic-cpt-fields-engine.php' );
-		// $appointment_booking = $pluginStatus->get_status( 'rox-appointment-booking/rox-appointment-booking.php' );
 		$getgenie = $pluginStatus->get_status( 'getgenie/getgenie.php' );
 		$shopengine = $pluginStatus->get_status( 'shopengine/shopengine.php' );
 		$metform = $pluginStatus->get_status( 'metform/metform.php' );
 		$emailkit = $pluginStatus->get_status( 'emailkit/EmailKit.php' );
 		$popupkit = $pluginStatus->get_status( 'popup-builder-block/popup-builder-block.php' );
-		// $social = $pluginStatus->get_status( 'wp-social/wp-social.php' );
-
 		$gutenkit = $pluginStatus->get_status( 'gutenkit-blocks-addon/gutenkit-blocks-addon.php' );
-		// $tablekit = $pluginStatus->get_status( 'table-builder-block/table-builder-block.php' );
-
 		$woocommerce = $pluginStatus->get_status( 'woocommerce/woocommerce.php' );
 		$shopengine_pre_check = $woocommerce['status'] == 'activated' ? '' : '';
 		?>
-		<!-- <div class="attr-col-lg-3">
-			<div class="ekit-onboard-single-plugin <?php echo $dynamic_cpt['status'] == 'activated' ? 'activated' : ''; ?>">
-				<label>
-					<div class="ekit-onboard-single-plugin--header">
-						<h3>Dynamic CPT Fields</3>
-					</div>
-					<?php if($dynamic_cpt['status'] !== 'activated') : ?>
-						<div class="ekit-onboard-single-plugin--checkbox-wrapper">
-							<input type="checkbox" class="ekit-onboard-single-plugin--input" value="rox-dynamic-cpt-fields-engine/rox-dynamic-cpt-fields-engine.php" name="our_plugins[]">
-						</div>
-					<?php endif; ?>
-					<p class="ekit-onboard-single-plugin--description">
-						<?php echo esc_html__('Build and manage custom CPT fields for WordPress with AI and zero coding.', 'elementskit-lite' ); ?>
-					</p>
-				</label>
-			</div>
-		</div>
-		<div class="attr-col-lg-3">
-			<div class="ekit-onboard-single-plugin <?php echo $appointment_booking['status'] == 'activated' ? 'activated' : ''; ?>">
-				<label>
-					<div class="ekit-onboard-single-plugin--header">
-						<h3>Appointment Booking</3>
-					</div>
-					<?php if($appointment_booking['status'] !== 'activated') : ?>
-						<div class="ekit-onboard-single-plugin--checkbox-wrapper">
-							<input type="checkbox" class="ekit-onboard-single-plugin--input" value="rox-appointment-booking/rox-appointment-booking.php" name="our_plugins[]">
-						</div>
-					<?php endif; ?>
-					<p class="ekit-onboard-single-plugin--description">
-						<?php echo esc_html__( 'Manage schedules, agents, and payments, all from one dashboard in WordPress.', 'elementskit-lite' ); ?>
-					</p>
-				</label>
-			</div>
-		</div> -->
 		<div class="attr-col-lg-3">
 			<div class="ekit-onboard-single-plugin <?php echo $shopengine['status'] == 'activated' ? 'activated' : ''; ?>">
 				<label>

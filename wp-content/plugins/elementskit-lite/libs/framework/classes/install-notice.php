@@ -152,8 +152,8 @@ class Install_Notice {
 	/**
 	 * Handle the notice confirmation AJAX request.
 	 *
-	 * Sends subscription data for ElementsKit and registered plugins before
-	 * resolving the current install notice.
+	 * Sends subscription data for ElementsKit before resolving the current
+	 * install notice.
 	 *
 	 * @since 3.9.5
 	 *
@@ -165,10 +165,9 @@ class Install_Notice {
 			wp_send_json_error();
 		}
 
-		$registry = Install_Tracker::get_registry();
-		$email    = Install_Tracker::get_collected_email();
-		$email    = $email ? $email : $this->get_user_email();
-		$email    = $email ? $email : sanitize_email( get_option( 'admin_email' ) );
+		$email = Install_Tracker::get_collected_email();
+		$email = $email ? $email : $this->get_user_email();
+		$email = $email ? $email : sanitize_email( get_option( 'admin_email' ) );
 
 		Plugin_Data_Sender::instance()->sendEmailSubscribeData(
 			'plugin-subscribe',
@@ -177,23 +176,6 @@ class Install_Notice {
 				'slug'  => 'elementskit',
 			)
 		);
-
-		// Also send for auto-installed plugins that do not have their own notice banner.
-		$plugin_map = Install_Tracker::get_onboard_status_map();
-		foreach ( array_keys( $registry ) as $plugin_file ) {
-			if (
-				self::PLUGIN_FILE !== $plugin_file
-				&& ! empty( $plugin_map[ $plugin_file ]['crm_slug'] )
-			) {
-				Plugin_Data_Sender::instance()->sendEmailSubscribeData(
-					'plugin-subscribe',
-					array(
-						'email' => $email,
-						'slug'  => sanitize_key( $plugin_map[ $plugin_file ]['crm_slug'] ),
-					)
-				);
-			}
-		}
 
 		Install_Tracker::store_collected_email( $email );
 		Install_Tracker::dismiss_notice( self::PLUGIN_FILE );

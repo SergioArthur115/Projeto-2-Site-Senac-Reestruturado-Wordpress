@@ -592,6 +592,14 @@ class ElementsKit_Widget_Button extends Widget_Base {
 			'class' => 'elementskit-btn ' . $btn_class,
 			'id' => $btn_id
 		]);
+
+		// Icon-only button: when the author clears the label the only remaining
+		// content is the icon, which is rendered aria-hidden — leaving the link
+		// with no accessible name at all. Only add the fallback in that case, so
+		// a visible label is never overridden (WCAG 2.5.3 Label in Name).
+		if ( '' === trim( (string) $btn_text ) ) {
+			$this->add_render_attribute( 'button', 'aria-label', esc_attr__( 'Button', 'elementskit-lite' ) );
+		}
 		?>
 		<div class="ekit-btn-wraper">
 			<?php if($icon_align == 'right'): ?>

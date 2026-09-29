@@ -4,6 +4,18 @@ namespace ElementsKit_Lite;
 
 class ElementsKit_Seconday_Menu_Walker extends \Walker_Nav_Menu
 {
+	/**
+	 * ID of the item most recently opened by start_el().
+	 *
+	 * The walker visits a parent item before descending into its children, so
+	 * this holds the parent's ID by the time start_lvl() runs for that submenu.
+	 * It lets the panel carry an id that the parent link can point aria-controls
+	 * at, without changing any markup that already existed.
+	 *
+	 * @var int
+	 */
+	private $ekit_parent_item_id = 0;
+
 	// Start Level
 	public function start_lvl(&$output, $depth = 0, $args = null)
 	{
@@ -11,7 +23,10 @@ class ElementsKit_Seconday_Menu_Walker extends \Walker_Nav_Menu
 		$classes = ['elementskit-dropdown elementskit-submenu-panel'];
 		$class_names = join(' ', apply_filters('nav_menu_submenu_css_class', $classes, $args, $depth));
 		$class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
-		$output .= "\n$indent<ul$class_names>\n";
+		$submenu_id = $this->ekit_parent_item_id
+			? ' id="ekit-submenu-' . esc_attr($this->ekit_parent_item_id) . '"'
+			: '';
+		$output .= "\n$indent<ul$class_names$submenu_id>\n";
 	}
 
 	// Start Element
@@ -36,6 +51,17 @@ class ElementsKit_Seconday_Menu_Walker extends \Walker_Nav_Menu
 		$atts['rel'] = !empty($item->xfn) ? $item->xfn : '';
 		$atts['href'] = !empty($item->url) ? $item->url : '';
 
+		// Announce that this link opens a submenu, and whether it is currently
+		// open. Added before the nav_menu_link_attributes filter so a theme can
+		// still override them. Attributes only — no markup or class changes.
+		$this->ekit_parent_item_id = $item->ID;
+
+		if (in_array('menu-item-has-children', $classes)) {
+			$atts['aria-haspopup'] = 'true';
+			$atts['aria-expanded'] = 'false';
+			$atts['aria-controls'] = 'ekit-submenu-' . $item->ID;
+		}
+
 		$atts = apply_filters('nav_menu_link_attributes', $atts, $item, $args, $depth);
 		$attributes = '';
 		foreach ($atts as $attr => $value) {
@@ -56,7 +82,7 @@ class ElementsKit_Seconday_Menu_Walker extends \Walker_Nav_Menu
 			if(!empty($args->submenu_indicator_icon)) {
 				$submenu_indicator .= $args->submenu_indicator_icon;
 			} else {
-				$submenu_indicator .= '<i class="icon icon-down-arrow1 elementskit-submenu-indicator"></i>';
+				$submenu_indicator .= '<i class="icon icon-down-arrow1 elementskit-submenu-indicator" aria-hidden="true"></i>';
 			}
 		}
 

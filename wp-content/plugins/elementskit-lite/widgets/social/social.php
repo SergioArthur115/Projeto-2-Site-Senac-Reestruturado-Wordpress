@@ -230,7 +230,7 @@ class ElementsKit_Widget_Social extends Widget_Base {
 				'type' => Controls_Manager::COLOR,
 				'default' => '#222222',
 				'selectors' => [
-					'{{WRAPPER}} {{CURRENT_ITEM}} > a i' => 'color: {{VALUE}}',
+					'{{WRAPPER}} {{CURRENT_ITEM}} > a' => 'color: {{VALUE}}',
 					'{{WRAPPER}} {{CURRENT_ITEM}} > a svg' => 'fill: {{VALUE}}',
 				],
 			]
@@ -670,7 +670,9 @@ class ElementsKit_Widget_Social extends Widget_Base {
 
 						if ( ! empty( $icon['ekit_socialmedia_link']['url'] ) ) {
 							$this->add_link_attributes( 'button-' . $key, $icon['ekit_socialmedia_link'] );
-							$this->add_render_attribute( 'button-' . $key, 'aria-label', $icon['ekit_socialmedia_label'] );
+
+							// Author can clear the Label, and an empty aria-label names nothing.
+							$this->add_render_attribute( 'button-' . $key, 'aria-label', ( $icon['ekit_socialmedia_label'] ?? '' ) ?: __( 'Social link', 'elementskit-lite' ) );
 						}
 
 					?>

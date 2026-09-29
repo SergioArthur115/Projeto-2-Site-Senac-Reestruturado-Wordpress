@@ -87,6 +87,20 @@ class ElementsKit_Widget_Blog_Posts extends Widget_Base
                     'elementskit-post-card'       => esc_html__('Grid Without Thumb', 'elementskit-lite'),
                 ],
                 'default'   => 'elementskit-blog-block-post',
+                // The block layout is always one post per row, so it must not fall back to the
+                // hardcoded two-per-row tablet rule of the .ekit-col-* grid classes. The grid
+                // layouts get their widths from "Show Posts Per Row" instead (empty = no rule).
+                'selectors_dictionary' => [
+                    'elementskit-blog-block-post' => 'flex: 0 0 100%; max-width: 100%;',
+                    'elementskit-post-image-card' => '',
+                    'elementskit-post-card'       => '',
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .post-items:not(.carousel-enabled) > .post-item' => '{{VALUE}}',
+                ],
+                // The selectors above turn this into a style control, but the layout style also
+                // changes the markup, so the widget still has to be re-rendered.
+                'render_type' => 'template',
             ]
         );
 
@@ -104,7 +118,7 @@ class ElementsKit_Widget_Blog_Posts extends Widget_Base
             ]
         );
 
-        $this->add_control(
+        $this->add_responsive_control(
             'ekit_blog_posts_layout_style_thumb',
             [
                 'label'     => esc_html__('Image Position', 'elementskit-lite'),
@@ -168,7 +182,7 @@ class ElementsKit_Widget_Blog_Posts extends Widget_Base
             ]
         );
 
-        $this->add_control(
+        $this->add_responsive_control(
             'ekit_blog_posts_column',
             [
                 'label'     => esc_html__('Show Posts Per Row', 'elementskit-lite'),
@@ -184,6 +198,21 @@ class ElementsKit_Widget_Blog_Posts extends Widget_Base
                     'ekit_blog_posts_layout_style' => ['elementskit-post-image-card', 'elementskit-post-card'],
                 ],
                 'default'   => 'ekit-col-4',
+                // Keeps the pre-responsive rendering as the starting point: 2 per row on tablet, 1 on mobile.
+                'tablet_default' => 'ekit-col-6',
+                'mobile_default' => 'ekit-col-12',
+                'selectors_dictionary' => [
+                    'ekit-col-12' => '100%',
+                    'ekit-col-6'  => '50%',
+                    'ekit-col-4'  => '33.3333333333%',
+                    'ekit-col-3'  => '25%',
+                    'ekit-col-2'  => '16.6666666667%',
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .post-items > .post-item' => 'flex: 0 0 {{VALUE}}; max-width: {{VALUE}};',
+                ],
+                // The masonry column count is printed into the markup, so keep re-rendering.
+                'render_type' => 'template',
             ]
         );
 
@@ -3036,9 +3065,8 @@ class ElementsKit_Widget_Blog_Posts extends Widget_Base
             'gutterY'    => $masonry_row_gap['size'] ?? 10,
             'columns'    => $masonry_columns,
             'responsive' => [
-                ['maxWidth' => 1024, 'columns' => min($masonry_columns, 3)],
-                ['maxWidth' => 767, 'columns' => min($masonry_columns, 2)],
-                ['maxWidth' => 480, 'columns' => 1],
+                ['maxWidth' => 1024, 'columns' => $this->get_masonry_columns($settings, 'tablet')],
+                ['maxWidth' => 767, 'columns' => $this->get_masonry_columns($settings, 'mobile')],
             ],
         ];
 
@@ -3323,12 +3351,20 @@ class ElementsKit_Widget_Blog_Posts extends Widget_Base
         wp_reset_postdata();
     }
 
-    protected function get_masonry_columns($settings)
+    protected function get_masonry_columns($settings, $device = '')
     {
         $columns = 3;
 
         if (! empty($settings['grid_masonry']) && $settings['grid_masonry'] === 'yes') {
-            $column_class = $settings['ekit_blog_posts_column'] ?? '';
+            // Mirrors the per-device defaults of the "Show Posts Per Row" control, which are
+            // not part of $settings on the frontend until the device value is actually saved.
+            $device_defaults = [
+                'tablet' => 'ekit-col-6',
+                'mobile' => 'ekit-col-12',
+            ];
+
+            $setting_key  = 'ekit_blog_posts_column' . ($device ? '_' . $device : '');
+            $column_class = ! empty($settings[$setting_key]) ? $settings[$setting_key] : ($device_defaults[$device] ?? ($settings['ekit_blog_posts_column'] ?? ''));
             $columns = [
                 'ekit-col-12' => 1,
                 'ekit-col-6'  => 2,

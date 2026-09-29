@@ -1687,8 +1687,13 @@ class ElementsKit_Widget_Nav_Menu extends Widget_Base {
             $responsive_menu_breakpoint = "767";
         }
 
+		// Accessible name for the landmark; nav-menu.js copies it onto the menubar.
+		$menu_object = wp_get_nav_menu_object($settings['elementskit_nav_menu']);
+		$menu_label = $menu_object ? $menu_object->name : esc_html__('Menu', 'elementskit-lite');
+
 		?>
 		<nav class="ekit-wid-con <?php echo esc_attr($settings['elementskit_responsive_breakpoint']); ?>"
+			aria-label="<?php echo esc_attr($menu_label); ?>"
 			data-hamburger-icon="<?php echo esc_attr($hamburger_icon_value); ?>"
 			data-hamburger-icon-type="<?php echo esc_attr($hamburger_icon_type); ?>"
 			data-responsive-breakpoint="<?php echo esc_attr($responsive_menu_breakpoint); ?>"
@@ -1706,7 +1711,7 @@ class ElementsKit_Widget_Nav_Menu extends Widget_Base {
              * Hamburger Toggler Button
              */
             ?>
-            <button class="elementskit-menu-hamburger elementskit-menu-toggler"  type="button" aria-label="hamburger-icon">
+            <button class="elementskit-menu-hamburger elementskit-menu-toggler"  type="button" aria-expanded="false" aria-controls="<?php echo esc_attr( 'ekit-megamenu-' . $settings['elementskit_nav_menu'] ); ?>" aria-label="<?php echo esc_attr__( 'Menu', 'elementskit-lite' ); ?>">
                 <?php
                 /**
                  * Show Default Icon
@@ -1745,13 +1750,12 @@ class ElementsKit_Widget_Nav_Menu extends Widget_Base {
 			if (!empty($ekit_nav_menu_logo['id']) && !empty($ekit_nav_menu_logo['url'])) :
 				// $nav_logo_html = \Elementskit_Lite\Utils::get_attachment_image_html($settings, 'elementskit_nav_menu_logo', 'full');
 
-				$nav_logo_html = sprintf(
-					'<img src="%s" title="%s" alt="%s" decoding="async" />',
-					esc_url($ekit_nav_menu_logo['url']),
-					Control_Media::get_image_title($ekit_nav_menu_logo),
-					Control_Media::get_image_alt($ekit_nav_menu_logo)
-				);
-
+                $nav_logo_html = sprintf(
+                    '<img src="%s" title="%s" alt="%s" decoding="async" />',
+                    esc_url($ekit_nav_menu_logo['url']),
+                    esc_attr(Control_Media::get_image_title($ekit_nav_menu_logo)),
+                    esc_attr(Control_Media::get_image_alt($ekit_nav_menu_logo))
+                );
 				$markup .= sprintf(
 					'<a class="elementskit-nav-logo" href="%1$s" target="%2$s" rel="%3$s">%4$s</a>',
 					esc_url($link),

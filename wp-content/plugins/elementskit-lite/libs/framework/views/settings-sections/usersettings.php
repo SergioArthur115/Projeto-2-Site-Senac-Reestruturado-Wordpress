@@ -464,8 +464,6 @@ $pro_active = ( in_array( 'elementskit/elementskit.php', apply_filters( 'active_
 
 						$user_id     = ( ! isset( $user_data['instragram']['user_id'] ) ) ? '' : esc_html( $user_data['instragram']['user_id'] );
 						$insta_token = ( ! isset( $user_data['instragram']['token'] ) ) ? '' : esc_html( $user_data['instragram']['token'] );
-						$insta_time  = ( ! isset( $user_data['instragram']['token_expire'] ) ) ? '' : intval( $user_data['instragram']['token_expire'] );
-						$insta_gen   = ( ! isset( $user_data['instragram']['token_generated'] ) ) ? '' : gmdate('Y-m-d', strtotime($user_data['instragram']['token_generated']));
 
 						$this->utils->input(
 							array(
@@ -484,27 +482,6 @@ $pro_active = ( in_array( 'elementskit/elementskit.php', apply_filters( 'active_
 								'label'       => esc_html__( 'Access Token', 'elementskit-lite' ),
 								'placeholder' => '',
 								'value'       => $insta_token,
-							)
-						);
-
-						$this->utils->input(
-							array(
-								'type'        => 'text',
-								'name'        => 'user_data[instragram][token_expire]',
-								'label'       => esc_html__( 'Token Expiry Time', 'elementskit-lite' ),
-								'placeholder' => 'This is needed for automatically refreshing the token...',
-								'value'       => $insta_time,
-							)
-						);
-
-						$this->utils->input(
-							array(
-								'type'        => 'date',
-								'name'        => 'user_data[instragram][token_generated]',
-								'label'       => esc_html__( 'Token generation date', 'elementskit-lite' ),
-								'placeholder' => 'This is needed for automatically refreshing the token...',
-								'value'       => $insta_gen,
-								'info'        => esc_html__( 'This is need to calculate the remaining time for token', 'elementskit-lite' ),
 							)
 						);
 

@@ -2133,7 +2133,7 @@ class ElementsKit_Widget_Video extends Widget_Base {
 							include Handler::get_dir() . 'parts/video-button.php';
 						}
 					?>
-					<iframe src="<?php echo esc_url($ekit_video_popup_url); ?>" allow="autoplay" allowfullscreen></iframe>
+					<iframe src="<?php echo esc_url($ekit_video_popup_url); ?>" title="<?php echo esc_attr__( 'Video player', 'elementskit-lite' ); ?>" allow="autoplay" allowfullscreen></iframe>
 					<?php else :
 						if(isset($settings['ekit_video_inline_image_overlay_switcher']) && $settings['ekit_video_inline_image_overlay_switcher'] === 'yes'){
 							include Handler::get_dir() . 'parts/video-button.php';

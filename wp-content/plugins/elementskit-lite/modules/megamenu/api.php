@@ -51,7 +51,14 @@ class Megamenu_Api extends Core\Handler_Api {
 
 	public function get_save_menuitem_settings() {
 		if ( ! $this->current_user_can_save_menuitem_settings() ) {
-			return;
+			// returning null here would leave the REST server with nothing to
+			// encode, and it answers that with a bodyless 200 the browser can
+			// only read as a successful save
+			return new \WP_Error(
+				'ekit_menuitem_settings_forbidden',
+				esc_html__( 'You are not allowed to save these menu item settings.', 'elementskit-lite' ),
+				array( 'status' => rest_authorization_required_code() )
+			);
 		}
 		$settings           = $this->sanitize_menuitem_settings( $this->request['settings'] );
 		$menu_item_id       = $settings['menu_id'];
@@ -66,7 +73,11 @@ class Megamenu_Api extends Core\Handler_Api {
 
 	public function get_get_menuitem_settings() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
+			return new \WP_Error(
+				'ekit_menuitem_settings_forbidden',
+				esc_html__( 'You are not allowed to read these menu item settings.', 'elementskit-lite' ),
+				array( 'status' => rest_authorization_required_code() )
+			);
 		}
 		$menu_item_id = $this->request['menu_id'];
 
@@ -78,10 +89,14 @@ class Megamenu_Api extends Core\Handler_Api {
 		$menu_item_id = intval($this->request['id']);
 
 		if ('publish' !== get_post_status ($menu_item_id) || post_password_required($menu_item_id)) {
-			return;
+			return '';
 		}
 
-		$output   = \ElementsKit_Lite\Utils::render_elementor_content($menu_item_id);
+		// A REST request is neither an admin-ajax call nor a preview, so Elementor
+		// would leave the panel CSS out and rely on the page that rendered the menu
+		// having enqueued it already. Ask for the CSS inline so the response styles
+		// itself wherever it is injected.
+		$output = \ElementsKit_Lite\Utils::render_elementor_content( $menu_item_id, true );
 
 		return $output;
 	}

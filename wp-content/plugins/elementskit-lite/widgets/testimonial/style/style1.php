@@ -15,7 +15,7 @@
 					<div class="swiper-slide-inner">
 						<<?php echo esc_attr( $wrapTag ); ?> class="elemntskit-testimonial-item elementor-repeater-item-<?php echo esc_attr( $testimonial[ '_id' ] ); ?>" <?php echo $this->get_render_attribute_string( 'link-' . $testimonial['_id'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped by elementor ?>>
 							<div class="elementskit-single-testimonial-slider <?php echo esc_attr(!empty($testimonial['ekit_testimonial_active']) ? 'testimonial-active' : ''); ?>">
-								<div class="row">
+								<div class="row ekit-row">
 									<div class="ekit-col-6 elementkit-testimonial-col">
 										<div class="elementskit-commentor-content">
 											<?php if (isset($testimonial['client_logo']) && !empty($testimonial['client_logo']['url']) && sizeof($testimonial['client_logo']) > 0) { ?>

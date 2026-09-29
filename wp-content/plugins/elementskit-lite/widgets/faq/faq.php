@@ -110,6 +110,29 @@ class ElementsKit_Widget_FAQ extends Widget_Base {
             ]
         );
 
+        //tatile tag
+
+        $this->add_control(
+        'ekit_faq_title_tag',
+        [
+            'label'   => esc_html__( 'Title HTML Tag', 'elementskit-lite' ),
+            'type'    => Controls_Manager::SELECT,
+            'options' => [
+                'h1'   => 'H1',
+                'h2'   => 'H2',
+                'h3'   => 'H3',
+                'h4'   => 'H4',
+                'h5'   => 'H5',
+                'h6'   => 'H6',
+                'div'  => 'div',
+                'span' => 'span',
+                'p'    => 'p',
+            ],
+            'default' => 'h2',
+            'separator' => 'before',
+        ]
+    );
+
         //faq schema
         $this->add_control(
 			'ekit_faq_schema',
@@ -330,8 +353,10 @@ class ElementsKit_Widget_FAQ extends Widget_Base {
 
         <?php if($ekit_faq_content_items > 0) : foreach($ekit_faq_content_items as $ekit_faq_content_item) : ?>
         <div class="elementskit-single-faq elementor-repeater-item-<?php echo esc_attr( $ekit_faq_content_item[ '_id' ] ); ?>">
-            <div class="elementskit-faq-header">
-                <h2 class="elementskit-faq-title"><?php echo esc_html($ekit_faq_content_item['ekit_faq_title']); ?></h2>
+           <div class="elementskit-faq-header">
+                <<?php Utils::print_validated_html_tag( $ekit_faq_title_tag ); ?> class="elementskit-faq-title">
+                    <?php echo esc_html( $ekit_faq_content_item['ekit_faq_title'] ); ?>
+                </<?php Utils::print_validated_html_tag( $ekit_faq_title_tag ); ?>>
             </div>
             <div class="elementskit-faq-body">
                 <?php if(!empty($ekit_faq_content_item['ekit_faq_content'])) {

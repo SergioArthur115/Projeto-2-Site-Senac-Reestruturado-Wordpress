@@ -14,6 +14,16 @@ class Enqueue_Scripts {
 		add_action( 'wp_enqueue_scripts', [$this, 'enqueue_frontend_scripts'], 99 );
 		add_action( 'wp_enqueue_scripts', [$this, 'enqueue_frontend_css'], 99 );
 
+		/**
+		 * Documents ElementsKit renders itself must reach Elementor's style pipeline
+		 * before it runs, so this sits just ahead of Elementor's own priority 20 pass.
+		 * The priority 21 pass is the fallback for pages where Elementor never runs
+		 * that pass at all. Both are handled by Nested_Document_Assets.
+		 */
+		add_action( 'wp_enqueue_scripts', [$this, 'enqueue_nested_document_assets'], 19 );
+		add_action( 'elementor/frontend/after_enqueue_post_styles', [ Nested_Document_Assets::class, 'mark_post_styles_flushed' ], 1 );
+		add_action( 'wp_enqueue_scripts', [ Nested_Document_Assets::class, 'maybe_flush_post_styles' ], 21 );
+
 		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_3rd_party_style' ] );
 		add_action( 'elementor/editor/after_enqueue_styles', [$this, 'elementor_editor_css'] );
 	}
@@ -115,6 +125,24 @@ class Enqueue_Scripts {
             [
                 'ajaxurl' => admin_url( 'admin-ajax.php' ),
                 'nonce'   => wp_create_nonce( 'ekit_pro' ),
+                // Strings needed by markup that is built in JS and so cannot use
+                // the PHP translation functions. Consumers must read these
+                // defensively and fall back, since a widget script can run before
+                // this is localized depending on which plugin registers ekit-core.
+                'i18n'    => [
+                    'video_frame'  => __( 'Video player', 'elementskit-lite' ),
+                    'close'        => __( 'Close', 'elementskit-lite' ),
+
+                    // Swiper's A11y module is enabled by default and already names
+                    // the slider controls, but only in hardcoded English. These are
+                    // the same messages, translatable.
+                    'slider_prev'  => __( 'Previous slide', 'elementskit-lite' ),
+                    'slider_next'  => __( 'Next slide', 'elementskit-lite' ),
+                    'slider_first' => __( 'This is the first slide', 'elementskit-lite' ),
+                    'slider_last'  => __( 'This is the last slide', 'elementskit-lite' ),
+                    /* translators: {{index}} is replaced by Swiper with the slide number. Keep it as-is. */
+                    'slider_bullet' => __( 'Go to slide {{index}}', 'elementskit-lite' ),
+                ],
             ]
         );
 
@@ -216,6 +244,19 @@ class Enqueue_Scripts {
 		if ( is_rtl() ) {
 			wp_enqueue_style( 'elementskit-rtl', \ElementsKit_Lite::widget_url() . 'init/assets/css/rtl.css', [], \ElementsKit_Lite::version() );
 		}
+	}
+
+	/**
+	 * Preloads the assets of every Elementor document ElementsKit renders itself.
+	 *
+	 * Runs before Elementor's own style pass (priority 20) so that nested documents -
+	 * Widget Area content, Mega Menu panels, Header/Footer templates - are announced in
+	 * time for their Atomic (V4) style files to be generated and enqueued.
+	 *
+	 * @return void
+	 */
+	public function enqueue_nested_document_assets() {
+		( new Nested_Document_Assets() )->enqueue();
 	}
 
 	public function enqueue_3rd_party_style() {
