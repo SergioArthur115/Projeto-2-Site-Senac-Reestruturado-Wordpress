@@ -57,10 +57,49 @@ class Init {
 			$file       = $dir . 'widget.php';
 			$class_name = '\Elementor\Ekit_Wb_' . $widget->ID;
 
-			if ( file_exists( $file ) ) {
-				include $file;
-				$widgets_manager->register( new $class_name() );
+			if ( ! file_exists( $file ) ) {
+				continue;
 			}
+
+			if ( Widget_Writer::is_stale( $file ) ) {
+				$this->recompile_widget( $widget->ID );
+				clearstatcache( true, $file );
+
+				// Fail closed: never execute PHP produced by an older compiler,
+				// whose render output may be unescaped. Re-saving the widget (or
+				// fixing filesystem access) brings it back.
+				if ( ! file_exists( $file ) || Widget_Writer::is_stale( $file ) ) {
+					continue;
+				}
+			}
+
+			include $file;
+			$widgets_manager->register( new $class_name() );
+		}
+	}
+
+	/**
+	 * Rewrite a widget.php compiled by an older template compiler (e.g. saved
+	 * before an escaping fix, or by a downgraded plugin) from its stored data,
+	 * so it picks up the current escaping without a manual re-save.
+	 */
+	private function recompile_widget( $id ) {
+		// Filesystem unusable on a recent attempt (e.g. FTP credentials needed).
+		if ( get_transient( 'elementskit_widget_builder_fs_unavailable' ) ) {
+			return;
+		}
+
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+
+		if ( ! WP_Filesystem() ) {
+			set_transient( 'elementskit_widget_builder_fs_unavailable', 1, 5 * MINUTE_IN_SECONDS );
+			return;
+		}
+
+		$data = get_post_meta( $id, 'elementskit_custom_widget_data', true );
+
+		if ( is_object( $data ) ) {
+			Widget_File::instance()->create( $data, $id );
 		}
 	}
 

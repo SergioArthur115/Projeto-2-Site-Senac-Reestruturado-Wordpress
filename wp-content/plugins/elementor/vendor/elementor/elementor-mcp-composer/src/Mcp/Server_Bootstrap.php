@@ -35,8 +35,14 @@ class Server_Bootstrap {
 
 		self::$hooked = true;
 
+		if ( ! McpSettingsController::is_enabled() ) {
+			\add_filter( 'mcp_adapter_create_default_server', '__return_false' );
+
+			return;
+		}
+
 		McpAdapter::instance();
-		add_action( 'mcp_adapter_init', [ $this, 'register_server' ] );
+		\add_action( 'mcp_adapter_init', [ $this, 'register_server' ] );
 	}
 
 	/**

@@ -3042,99 +3042,6 @@ var import_prop_types = /* @__PURE__ */ __toESM(require_prop_types());
 	};
 
 //#endregion
-//#region modules/home/assets/js/components/create-with-ai-banner.js
-	var CreateWithAIBanner = function CreateWithAIBanner(_ref) {
-		var createWithAIData = _extends({}, (_objectDestructuringEmpty(_ref), _ref)).createWithAIData;
-		var _useState2 = _slicedToArray((0, react.useState)(""), 2);
-		var inputValue = _useState2[0];
-		var setInputValue = _useState2[1];
-		if (!createWithAIData) return null;
-		var title = createWithAIData.title;
-		var description = createWithAIData.description;
-		var inputPlaceholder = createWithAIData.input_placeholder;
-		var buttonTitle = createWithAIData.button_title;
-		var buttonCtaUrl = createWithAIData.button_cta_url;
-		var backgroundImage = createWithAIData.background_image;
-		var utmSource = createWithAIData.utm_source;
-		var utmMedium = createWithAIData.utm_medium;
-		var utmCampaign = createWithAIData.utm_campaign;
-		var handleInputChange = function handleInputChange(event) {
-			setInputValue(event.target.value);
-		};
-		var getButtonHref = function getButtonHref() {
-			if (!inputValue) return buttonCtaUrl;
-			var url = new URL(buttonCtaUrl);
-			url.searchParams.append("prompt", inputValue);
-			url.searchParams.append("utm_source", utmSource);
-			url.searchParams.append("utm_medium", utmMedium);
-			url.searchParams.append("utm_campaign", utmCampaign);
-			return url.toString();
-		};
-		var handleNavigation = function handleNavigation() {
-			if (!inputValue) return;
-			var destination = getButtonHref();
-			trackPromoClick(title, destination, getHomeScreenPath("ai_banner"));
-			window.open(destination, "_blank");
-			setInputValue("");
-		};
-		return /*#__PURE__*/ react.default.createElement(_elementor_ui.Paper, {
-			elevation: 0,
-			sx: {
-				display: "flex",
-				flexDirection: "column",
-				py: 3,
-				px: {
-					xs: 3,
-					md: 4
-				},
-				gap: 2,
-				backgroundImage: "url(".concat(backgroundImage, ")"),
-				backgroundSize: "cover",
-				backgroundPosition: "right center",
-				backgroundRepeat: "no-repeat",
-				borderRadius: 1,
-				border: "1px solid rgba(0, 0, 0, 0.12)"
-			}
-		}, /*#__PURE__*/ react.default.createElement(_elementor_ui.Stack, {
-			gap: 1,
-			justifyContent: "center"
-		}, /*#__PURE__*/ react.default.createElement(_elementor_ui_Typography.default, { variant: "h6" }, title), /*#__PURE__*/ react.default.createElement(_elementor_ui_Typography.default, {
-			variant: "body2",
-			color: "secondary"
-		}, description)), /*#__PURE__*/ react.default.createElement(_elementor_ui.Box, { sx: {
-			display: "flex",
-			flexDirection: {
-				xs: "column",
-				sm: "row"
-			},
-			gap: 2,
-			mt: 1
-		} }, /*#__PURE__*/ react.default.createElement(_elementor_ui.TextField, {
-			fullWidth: true,
-			placeholder: inputPlaceholder,
-			variant: "outlined",
-			color: "secondary",
-			size: "small",
-			sx: { flex: 1 },
-			value: inputValue,
-			onChange: handleInputChange,
-			onKeyDown: function handleKeyDown(event) {
-				if ("Enter" === event.key) {
-					event.preventDefault();
-					handleNavigation();
-				}
-			}
-		}), /*#__PURE__*/ react.default.createElement(_elementor_ui_Button.default, {
-			variant: "outlined",
-			size: "small",
-			color: "secondary",
-			startIcon: /*#__PURE__*/ react.default.createElement("span", { className: "eicon-ai" }),
-			onClick: handleNavigation
-		}, buttonTitle)));
-	};
-	CreateWithAIBanner.propTypes = { createWithAIData: import_prop_types.default.object };
-
-//#endregion
 //#region modules/home/assets/js/components/load-fallback-message.js
 	var LoadFallbackMessage = function LoadFallbackMessage() {
 		return /*#__PURE__*/ react.default.createElement(_elementor_ui.Box, null, /*#__PURE__*/ react.default.createElement(_elementor_ui.Container, {
@@ -3192,7 +3099,7 @@ var import_prop_types = /* @__PURE__ */ __toESM(require_prop_types());
 		} }, /*#__PURE__*/ react.default.createElement(_elementor_ui.Stack, { sx: {
 			flex: 1,
 			gap: 2.5
-		} }, props.homeScreenData.create_with_ai && /*#__PURE__*/ react.default.createElement(CreateWithAIBanner, { createWithAIData: props.homeScreenData.create_with_ai }), /*#__PURE__*/ react.default.createElement(GetStarted, {
+		} }, /*#__PURE__*/ react.default.createElement(GetStarted, {
 			getStartedData: props.homeScreenData.get_started,
 			adminUrl: props.adminUrl,
 			homeScreenData: props.homeScreenData

@@ -18,6 +18,8 @@ class Api extends \MetForm\Base\Api
 
     public function post_insert()
     {
+        $this->insert_dispatched = true;
+
         $url = wp_get_referer();
         $post_id = url_to_postid($url);
         $post_id;
@@ -573,6 +575,66 @@ class Api extends \MetForm\Base\Api
         
               
         return json_encode(['folders' => $response]);
+    }
+
+    /**
+     * Set once post_insert() starts, so the rest_post_dispatch logger below only
+     * handles requests that were rejected before the handler ever ran.
+     *
+     * @var bool
+     */
+    private $insert_dispatched = false;
+
+    public function init()
+    {
+        parent::init();
+
+        add_filter('rest_post_dispatch', [$this, 'log_rejected_insert'], 10, 3);
+    }
+
+    /**
+     * Log a submission that WordPress (or another plugin) rejected before post_insert() ran.
+     *
+     * The most common case is an expired REST nonce on a page served from a full-page cache:
+     * rest_cookie_check_errors() returns a 403 "rest_cookie_invalid_nonce" during
+     * authentication, so the route callback — and the metform_submission_failed call in
+     * post_insert() — never runs, and the failure would otherwise be invisible in the log.
+     *
+     * @param \WP_HTTP_Response $result  Response about to be sent.
+     * @param \WP_REST_Server   $server  REST server.
+     * @param \WP_REST_Request  $request Request being served.
+     * @return \WP_HTTP_Response Unchanged response.
+     */
+    public function log_rejected_insert($result, $server, $request)
+    {
+        if ($this->insert_dispatched || !($result instanceof \WP_HTTP_Response) || $result->get_status() < 400) {
+            return $result;
+        }
+
+        if ('POST' !== $request->get_method() || !preg_match('#^/metform/v1/entries/insert/(\d+)/?$#', (string) $request->get_route(), $matches)) {
+            return $result;
+        }
+
+        $body    = $result->get_data();
+        $code    = (is_array($body) && isset($body['code']) && is_string($body['code'])) ? sanitize_key($body['code']) : '';
+        $message = (is_array($body) && isset($body['message']) && is_string($body['message'])) ? sanitize_text_field($body['message']) : '';
+
+        $url = wp_get_referer();
+
+        $context = [
+            'type'       => 'security',
+            'unexpected' => false,
+            'page_id'    => $url ? url_to_postid($url) : 0,
+            'page_url'   => is_string($url) ? $url : '',
+            'user'       => is_user_logged_in() ? ('Logged in (#' . get_current_user_id() . ')') : 'Guest',
+            'fields'     => $this->collect_submitted_field_keys($request->get_body_params()),
+            'has_files'  => !empty($request->get_file_params()),
+            'debug'      => 'Rejected before MetForm handled the request: HTTP ' . intval($result->get_status()) . ($code !== '' ? ' (' . $code . ')' : ''),
+        ];
+
+        do_action('metform_submission_failed', intval($matches[1]), $message !== '' ? [$message] : [], $context);
+
+        return $result;
     }
 
 }

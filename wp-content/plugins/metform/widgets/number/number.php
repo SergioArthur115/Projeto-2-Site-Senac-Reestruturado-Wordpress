@@ -213,7 +213,7 @@ Class MetForm_Input_Number extends Widget_Base{
 				<?php endif; ?>
 				<?php if ( !$is_edit_mode ): ?>
 					onInput=${parent.handleChange}
-					aria-invalid=${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}
+					aria-invalid="${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}"
 					ref=${el => parent.activateValidation(<?php echo json_encode($configData); ?>, el)}
 				<?php endif; ?>
 				/>

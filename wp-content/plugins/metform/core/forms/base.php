@@ -28,6 +28,9 @@ Class Base extends \MetForm\Base\Common{
 
         add_action('admin_footer', [$this, 'modal_view']);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_react_modal_scripts']);
+
+        // Register the remote template library with Elementor's template manager.
+        add_action('elementor/init', [Template_Library\Source::class, 'register']);
     }
 
     public function modal_view(){
@@ -53,12 +56,16 @@ Class Base extends \MetForm\Base\Common{
 
             wp_set_script_translations('metform-add-new-form-modal', 'metform');
 
-            // Pass data to JavaScript
+            // Templates are fetched and cached by the shared React provider;
+            // only URLs, the nonce, and Free/Pro status are localized here.
             wp_localize_script('metform-add-new-form-modal', 'metformData', [
                 'pluginUrl' => $plugin->plugin_url(),
-                'hasPro' => class_exists('\MetForm_Pro\Base\Package'),
-                'hasQuiz' => class_exists('\MetForm_Pro\Core\Features\Quiz\Integration'),
-                'templates' => $this->get_templates_for_js(),
+                'restUrl'   => get_rest_url(),
+                'adminUrl'  => admin_url(),
+                'nonce'     => wp_create_nonce('wp_rest'),
+                'hasPro'    => Template_Library\Access::has_pro(),
+                'hasQuiz'   => Template_Library\Access::has_quiz(),
+                'package'   => Template_Library\Access::get_package(),
                 'wpVersion' => get_bloginfo('version'),
             ]);
         }
@@ -91,67 +98,4 @@ Class Base extends \MetForm\Base\Common{
         }
     }
 
-    private function get_templates_for_js(){
-        $templates = [];
-
-        if(class_exists('\MetForm\Templates\Base')){
-            $template_data = \MetForm\Templates\Base::instance()->get_templates();
-
-            $pro_exists = class_exists('\MetForm_Pro\Base\Package');
-
-            foreach($template_data as $template){
-                if(isset($template['form_type'])){
-                    $title = isset($template['title']) ? $template['title'] : '';
-
-                    $templates[] = [
-                        'id' => isset($template['id']) ? $template['id'] : '',
-                        'title' => $title,
-                        'description' => isset($template['description']) ? $template['description'] : '',
-                        'thumbnail' => isset($template['preview-thumb']) ? $template['preview-thumb'] : '',
-                        'form_type' => $template['form_type'],
-                        'category' => $this->detect_category($title),
-                        'demoUrl' => isset($template['demo-url']) ? $template['demo-url'] : '',
-                        'file' => isset($template['file']) ? $template['file'] : '',
-                        'package' => isset($template['package']) ? $template['package'] : '',
-                        'isProActive' => $pro_exists,
-                    ];
-                }
-            }
-        }
-
-        return $templates;
-    }
-
-    private function detect_category($title){
-        $title_lower = strtolower($title);
-
-        // Map titles to categories
-        if(strpos($title_lower, 'contact') !== false){
-            return 'contact-form';
-        } elseif(strpos($title_lower, 'conditional') !== false){
-            return 'conditional-logic-form';
-        } elseif(strpos($title_lower, 'quiz') !== false){
-            return 'quiz-form';
-        } elseif(strpos($title_lower, 'feedback') !== false || strpos($title_lower, 'suggestion') !== false || strpos($title_lower, 'rating') !== false){
-            return 'feedback-form';
-        } elseif(strpos($title_lower, 'calculation') !== false){
-            return 'calculation-form';
-        } elseif(strpos($title_lower, 'multi-step') !== false || strpos($title_lower, 'multistep') !== false){
-            return 'multi-step-form';
-        } elseif(strpos($title_lower, 'booking') !== false || strpos($title_lower, 'reservation') !== false || strpos($title_lower, 'event') !== false){
-            return 'booking-form';
-        } elseif(strpos($title_lower, 'order') !== false || strpos($title_lower, 'product') !== false || strpos($title_lower, 'food') !== false){
-            return 'product-order-form';
-        } elseif(strpos($title_lower, 'loan') !== false){
-            return 'loan-application-form';
-        } elseif(strpos($title_lower, 'job') !== false || strpos($title_lower, 'volunteer') !== false){
-            return 'job-application-form';
-        } elseif(strpos($title_lower, 'admission') !== false){
-            return 'admission-form';
-        } elseif(strpos($title_lower, 'support') !== false || strpos($title_lower, 'bug') !== false){
-            return 'support-form';
-        }
-
-        return 'contact-form'; // Default category
-    }
 }

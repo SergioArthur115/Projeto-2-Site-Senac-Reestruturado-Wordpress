@@ -62,6 +62,9 @@ Class Map_El {
                 if ($v->elType == 'widget' && in_array(str_replace('[]', '', $v->widgetType), $this->_el_list)) {
 
                     if (isset($v->settings->mf_input_name)) {
+                        // Keep in sync with the sanitized name rendered by Common_Controls::get_settings_for_display().
+                        $clean_name = \MetForm\Utils\Util::sanitize_input_name($v->settings->mf_input_name);
+                        $v->settings->mf_input_name = ('' !== $clean_name) ? $clean_name : str_replace('[]', '', $v->widgetType) . '-' . $v->id;
                         $this->_el[$v->settings->mf_input_name]             = $v->settings;
                         $this->_el[$v->settings->mf_input_name]->widgetType = $v->widgetType;
                     } else {

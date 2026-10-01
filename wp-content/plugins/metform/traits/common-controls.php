@@ -17,6 +17,23 @@ defined( 'ABSPATH' ) || exit;
 
 trait Common_Controls{
 
+	/**
+	 * Sanitize the field name before widgets extract() and render it.
+	 */
+	public function get_settings_for_display( $setting_key = null ) {
+		$settings = parent::get_settings_for_display( $setting_key );
+
+		if ( null === $setting_key && is_array( $settings ) && isset( $settings['mf_input_name'] ) ) {
+			$name = \MetForm\Utils\Util::sanitize_input_name( $settings['mf_input_name'] );
+			$settings['mf_input_name'] = '' !== $name ? $name : $this->get_name() . '-' . $this->get_id();
+		} elseif ( 'mf_input_name' === $setting_key ) {
+			$name = \MetForm\Utils\Util::sanitize_input_name( $settings );
+			$settings = '' !== $name ? $name : $this->get_name() . '-' . $this->get_id();
+		}
+
+		return $settings;
+	}
+
     protected function input_content_controls($param = [], $widget_name = ''){
 		$this->add_control(
 			'mf_input_label_status',

@@ -42135,6 +42135,10 @@ var import_index_umd = /* @__PURE__ */ __toESM(require_index_umd());
 	var CARD_WIDTH = 296;
 	var IMAGE_HEIGHT = 176;
 	var DEFAULT_CTA_TEXT = (0, _wordpress_i18n.__)("Upgrade Now", "elementor");
+	var openCtaInNewTab = function openCtaInNewTab(ctaUrl) {
+		if (!ctaUrl) return;
+		window.open(ctaUrl, "_blank", "noopener,noreferrer");
+	};
 	var WidgetPromotionCard = function WidgetPromotionCard(_ref) {
 		var doClose = _ref.doClose;
 		var promotionData = _ref.promotionData;
@@ -42146,8 +42150,8 @@ var import_index_umd = /* @__PURE__ */ __toESM(require_index_umd());
 		var hideProTag = promotionData.hideProTag;
 		return /*#__PURE__*/ react.default.createElement(_elementor_ui.ClickAwayListener, {
 			disableReactTree: true,
-			mouseEvent: "onMouseDown",
-			touchEvent: "onTouchStart",
+			mouseEvent: "onClick",
+			touchEvent: "onTouchEnd",
 			onClickAway: doClose
 		}, /*#__PURE__*/ react.default.createElement(_elementor_ui.Box, { sx: { width: CARD_WIDTH } }, /*#__PURE__*/ react.default.createElement(_elementor_ui.Stack, {
 			direction: "row",
@@ -42187,9 +42191,9 @@ var import_index_umd = /* @__PURE__ */ __toESM(require_index_umd());
 			variant: "contained",
 			size: "small",
 			color: hideProTag ? "info" : "promotion",
-			href: ctaUrl,
-			target: "_blank",
-			rel: "noopener noreferrer",
+			onClick: function onClick() {
+				return openCtaInNewTab(ctaUrl);
+			},
 			startIcon: hideProTag ? null : /*#__PURE__*/ react.default.createElement(_elementor_icons.CrownFilledIcon, null),
 			sx: { ml: "auto" }
 		}, ctaText || DEFAULT_CTA_TEXT))));
@@ -42530,7 +42534,11 @@ var import_index_umd = /* @__PURE__ */ __toESM(require_index_umd());
 		]);
 	}();
 	function applyProConnectPromotionOverrides(promotionData) {
-		if (!elementor.helpers.hasProAndNotConnected()) return promotionData;
+		var _elementorProEditorCo;
+		var _elementorProEditorCo2;
+		if (!elementor.helpers.hasPro()) return promotionData;
+		if ((_elementorProEditorCo = elementorProEditorConfig) !== null && _elementorProEditorCo !== void 0 && _elementorProEditorCo.isActive) return promotionData;
+		if (!((_elementorProEditorCo2 = elementorProEditorConfig) !== null && _elementorProEditorCo2 !== void 0 && (_elementorProEditorCo2 = _elementorProEditorCo2.urls) !== null && _elementorProEditorCo2 !== void 0 && _elementorProEditorCo2.connect)) return promotionData;
 		return _objectSpread(_objectSpread({}, promotionData), {}, {
 			ctaUrl: elementorProEditorConfig.urls.connect,
 			ctaText: (0, _wordpress_i18n.__)("Connect & Activate", "elementor")

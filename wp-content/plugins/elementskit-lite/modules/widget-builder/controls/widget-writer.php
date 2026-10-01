@@ -20,6 +20,7 @@ class Widget_Writer {
 	private $class_name_prefix = 'Ekit_Wb_';
 	private $widget_obj;
 	private $prepared_content = '';
+	private $warnings         = array();
 	public $text_domain       = 'elementskit-lite';
 
 	const TAB_CONTENT = 'Controls_Manager::TAB_CONTENT';
@@ -29,6 +30,9 @@ class Widget_Writer {
 	const CONTROL_GROUP_TYPE_SINGLE     = 'single';
 	const CONTROL_GROUP_TYPE_RESPONSIVE = 'responsive';
 	const CONTROL_GROUP_TYPE_GROUPED    = 'group';
+
+	// Header line recording which template compiler wrote a widget.php.
+	const COMPILER_MARKER = 'ekit-widget-builder-compiler';
 
 
 	public function __construct( $widget, $widget_id, $txt_domain = 'elementskit-lite' ) {
@@ -147,17 +151,46 @@ class Widget_Writer {
 	}
 
 
+	/**
+	 * Write widget.php via a temp file that is only swapped in once it is
+	 * complete and carries the current compiler marker, so a failed or partial
+	 * write never replaces (or becomes) the loaded widget.
+	 *
+	 * @return bool Whether widget.php now holds the freshly compiled widget.
+	 */
 	public function finish_backing( $file_system ) {
 
 		$path = $this->get_file_path();
+		$file = $path . '/widget.php';
+		$tmp  = $file . '.tmp';
 
-		return $file_system->put_contents( $path . '/widget.php', $this->prepared_content );
+		$written = $file_system->put_contents( $tmp, $this->prepared_content );
+		clearstatcache( true, $tmp );
+
+		if ( ! $written || (int) $file_system->size( $tmp ) !== strlen( $this->prepared_content ) || self::is_stale( $tmp ) ) {
+			$file_system->delete( $tmp );
+			return false;
+		}
+
+		if ( ! $file_system->move( $tmp, $file, true ) ) {
+			$file_system->delete( $tmp );
+			return false;
+		}
+
+		clearstatcache( true, $file );
+
+		if ( function_exists( 'opcache_invalidate' ) ) {
+			opcache_invalidate( $file, true );
+		}
+
+		return true;
 	}
 
 
 	private function prepare_php_file() {
 
-		$ret  = '<?php' . PHP_EOL . PHP_EOL;
+		$ret  = '<?php' . PHP_EOL;
+		$ret .= '// ' . self::COMPILER_MARKER . ': ' . \ElementsKit_Lite\Libs\Template\Compiler::VERSION . PHP_EOL . PHP_EOL;
 		$ret .= 'namespace Elementor;' . PHP_EOL . PHP_EOL;
 		$ret .= 'defined(\'ABSPATH\') || exit;' . PHP_EOL . PHP_EOL;
 		$ret .= 'class ' . $this->widget_class_name . ' extends Widget_Base {' . PHP_EOL . PHP_EOL;
@@ -430,103 +463,32 @@ class Widget_Writer {
 		return "\n\t\t" . '$this->end_controls_section();' . PHP_EOL . PHP_EOL;
 	}
 
-	private function is_allowed_render_php_block( $php_block ) {
-		$php_block = trim( $php_block );
-
-		$settings_path = '\$settings\["[A-Za-z0-9_\-]+"\](?:\["[A-Za-z0-9_\-]+"\])?';
-
-		$allowed_patterns = array(
-			'/^<\?php\s+echo\s+isset\(' . $settings_path . '\)\s+\?\s+' . $settings_path . '\s+:\s+"";\s+\?>$/',
-			'/^<\?php\s+echo\s+isset\(' . $settings_path . '\)\s+\?\s+(?:esc_url|esc_attr|wp_kses_post)\(' . $settings_path . '\)\s+:\s+"";\s+\?>$/',
-			'/^<\?php\s+Icons_Manager::render_icon\(\$settings\["[A-Za-z0-9_\-]+"\]\);\s+\?>$/',
-		);
-
-		foreach ( $allowed_patterns as $pattern ) {
-			if ( preg_match( $pattern, $php_block ) ) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	private function strip_unsafe_render_php( $markup ) {
-		return preg_replace_callback(
-			'/<\?(?:php|=)?[\s\S]*?\?>/i',
-			function( $matches ) {
-				return $this->is_allowed_render_php_block( $matches[0] ) ? $matches[0] : '';
-			},
-			$markup
-		);
-	}
-
 	/**
-	 * Apply proper security escaping to widget markup
-	 * 
-	 * @param string $markup The widget markup template
-	 * @return string The processed markup with proper escaping
+	 * Final gate before the render markup is written to disk: every PHP block
+	 * must be one of the escaped shapes the template compiler generates.
+	 * Anything else (should never happen) is written out as inert text.
 	 */
-	private function apply_escaping($markup) {
-		// Array of regex patterns and their replacements
-		$patterns = [
-			// Pattern 1: URL attributes in href, src, action with array access ["url"]
-			'/(href|src|action)=["\']\s*<\?php\s+echo\s+isset\s*\(\s*\$settings\s*\[\s*["\']([^"\']+)["\']\s*\]\s*\[\s*["\']url["\']\s*\]\s*\)\s*\?\s*\$settings\s*\[\s*["\']([^"\']+)["\']\s*\]\s*\[\s*["\']url["\']\s*\]\s*:\s*["\'][^"\']*["\']\s*;\s*\?>/i' 
-				=> '$1="<?php echo isset($settings["$2"]["url"]) ? esc_url($settings["$3"]["url"]) : ""; ?>"',
-			
-			// Pattern 2: URL attributes in href, src, action (standard, not arrays)
-			'/(href|src|action)=["\']\s*<\?php\s+echo\s+isset\s*\(\s*\$settings\s*\[\s*["\']([^"\']+)["\']\s*\]\s*\)\s*\?\s*\$settings\s*\[\s*["\']([^"\']+)["\']\s*\]\s*:\s*["\'][^"\']*["\']\s*;\s*\?>/i'
-				=> '$1="<?php echo isset($settings["$2"]) ? esc_url($settings["$3"]) : ""; ?>"',
-			
-			// Pattern 3: Non-URL attributes (class, data-*, etc.) with array access
-			'/(?<!href|src|action)=["\']\s*<\?php\s+echo\s+isset\s*\(\s*\$settings\s*\[\s*["\']([^"\']+)["\']\s*\]\s*\[\s*["\'](?!url)([^"\']+)["\']\s*\]\s*\)\s*\?\s*\$settings\s*\[\s*["\']([^"\']+)["\']\s*\]\s*\[\s*["\']([^"\']+)["\']\s*\]\s*:\s*["\'][^"\']*["\']\s*;\s*\?>/i'
-				=> '="<?php echo isset($settings["$1"]["$2"]) ? esc_attr($settings["$3"]["$4"]) : ""; ?>"',
-			
-			// Pattern 4: Non-URL attributes (class, data-*, etc.) standard access
-			'/(?<!href|src|action)=["\']\s*<\?php\s+echo\s+isset\s*\(\s*\$settings\s*\[\s*["\']([^"\']+)["\']\s*\]\s*\)\s*\?\s*\$settings\s*\[\s*["\']([^"\']+)["\']\s*\]\s*:\s*["\'][^"\']*["\']\s*;\s*\?>/i'
-				=> '="<?php echo isset($settings["$1"]) ? esc_attr($settings["$2"]) : ""; ?>"',
-			
-			// Pattern 5: Text content (not in attributes) - use wp_kses_post()
-			'/>\s*<\?php\s+echo\s+isset\s*\(\s*\$settings\s*\[\s*["\']([^"\']+)["\']\s*\]\s*\)\s*\?\s*\$settings\s*\[\s*["\']([^"\']+)["\']\s*\]\s*:\s*["\'][^"\']*["\']\s*;\s*\?>\s*</i'
-				=> '><?php echo isset($settings["$1"]) ? wp_kses_post($settings["$2"]) : ""; ?><',
-		];
-		
-		// Apply patterns in order
-		foreach ($patterns as $pattern => $replacement) {
-			$markup = preg_replace($pattern, $replacement, $markup);
-		}
-		
-		// Additional safety check for any remaining URL array references
+	private function strip_unsafe_render_php( $markup ) {
 		$markup = preg_replace_callback(
-			'/<\?php.*?\$settings\s*\[\s*["\']([^"\']+)["\']\s*\]\s*\[\s*["\']url["\']\s*\].*?\?>/i',
-			function($matches) {
-				$fullMatch = $matches[0];
-				
-				// Only modify if it doesn't already have proper array checking
-				if (strpos($fullMatch, 'isset') === false || strpos($fullMatch, 'esc_url') === false) {
-					// Extract setting key
-					preg_match('/\$settings\s*\[\s*["\']([^"\']+)["\']\s*\]/', $fullMatch, $keyMatches);
-					$key = isset($keyMatches[1]) ? $keyMatches[1] : '';
-					
-					if (!empty($key)) {
-						return '<?php echo isset($settings["' . $key . '"]["url"]) ? esc_url($settings["' . $key . '"]["url"]) : ""; ?>';
-					}
-				}
-				
-				return $fullMatch;
+			'/<\?[\s\S]*?(?:\?>|\z)/',
+			function( $matches ) {
+				return \ElementsKit_Lite\Libs\Template\Transformer::is_safe_block( $matches[0] ) ? $matches[0] : esc_html( $matches[0] );
 			},
 			$markup
 		);
-		
+
 		return $markup;
 	}
 
 	private function write_render_method( $markup = '' ) {
 
-		$markup = \ElementsKit_Lite\Libs\Template\Loader::instance()->replace_tags( $markup, $this->control_prefix );
+		$loader = \ElementsKit_Lite\Libs\Template\Loader::instance();
 
-		// Apply security escaping
-		$markup = $this->apply_escaping($markup);
-		$markup = $this->strip_unsafe_render_php($markup);
+		// Context-aware compile: every placeholder is escaped for where it sits.
+		$markup = $loader->replace_tags( $markup, $this->control_prefix );
+		$markup = $this->strip_unsafe_render_php( $markup );
+
+		$this->warnings = $loader->get_warnings();
 
 		$ret = "\n\t" . 'protected function render() {' . PHP_EOL;
 
@@ -560,9 +522,32 @@ class Widget_Writer {
 
 
 	/**
+	 * Whether a widget.php was written by an older template compiler (or by a
+	 * plugin version without the marker at all) and must be recompiled.
+	 */
+	public static function is_stale( $file ) {
+		$head = file_get_contents( $file, false, null, 0, 256 ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+		if ( false === $head || ! preg_match( '/' . self::COMPILER_MARKER . ': (\d+)/', $head, $m ) ) {
+			return true;
+		}
+
+		return (int) $m[1] < \ElementsKit_Lite\Libs\Template\Compiler::VERSION;
+	}
+
+	/**
 	 * @return string
 	 */
 	public function get_widget_class_name() {
 		return $this->widget_class_name;
+	}
+
+	/**
+	 * Template placeholders dropped while compiling the render method.
+	 *
+	 * @return string[]
+	 */
+	public function get_warnings() {
+		return $this->warnings;
 	}
 }

@@ -334,20 +334,112 @@ class Api extends \MetForm\Base\Api
         return Builder::instance()->get_form_content($form_id);
     }
 
+    /**
+     * Create a form, optionally seeded from a remote template.
+     *
+     * The route ID segment carries the remote template ID; `0` creates a blank
+     * form. Template content is never accepted from the client — the server
+     * fetches and processes it so a request cannot inject arbitrary Elementor
+     * data or bypass the Pro package check.
+     *
+     * @since 4.1.6
+     *
+     * @return int|\WP_Error Created form post ID, or an error on failure.
+     */
     public function get_builder_form_id()
     {
-        if(!current_user_can('manage_options')) {
-			return;
-		}
+        $denied = $this->check_import_permission();
 
-        $title = $this->request['title'];
-        $template_id = $this->request['id'];
-
-        if(isset($this->request['form_type'])) {
-            return Builder::instance()->create_form($title, $template_id, ['form_type' => $this->request['form_type']]);
+        if (is_wp_error($denied)) {
+            return $denied;
         }
 
-        return Builder::instance()->create_form($title, $template_id);
+        return \MetForm\Core\Forms\Template_Library\Import::instance()->run([
+            'template_id' => $this->request['id'],
+            'title'       => isset($this->request['title']) ? $this->request['title'] : '',
+            'form_type'   => isset($this->request['form_type']) ? $this->request['form_type'] : '',
+        ]);
+    }
+
+    /**
+     * Create a form from a remote template.
+     *
+     * The template browser uses POST so the title travels in the request body.
+     * The GET handler is kept for backwards compatibility with existing
+     * integrations.
+     *
+     * @since 4.1.6
+     *
+     * @return int|\WP_Error Created form post ID, or an error on failure.
+     */
+    public function post_builder_form_id()
+    {
+        return $this->get_builder_form_id();
+    }
+
+    /**
+     * Import a remote template into a new form.
+     *
+     * Dedicated route used by the React template modals.
+     *
+     * @since 4.1.6
+     *
+     * @return \WP_REST_Response|\WP_Error Created form ID and editor URL.
+     */
+    public function post_import_template()
+    {
+        $denied = $this->check_import_permission();
+
+        if (is_wp_error($denied)) {
+            return $denied;
+        }
+
+        $form_id = \MetForm\Core\Forms\Template_Library\Import::instance()->run([
+            'template_id' => $this->request['id'],
+            'title'       => isset($this->request['title']) ? $this->request['title'] : '',
+            'form_type'   => isset($this->request['form_type']) ? $this->request['form_type'] : '',
+        ]);
+
+        if (is_wp_error($form_id)) {
+            return $form_id;
+        }
+
+        return new \WP_REST_Response([
+            'form_id'    => (int) $form_id,
+            'editor_url' => Builder::instance()->get_editor_url($form_id),
+        ], 201);
+    }
+
+    /**
+     * Verify the current request may create forms from templates.
+     *
+     * WordPress authenticates the `X-WP-Nonce` header before the route runs, so
+     * a valid REST nonce is already guaranteed for cookie-authenticated calls;
+     * this adds the explicit capability check on top.
+     *
+     * @since 4.1.6
+     *
+     * @return true|\WP_Error True when allowed, error otherwise.
+     */
+    private function check_import_permission()
+    {
+        if (!is_user_logged_in()) {
+            return new \WP_Error(
+                'metform_not_authenticated',
+                esc_html__('You must be logged in to create a form.', 'metform'),
+                ['status' => 401]
+            );
+        }
+
+        if (!current_user_can('manage_options')) {
+            return new \WP_Error(
+                'metform_forbidden',
+                esc_html__('You are not allowed to create forms.', 'metform'),
+                ['status' => 403]
+            );
+        }
+
+        return true;
     }
 
     public function get_templates()
@@ -622,32 +714,6 @@ class Api extends \MetForm\Base\Api
         update_option('metform_option__settings', $settings_option);
 
         return 'disconnected';
-    }
-
-    // API Endpoint for getting templates by selected form type
-    // Example: GET ~/wp-json/metform/v1/forms/gel_form_templates/new?formtype=SELECTEDFORMTYPE
-    public function get_gel_form_templates(){
-        if(!current_user_can('manage_options')) {
-			return;
-		}
-
-        $formType = $this->request['formtype'] ?? '';
-
-        if(!empty($formType)){
-            $templates = \MetForm\Templates\Base::instance()->get_templates_by_form_type($formType);
-        } else {
-            $templates = \MetForm\Templates\Base::instance()->get_templates_by_form_type();
-        }
-
-        ob_start();
-        foreach($templates as $template): 
-            include \MetForm\Plugin::instance()->core_dir() . 'forms/views/modal-form-template-item.php';
-        endforeach;
-
-        // turn off output buffer
-        $output = ob_get_clean();
-
-        return $output;
     }
 
 }

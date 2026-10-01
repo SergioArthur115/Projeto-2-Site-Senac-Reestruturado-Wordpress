@@ -137,14 +137,19 @@ class Hubspot
                 ]
             );
 
-            file_put_contents('debug.json',json_encode($response));
+            // Never dump the raw response to the web root (it was readable by
+            // anyone at /debug.json); log failures instead.
+            if ( is_wp_error( $response ) ) {
+                if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                    error_log( 'MetForm HubSpot submission failed: ' . $response->get_error_message() );
+                }
+            }
 
-        }catch(Exception $e){
+        }catch(\Exception $e){
 
-            $myfile = fopen("debug.txt", "w");
-            $txt    = $e;
-            fwrite($myfile, $txt);
-            fclose($myfile);
+            if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                error_log( 'MetForm HubSpot submission threw an exception: ' . $e->getMessage() );
+            }
         }
     }
 

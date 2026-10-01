@@ -286,7 +286,7 @@ class MetForm_Input_Email extends widget_base
 				name="<?php echo esc_attr($mf_input_name); ?>" 
 				placeholder="<?php echo esc_attr(\MetForm\Utils\Util::react_entity_support($mf_input_placeholder, $render_on_editor)); ?>" 
 				<?php if (!$is_edit_mode) : ?> 
-				onBlur=${parent.handleChange} onFocus=${parent.handleChange} aria-invalid=${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false' } 
+				onBlur=${parent.handleChange} onFocus=${parent.handleChange} aria-invalid="${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false' }" 
 				ref=${el=> parent.activateValidation(<?php echo json_encode($configData); ?>, el)}
 				<?php endif; ?>
 			/>

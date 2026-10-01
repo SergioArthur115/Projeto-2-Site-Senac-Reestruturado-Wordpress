@@ -3,29 +3,27 @@ namespace ElementsKit_Lite\Libs\Template;
 
 defined( 'ABSPATH' ) || exit;
 
-require 'transformer.php';
-
 class Loader {
 
-	private $transformer;
-	
-	function __construct() {
-		$this->transformer = new Transformer();
-	}
+	private $warnings = array();
 
+	/**
+	 * Compile {{ placeholders }} in a widget template into context-escaped PHP.
+	 */
 	public function replace_tags( $string, $prefix, $force_lower = false ) {
-		return preg_replace_callback(
-			'/\\{\\{([^{}]+)\}\\}/',
-			function( $matches ) use ( $force_lower, $prefix ) {
+		$compiler = new Compiler();
+		$markup   = $compiler->compile( $string, $prefix );
 
-				return $this->transformer->render( $matches[1], $prefix );
-			},
-			$string
-		);
+		$this->warnings = $compiler->get_warnings();
+
+		return $markup;
 	}
 
-	private function tag_list() {
-		return array();
+	/**
+	 * Placeholders dropped by the last replace_tags() call.
+	 */
+	public function get_warnings() {
+		return $this->warnings;
 	}
 
 
@@ -35,7 +33,7 @@ class Loader {
 	 * Get the instance.
 	 */
 	private static $instance = null;
-	
+
 	public static function instance() {
 		if ( self::$instance == null ) {
 			self::$instance = new self();

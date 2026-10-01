@@ -52,6 +52,7 @@ class File_Data_Validation
                 foreach ($file_data['size'] as $index => $size) {
                     if (($size / 1024) > $file_size_limit) {
                         $file_name = $file_data['name'][$index] ?? "File " . ($index + 1);
+                        /* translators: 1: File name, 2: Maximum file size in kilobytes. */
                         $error_message = sprintf(esc_html__('%1$s size cannot exceed %2$u kb.','metform'), $file_name, $file_size_limit);
                         self::$response[$input_name] = [$error_message];
                         return;
@@ -61,6 +62,7 @@ class File_Data_Validation
                 // Single file
                 if (($file_data['size'] / 1024) > $file_size_limit) {
                     $file_name = $file_data['name'] ?? $input_name;
+                    /* translators: 1: File name, 2: Maximum file size in kilobytes. */
                     $error_message = sprintf(esc_html__('%1$s size cannot exceed %2$u kb.','metform'), $file_name, $file_size_limit);
                     self::$response[$input_name] = [$error_message];
                 }

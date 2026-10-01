@@ -153,6 +153,7 @@ class Action
                 $this->response->status = 0;
                 $this->response->failure_type = 'duplicate';
                 $this->response->error = [];
+                /* translators: 1: Field label, 2: Duplicate field value. */
                 $this->response->error[0] = sprintf(esc_html__('%1$s %2$s already exist.', 'metform'), $validated_data['input_label'], $validated_data['duplicate_field']);
                 return $this->response;
             }
@@ -193,32 +194,39 @@ class Action
         }
 
         // google recaptcha condition and action
-        if ((isset($form_data['g-recaptcha-response']) || isset($form_data['g-recaptcha-response-v3'])) && (isset($this->fields['mf-recaptcha'])) && (isset($this->form_settings['mf_recaptcha_site_key'])) && $this->form_settings['mf_recaptcha_site_key'] != '') {
-            if (isset($form_data['g-recaptcha-response']) && ($form_data['g-recaptcha-response'] == "")) {
-                $this->response->status = 0;
-                $this->response->failure_type = 'captcha';
-                $this->response->error[] = esc_html__('Please solve the recaptcha.', 'metform');
-                return $this->response;
-            }
+        $mf_recaptcha_version = (!empty($this->form_settings['mf_recaptcha_version'])) ? $this->form_settings['mf_recaptcha_version'] : 'recaptcha-v2';
 
-            if ((isset($this->form_settings['mf_recaptcha_version']) && ($this->form_settings['mf_recaptcha_version'] == 'recaptcha-v3')) && (!isset($form_data['g-recaptcha-response-v3']) || ($form_data['g-recaptcha-response-v3'] == ""))) {
-                $this->response->status = 0;
-                $this->response->failure_type = 'captcha';
-                $this->response->error[] = esc_html__('Google captcha token not found.', 'metform');
-                return $this->response;
-            }
+        $mf_recaptcha_site_key = ($mf_recaptcha_version == 'recaptcha-v3')
+            ? (isset($this->form_settings['mf_recaptcha_site_key_v3']) ? $this->form_settings['mf_recaptcha_site_key_v3'] : '')
+            : (isset($this->form_settings['mf_recaptcha_site_key']) ? $this->form_settings['mf_recaptcha_site_key'] : '');
 
-            if ((isset($this->form_settings['mf_recaptcha_version']) && ($this->form_settings['mf_recaptcha_version'] == 'recaptcha-v2')) && isset($form_data['g-recaptcha-response'])) {
+        if ((isset($this->fields['mf-recaptcha'])) && $mf_recaptcha_site_key != '') {
+
+            if ($mf_recaptcha_version == 'recaptcha-v3') {
+
+                if (!isset($form_data['g-recaptcha-response-v3']) || ($form_data['g-recaptcha-response-v3'] == "")) {
+                    $this->response->status = 0;
+                    $this->response->failure_type = 'captcha';
+                    $this->response->error[] = esc_html__('Google captcha token not found.', 'metform');
+                    return $this->response;
+                }
+
+                $response = \MetForm\Core\Integrations\Google_Recaptcha::instance()->verify_captcha_v3($form_data, $this->form_settings);
+            } else {
+
+                if (!isset($form_data['g-recaptcha-response']) || ($form_data['g-recaptcha-response'] == "")) {
+                    $this->response->status = 0;
+                    $this->response->failure_type = 'captcha';
+                    $this->response->error[] = esc_html__('Please solve the recaptcha.', 'metform');
+                    return $this->response;
+                }
+
                 $response = \MetForm\Core\Integrations\Google_Recaptcha::instance()->verify_captcha_v2($form_data, $this->form_settings);
             }
 
-            if ((isset($this->form_settings['mf_recaptcha_version']) && ($this->form_settings['mf_recaptcha_version'] == 'recaptcha-v3')) && isset($form_data['g-recaptcha-response-v3'])) {
-                $response = \MetForm\Core\Integrations\Google_Recaptcha::instance()->verify_captcha_v3($form_data, $this->form_settings);
-            }
-
             //$this->response->data['responseKeys'] = $response['responseKeys'];
-            $this->response->status = $response['status'];
-            if ($response['status'] == 0) {
+            $this->response->status = (isset($response['status']) ? $response['status'] : 0);
+            if ($this->response->status == 0) {
                 $this->response->failure_type = 'captcha';
                 $this->response->error[] = (isset($response['error']) ? $response['error'] : '');
                 return $this->response;
@@ -1182,7 +1190,10 @@ class Action
         $user_email_attached_submission_copy = isset($this->form_settings['user_email_attach_submission_copy']) ? $this->form_settings['user_email_attach_submission_copy'] : null;
 
         //replace data from shortcode
-        $body = Metform_Shortcode::instance()->get_process_shortcode($body);
+        // Escape values going into the HTML email body, or a submitter can
+        // inject markup through any field the template references. Header
+        // fields stay raw; mf_sanitize_header_field() handles those below.
+        $body = Metform_Shortcode::instance()->get_process_shortcode($body, true);
         $reply_to = Metform_Shortcode::instance()->get_process_shortcode($reply_to);
         $subject = Metform_Shortcode::instance()->get_process_shortcode($subject);
 
@@ -1238,7 +1249,10 @@ class Action
         $admin_email_attached_submision_copy = isset($this->form_settings['admin_email_attach_submission_copy']) ? $this->form_settings['admin_email_attach_submission_copy'] : null;
 
         //replace data from shortcode
-        $body = Metform_Shortcode::instance()->get_process_shortcode($body);
+        // Escape values going into the HTML email body, or a submitter can
+        // inject markup through any field the template references. Header
+        // fields stay raw; mf_sanitize_header_field() handles those below.
+        $body = Metform_Shortcode::instance()->get_process_shortcode($body, true);
         $from = Metform_Shortcode::instance()->get_process_shortcode($from);
         $reply_to = Metform_Shortcode::instance()->get_process_shortcode($reply_to);
         $subject = Metform_Shortcode::instance()->get_process_shortcode($subject);
@@ -1692,14 +1706,19 @@ class Action
                 LEFT JOIN `" . $wpdb->prefix . "postmeta` pm_pending ON pm.post_id = pm_pending.post_id AND pm_pending.meta_key = 'mf_payment_pending'
                 WHERE pm.meta_key = %s 
                 AND pm.meta_value = %d
-                AND p.post_status != 'auto-draft'
+                AND p.post_status NOT IN ('auto-draft', 'trash')
                 AND pm_pending.meta_value IS NULL",
                 'metform_entries__form_id',
                 $this->form_id
             ), OBJECT);
         } else {
             $entry_count = $wpdb->get_results($wpdb->prepare(
-                " SELECT COUNT( `post_id` ) as `count`  FROM `" . $wpdb->prefix . "postmeta` WHERE `meta_key` LIKE %s AND `meta_value` = %d ",
+                "SELECT COUNT( pm.post_id ) as `count`
+                FROM `" . $wpdb->prefix . "postmeta` pm
+                INNER JOIN `" . $wpdb->prefix . "posts` p ON pm.post_id = p.ID
+                WHERE pm.meta_key = %s
+                AND pm.meta_value = %d
+                AND p.post_status NOT IN ('auto-draft', 'trash')",
                 'metform_entries__form_id',
                 $this->form_id
             ), OBJECT);

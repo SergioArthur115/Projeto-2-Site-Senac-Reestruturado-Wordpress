@@ -52549,7 +52549,10 @@ var import_preview = /* @__PURE__ */ __toESM(require_preview$2());
 					var _ref2 = _slicedToArray(_ref, 2);
 					var widgetName = _ref2[0];
 					var widgetData = _ref2[1];
-					if (widgetData.deprecation && elementor.widgetsCache[widgetData.deprecation.replacement]) elementor.widgetsCache[widgetName].show_in_panel = false;
+					if (widgetData.deprecation && elementor.widgetsCache[widgetData.deprecation.replacement]) {
+						elementor.widgetsCache[widgetName].show_in_panel = false;
+						elementor.widgetsCache[widgetName].hide_on_search = true;
+					}
 				});
 				_.each(elementor.widgetsCache, function(widget) {
 					if (elementor.config.document.panel.widgets_settings[widget.widget_type]) widget = _.extend(widget, elementor.config.document.panel.widgets_settings[widget.widget_type]);
@@ -52616,6 +52619,7 @@ var import_preview = /* @__PURE__ */ __toESM(require_preview$2());
 					widgetType: item.widget_type,
 					custom: item.custom,
 					editable: item.editable,
+					showInPanel: item.show_in_panel,
 					hideOnSearch: item.hide_on_search,
 					isNew: this.isWidgetNew(item),
 					atomic: !!item.atomic
@@ -52624,6 +52628,7 @@ var import_preview = /* @__PURE__ */ __toESM(require_preview$2());
 			initCategoriesCollection: function initCategoriesCollection() {
 				var categories = {};
 				this.elementsCollection.each(function(element) {
+					if (false === element.get("showInPanel")) return;
 					_.each(element.get("categories"), function(category) {
 						if (!categories[category]) categories[category] = [];
 						categories[category].push(element);
@@ -52649,7 +52654,9 @@ var import_preview = /* @__PURE__ */ __toESM(require_preview$2());
 			},
 			shouldAddWidget: function shouldAddWidget(widget) {
 				var isContainerActive = elementorCommon.config.experimentalFeatures.container;
-				return widget.show_in_panel && ("inner-section" !== widget.name || !isContainerActive);
+				if ("inner-section" === widget.name && isContainerActive) return false;
+				if (!widget.show_in_panel) return Array.isArray(widget.categories) && widget.categories.includes("wordpress");
+				return true;
 			},
 			deepMerge: function deepMerge(originalObj, replacementObj) {
 				var mergedObj = _objectSpread({}, originalObj);

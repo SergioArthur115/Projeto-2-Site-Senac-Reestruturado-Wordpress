@@ -79,21 +79,9 @@ class Base{
         // Register script translations so strings inside the modal JS are translated
         wp_set_script_translations( 'metform-form-picker-modal-react', 'metform' );
 
-        // Pass templates and saved forms to React
-        $raw_templates = \MetForm\Templates\Base::instance()->get_templates();
-        $templates     = array_values( array_map( function( $t ) {
-            return [
-                'id'        => isset( $t['id'] ) ? $t['id'] : '',
-                'title'     => isset( $t['title'] ) ? $t['title'] : '',
-                'package'   => isset( $t['package'] ) ? $t['package'] : 'free',
-                'form_type' => isset( $t['form_type'] ) ? $t['form_type'] : 'general-form',
-                'category'  => isset( $t['category'] ) ? $t['category'] : 'all',
-                'thumbnail' => isset( $t['preview-thumb'] ) ? $t['preview-thumb'] : ( isset( $t['thumbnail'] ) ? $t['thumbnail'] : '' ),
-                'demo_url'  => isset( $t['demo-url'] ) ? $t['demo-url'] : '',
-                'file'      => isset( $t['file'] ) ? $t['file'] : '',
-            ];
-        }, $raw_templates ) );
-
+        // Templates are no longer passed in bulk through the page.
+        // The modal fetches them on demand from the REST endpoint
+        // metform/v1/forms/form_templates/new (see get_form_templates()).
         $form_posts = get_posts( [
             'post_type'   => 'metform-form',
             'post_status' => 'publish',
@@ -104,12 +92,13 @@ class Base{
         }, $form_posts );
 
         wp_localize_script( 'metform-form-picker-modal-react', 'metformPickerData', [
-            'templates'  => $templates,
             'savedForms' => array_values( $saved_forms ),
             'restUrl'    => get_rest_url(),
+            'adminUrl'   => admin_url(),
             'nonce'      => wp_create_nonce( 'wp_rest' ),
-            'hasPro' => class_exists('\MetForm_Pro\Base\Package'),
-            'hasQuiz' => class_exists( '\MetForm_Pro\Core\Features\Quiz\Integration' ),
+            'hasPro'     => \MetForm\Core\Forms\Template_Library\Access::has_pro(),
+            'hasQuiz'    => \MetForm\Core\Forms\Template_Library\Access::has_quiz(),
+            'package'    => \MetForm\Core\Forms\Template_Library\Access::get_package(),
         ] );
     }
 

@@ -140,7 +140,8 @@ class Nested_Document_Assets {
 			return;
 		}
 
-		$document_ids = array_filter( array( get_queried_object_id() ) );
+		// On term and author archives the queried object ID is a term or user ID, not a post ID.
+		$document_ids = get_queried_object() instanceof \WP_Post ? array( get_queried_object_id() ) : array();
 
 		if ( class_exists( Activator::class ) ) {
 			$document_ids = array_merge( $document_ids, (array) Activator::template_ids() );
@@ -156,7 +157,11 @@ class Nested_Document_Assets {
 			}
 
 			$checked[ $document_id ] = true;
-			$elements                = $this->get_document_elements( $document_id );
+			if ( ! Utils::is_elementor_document( $document_id ) ) {
+				continue;
+			}
+
+			$elements = $this->get_document_elements( $document_id );
 			if ( empty( $elements ) ) {
 				continue;
 			}

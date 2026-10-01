@@ -178,7 +178,7 @@ Class MetForm_Input_Telephone extends Widget_Base{
 				placeholder="<?php echo esc_attr(\MetForm\Utils\Util::react_entity_support($mf_input_placeholder, $render_on_editor )); ?>"
 				<?php if ( !$is_edit_mode ): ?>
 					onInput=${parent.handleChange}
-					aria-invalid=${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}
+					aria-invalid="${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}"
 					ref=${el => parent.activateValidation(<?php echo json_encode($configData); ?>, el)}
 				<?php endif; ?>
 				/>

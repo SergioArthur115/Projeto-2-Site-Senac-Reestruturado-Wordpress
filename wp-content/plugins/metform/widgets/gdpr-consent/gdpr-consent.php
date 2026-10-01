@@ -521,7 +521,7 @@ Class MetForm_Input_Gdpr_Consent extends Widget_Base{
 							name="<?php echo esc_attr($mf_input_name); ?>"
 							<?php if ( !$is_edit_mode ): ?>
 								onInput=${ parent.handleOptin }
-								aria-invalid=${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}
+								aria-invalid="${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}"
 								ref=${ el => parent.activateValidation(<?php echo json_encode($configData); ?>, el) }
 							<?php endif; ?>
 							/>

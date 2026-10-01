@@ -15,7 +15,6 @@ class Form_Picker_Utils{
 		<div id="metform-form-picker-react-root"></div>
 
 		<div class="metform_open_content_editor_modal">
-			<?php include 'form-picker-modal.php'; ?>
 			<?php include \MetForm\Plugin::instance()->core_dir() . 'forms/views/modal-editor.php'; ?>
 		</div>
 		<div class="formpicker_iframe_modal">

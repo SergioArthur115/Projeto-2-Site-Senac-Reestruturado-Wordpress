@@ -12,7 +12,9 @@ class Shortcode
 
 	public function __construct()
 	{
-		
+		// A shortcode in post content is known before wp_head(), so enqueue its
+		// assets early enough for WordPress to print the styles normally.
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_detected_form_assets' ], 20 );
 
 		add_shortcode('metform', [$this, 'render_form']);
 		add_shortcode('mf_thankyou', [$this, 'render_thank_you_page']);
@@ -31,9 +33,43 @@ class Shortcode
 		wp_enqueue_script('mf-widget-frontend');
 	}
 
+	public function enqueue_detected_form_assets() {
+		$post = get_post();
+
+		if ( $post instanceof \WP_Post && has_shortcode( $post->post_content, 'metform' ) ) {
+			$this->enqueue_form_assets();
+		}
+	}
+
+	/**
+	 * Print styles discovered during shortcode rendering when wp_head() has
+	 * already run (for example, inside Elementor's Shortcode widget).
+	 *
+	 * @param string[] $styles_before Style handles queued before rendering.
+	 * @return string
+	 */
+	private function get_late_styles( $styles_before ) {
+		if ( ! did_action( 'wp_head' ) ) {
+			return '';
+		}
+
+		$wp_styles = wp_styles();
+		$handles   = array_unique(
+			array_merge(
+				[ 'metform-ui', 'metform-style' ],
+				array_diff( $wp_styles->queue, $styles_before )
+			)
+		);
+
+		ob_start();
+		wp_print_styles( $handles );
+		return ob_get_clean();
+	}
+
 
 	public function render_form($atts)
 	{
+		$styles_before = wp_styles()->queue;
 		$this->enqueue_form_assets();
 
 		if( isset($atts['form_id']) ){
@@ -44,7 +80,10 @@ class Shortcode
 			'form_id' => 'test',
 		), $atts);
 
-		return '<div class="mf-form-shortcode">' . \MetForm\Utils\Util::render_form_content($attributes['form_id'], $attributes['form_id']) . '</div>';
+		$form_content = \MetForm\Utils\Util::render_form_content($attributes['form_id'], $attributes['form_id']);
+		$late_styles  = $this->get_late_styles( $styles_before );
+
+		return $late_styles . '<div class="mf-form-shortcode">' . $form_content . '</div>';
 	}
 
 	public function render_thank_you_page($atts)

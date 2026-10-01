@@ -11,6 +11,8 @@ class Widget_File {
 
 	private static $instance;
 
+	private $warnings = array();
+
 
 	public function get_file_path() {
 
@@ -30,22 +32,44 @@ class Widget_File {
 
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 
-		WP_Filesystem();
+		return WP_Filesystem();
 	}
 
 
+	/**
+	 * @return bool Whether widget.php was (re)written by the current compiler.
+	 */
 	public function create( $wObj, $id ) {
 
-		self::load_filesystem();
+		$this->warnings = array();
+
+		if ( ! self::load_filesystem() ) {
+			return false;
+		}
 
 		global $wp_filesystem;
+
+		if ( ! $wp_filesystem ) {
+			return false;
+		}
 
 		$writer = new Widget_Writer( $wObj, $id, 'elementskit-lite' );
 
 		$writer->start_backing( $wp_filesystem );
-		$writer->finish_backing( $wp_filesystem );
 
-		return true;
+		$this->warnings = $writer->get_warnings();
+
+		return $writer->finish_backing( $wp_filesystem );
+	}
+
+
+	/**
+	 * Template placeholders dropped by the last create() call.
+	 *
+	 * @return string[]
+	 */
+	public function get_warnings() {
+		return $this->warnings;
 	}
 
 

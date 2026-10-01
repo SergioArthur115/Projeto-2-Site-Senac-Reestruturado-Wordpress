@@ -160,7 +160,8 @@ Class MetForm_Input_File_Upload extends Widget_base{
 		$this->add_control(
 			'mf_file_upload_important_note',
 			[
-				'label' =>  sprintf(esc_html__('Deafult maximum upload file size: %s', 'metform'),  "<b>" . $this->get_max_upload_size() . "</b>" ),
+				/* translators: %s: Maximum upload file size. */
+				'label' =>  sprintf(esc_html__('Default maximum upload file size: %s', 'metform'),  "<b>" . $this->get_max_upload_size() . "</b>" ),
 				'type' => Controls_Manager::RAW_HTML,
 				'raw' => '<br id="mf_sl_inp">'.esc_html__('You can increase your upload file size.', 'metform'),
 				'condition'	=> [
@@ -531,7 +532,7 @@ Class MetForm_Input_File_Upload extends Widget_base{
 					<?php echo esc_attr( $mf_input_multiple_file === 'multiple' ? 'multiple' : '' ) ?>
 					accept="<?php echo esc_attr($accept != null ? $accept : '');?>"
 					onInput=${ parent.handleFileUpload }
-					aria-invalid=${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}
+					aria-invalid="${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}"
 					ref=${ el => parent.activateValidation(<?php echo json_encode($configData); ?>, el) }
 					/>
 				<label htmlFor="mf-input-file-upload-<?php echo esc_attr($this->get_id()); ?>" className="mf-input-file-upload-label metform-btn">

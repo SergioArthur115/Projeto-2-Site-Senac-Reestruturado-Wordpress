@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: MetForm 4.3.0\n"
+"Project-Id-Version: MetForm 4.3.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/metform\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-27T10:58:39+00:00\n"
+"POT-Creation-Date: 2026-09-30T07:08:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: metform\n"
@@ -43,20 +43,20 @@ msgstr ""
 msgid "https://wpmet.com"
 msgstr ""
 
-#: base/shortcode.php:99
+#: base/shortcode.php:138
 msgid " Thank you for your payment."
 msgstr ""
 
-#: base/shortcode.php:99
+#: base/shortcode.php:138
 msgid " Your transcation ID : "
 msgstr ""
 
-#: base/shortcode.php:101
+#: base/shortcode.php:140
 msgid "Thank you . Your payment status : "
 msgstr ""
 
-#: base/shortcode.php:135
-#: base/shortcode.php:139
+#: base/shortcode.php:174
+#: base/shortcode.php:178
 msgid "No entry found."
 msgstr ""
 
@@ -70,13 +70,8 @@ msgstr ""
 
 #: controls/form-editor-modal.php:20
 #: controls/form-editor-modal.php:21
-#: controls/form-picker-modal.php:95
 #: utils/feedback/plugin-unsubscribe.php:240
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:1084
-#: src/admin/form-picker-modal/FormPickerModal.js:531
-#: src/admin/form-picker-modal/FormPickerModal.js:1032
+#: src/admin/form-modal/components/shared/name-dialog.js:78
 msgid "Close"
 msgstr ""
 
@@ -84,77 +79,24 @@ msgstr ""
 msgid "Loading"
 msgstr ""
 
-#: controls/form-picker-modal.php:12
-#: src/admin/form-analytics/components/sidebar/sidebar.js:11
-msgid "Select Form"
-msgstr ""
-
-#: controls/form-picker-modal.php:13
-msgid "Select saved form"
-msgstr ""
-
-#: controls/form-picker-modal.php:23
-msgid "New"
-msgstr ""
-
-#: controls/form-picker-modal.php:24
-msgid "Create new form"
-msgstr ""
-
-#: controls/form-picker-modal.php:37
-msgid "Enter a form name"
-msgstr ""
-
-#: controls/form-picker-modal.php:45
-#: controls/form-picker-modal.php:50
-msgid "General Form"
-msgstr ""
-
-#: controls/form-picker-modal.php:51
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:555
-msgid "Quiz Form"
-msgstr ""
-
-#: controls/form-picker-modal.php:70
-#: controls/form-picker-modal.php:73
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:852
-#: src/admin/form-picker-modal/FormPickerModal.js:796
-msgid "Blank Template"
-msgstr ""
-
-#: controls/form-picker-modal.php:76
-msgid "Create From Scratch"
-msgstr ""
-
-#: controls/form-picker-modal.php:92
-msgid "Edit form"
-msgstr ""
-
-#: controls/form-picker-modal.php:93
-msgid "Save & close"
-msgstr ""
-
-#: controls/form-picker-utils.php:36
+#: controls/form-picker-utils.php:35
 msgid "Edit Form Content"
 msgstr ""
 
-#: controls/form-picker-utils.php:36
+#: controls/form-picker-utils.php:35
 #: core/entries/meta-data.php:406
 #: core/entries/meta-data.php:422
 #: core/entries/meta-data.php:441
 msgid "Edit"
 msgstr ""
 
-#: controls/form-picker-utils.php:43
-#: utils/util.php:624
+#: controls/form-picker-utils.php:42
+#: utils/util.php:669
 msgid "No content is added yet."
 msgstr ""
 
 #: core/admin/base.php:82
-#: core/forms/hooks.php:160
+#: core/forms/hooks.php:193
 #: plugin.php:432
 #: traits/button-controls.php:32
 #: widgets/checkbox/checkbox.php:191
@@ -328,7 +270,7 @@ msgstr ""
 #: core/admin/views/settings.php:1077
 #: core/admin/views/settings.php:1278
 #: core/admin/views/settings.php:1369
-#: core/entries/hooks.php:97
+#: core/entries/hooks.php:98
 #: core/forms/views/modal-editor.php:43
 #: core/integrations/crm/hubspot/loader.php:102
 #: core/integrations/crm/hubspot/loader.php:130
@@ -376,12 +318,7 @@ msgstr ""
 
 #: core/admin/views/settings.php:123
 #: core/forms/views/modal-editor.php:77
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-analytics/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:55
 #: src/admin/form-analytics/components/stats/formType.js:6
-#: src/admin/form-picker-modal/FormPickerModal.js:640
 msgid "General"
 msgstr ""
 
@@ -546,7 +483,7 @@ msgid "Store Entries"
 msgstr ""
 
 #: core/admin/views/settings.php:306
-#: core/forms/hooks.php:109
+#: core/forms/hooks.php:126
 msgid "View Details"
 msgstr ""
 
@@ -1336,25 +1273,21 @@ msgid "Selected duration is used as data retention policy. Older analytics data 
 msgstr ""
 
 #: core/admin/views/settings.php:1360
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/stats/upgradeBanner.js:10
 msgid "Upgrade to Get Form Analytics Insights"
 msgstr ""
 
 #: core/admin/views/settings.php:1360
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/stats/upgradeBanner.js:11
 msgid "Make Smarter Decisions with Form Analytics"
 msgstr ""
 
 #: core/admin/views/settings.php:1361
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/stats/upgradeBanner.js:14
 msgid "You're one upgrade away from full access to conversion tracking, traffic sources, geographic data, and quiz analytics."
 msgstr ""
 
 #: core/admin/views/settings.php:1361
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/stats/upgradeBanner.js:18
 msgid "Get the MetForm Professional Plan to track your form performance."
 msgstr ""
@@ -1385,13 +1318,12 @@ msgstr ""
 
 #: core/analytics/base.php:26
 #: core/analytics/base.php:27
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/sidebar/sideBars.js:78
 msgid "Analytics"
 msgstr ""
 
 #: core/entries/action.php:43
-#: core/entries/api.php:181
+#: core/entries/api.php:183
 #: core/forms/action.php:31
 msgid "Something went wrong."
 msgstr ""
@@ -1402,8 +1334,8 @@ msgstr ""
 
 #: core/entries/action.php:82
 #: core/entries/action.php:88
-#: core/entries/action.php:171
-#: core/entries/action.php:651
+#: core/entries/action.php:172
+#: core/entries/action.php:659
 msgid "Unauthorized submission."
 msgstr ""
 
@@ -1420,144 +1352,145 @@ msgstr ""
 msgid "Form submission is now closed."
 msgstr ""
 
-#: core/entries/action.php:156
+#. translators: 1: Field label, 2: Duplicate field value.
+#: core/entries/action.php:157
 #, php-format
 msgid "%1$s %2$s already exist."
 msgstr ""
 
-#: core/entries/action.php:182
-#: core/entries/action.php:191
+#: core/entries/action.php:183
+#: core/entries/action.php:192
 msgid "Form validation failed"
 msgstr ""
 
-#: core/entries/action.php:200
-#: core/entries/action.php:233
-msgid "Please solve the recaptcha."
-msgstr ""
-
-#: core/entries/action.php:207
+#: core/entries/action.php:210
 msgid "Google captcha token not found."
 msgstr ""
 
-#: core/entries/action.php:258
+#: core/entries/action.php:220
+#: core/entries/action.php:241
+msgid "Please solve the recaptcha."
+msgstr ""
+
+#: core/entries/action.php:266
 msgid "Time out of this captcha. Please reload or choose another one."
 msgstr ""
 
-#: core/entries/action.php:268
+#: core/entries/action.php:276
 msgid "Enter correct captcha."
 msgstr ""
 
-#: core/entries/action.php:279
+#: core/entries/action.php:287
 msgid "You must be logged in to submit form."
 msgstr ""
 
-#: core/entries/action.php:290
+#: core/entries/action.php:298
 msgid "Form submission limit exceeded."
 msgstr ""
 
-#: core/entries/action.php:348
+#: core/entries/action.php:356
 msgid "Problem with your mailchimp integration."
 msgstr ""
 
-#: core/entries/action.php:364
+#: core/entries/action.php:372
 msgid "Problem with your activeCampaign integration."
 msgstr ""
 
-#: core/entries/action.php:379
+#: core/entries/action.php:387
 msgid "Problem with your GetResponse integration."
 msgstr ""
 
-#: core/entries/action.php:400
+#: core/entries/action.php:408
 msgid "Problem with your zapier integration."
 msgstr ""
 
-#: core/entries/action.php:423
+#: core/entries/action.php:431
 msgid "Problem with your slack integration."
 msgstr ""
 
-#: core/entries/action.php:439
+#: core/entries/action.php:447
 msgid "Problem with convertKit."
 msgstr ""
 
-#: core/entries/action.php:455
+#: core/entries/action.php:463
 msgid "Problem with your Aweber integration."
 msgstr ""
 
-#: core/entries/action.php:469
+#: core/entries/action.php:477
 msgid "Problem with your Mail Poet integration."
 msgstr ""
 
-#: core/entries/action.php:496
+#: core/entries/action.php:504
 msgid "Problem with your MailerLite integration."
 msgstr ""
 
-#: core/entries/action.php:542
+#: core/entries/action.php:550
 msgid "Form settings not found. Please check form configuration."
 msgstr ""
 
-#: core/entries/action.php:609
+#: core/entries/action.php:617
 msgid " Please wait... Redirecting to PayPal."
 msgstr ""
 
-#: core/entries/action.php:776
+#: core/entries/action.php:784
 msgid "Problem with your RestApi integration."
 msgstr ""
 
-#: core/entries/action.php:800
+#: core/entries/action.php:808
 msgid " Please wait... Redirecting to paypal."
 msgstr ""
 
-#: core/entries/action.php:843
+#: core/entries/action.php:851
 msgid " Please wait... Open a Stripe Popup Box."
 msgstr ""
 
-#: core/entries/action.php:986
+#: core/entries/action.php:994
 msgid "ssl certificate or google oauth credentials problem"
 msgstr ""
 
-#: core/entries/action.php:1017
+#: core/entries/action.php:1025
 msgid "Google Drive upload failed: SSL certificate or OAuth credentials problem"
 msgstr ""
 
-#: core/entries/action.php:1218
+#: core/entries/action.php:1229
 msgid "Mail not found."
 msgstr ""
 
-#: core/entries/action.php:1224
-#: core/entries/action.php:1283
+#: core/entries/action.php:1235
+#: core/entries/action.php:1297
 msgid "Please setup your SMTP mail server."
 msgstr ""
 
-#: core/entries/action.php:1273
+#: core/entries/action.php:1287
 msgid "Admin mail not found to send email."
 msgstr ""
 
-#: core/entries/action.php:1461
+#: core/entries/action.php:1475
 msgid "There was an error uploading your file."
 msgstr ""
 
-#: core/entries/api.php:336
-#: core/entries/api.php:373
-#: core/entries/api.php:433
-#: core/entries/api.php:564
+#: core/entries/api.php:338
+#: core/entries/api.php:375
+#: core/entries/api.php:435
+#: core/entries/api.php:566
 #: core/integrations/emailkit-builder.php:30
 msgid "Nonce mismatch."
 msgstr ""
 
-#: core/entries/api.php:347
+#: core/entries/api.php:349
 msgid "Invalid_api_key."
 msgstr ""
 
-#: core/entries/api.php:380
-#: core/entries/api.php:440
+#: core/entries/api.php:382
+#: core/entries/api.php:442
 msgid "MailerLite integration is not available."
 msgstr ""
 
-#: core/entries/api.php:391
+#: core/entries/api.php:393
 msgid "MailerLite API key is not configured. Please configure it in MetForm Settings."
 msgstr ""
 
-#: core/entries/api.php:451
+#: core/entries/api.php:453
 msgid "MailerLite API key is not configured."
 msgstr ""
 
@@ -1590,7 +1523,7 @@ msgid "Parent Item:"
 msgstr ""
 
 #: core/entries/cpt.php:21
-#: core/forms/hooks.php:43
+#: core/forms/hooks.php:60
 msgid "Entries"
 msgstr ""
 
@@ -1687,25 +1620,26 @@ msgid "metform-entry"
 msgstr ""
 
 #: core/entries/file-data-validation.php:40
-#: core/entries/file-data-validation.php:78
+#: core/entries/file-data-validation.php:80
 msgid "No File found"
 msgstr ""
 
-#: core/entries/file-data-validation.php:55
-#: core/entries/file-data-validation.php:64
+#. translators: 1: File name, 2: Maximum file size in kilobytes.
+#: core/entries/file-data-validation.php:56
+#: core/entries/file-data-validation.php:66
 #, php-format
 msgid "%1$s size cannot exceed %2$u kb."
 msgstr ""
 
 #. translators: Error message for allowed file types. %1$s is the input name, %2$s is a list of allowed file types.
-#: core/entries/file-data-validation.php:104
+#: core/entries/file-data-validation.php:106
 #, php-format
 msgid "%1$s only allow %2$s file types."
 msgstr ""
 
 #. translators: %1$s is the file name, %2$s is the maximum allowed upload size.
-#: core/entries/file-data-validation.php:261
-#: core/entries/file-data-validation.php:276
+#: core/entries/file-data-validation.php:263
+#: core/entries/file-data-validation.php:278
 #, php-format
 msgid "%1$s file size exceeded %2$s"
 msgstr ""
@@ -1724,7 +1658,6 @@ msgid "Card Type:"
 msgstr ""
 
 #: core/entries/form-data.php:246
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/answerStatistics.js:58
 #: src/admin/form-analytics/components/quiz/quizDifficulty.js:238
 #: src/admin/form-analytics/components/quiz/quizOverview.js:189
@@ -1732,7 +1665,6 @@ msgid "Correct"
 msgstr ""
 
 #: core/entries/form-data.php:250
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:198
 msgid "Wrong"
 msgstr ""
@@ -1750,30 +1682,29 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: core/entries/hooks.php:39
+#: core/entries/hooks.php:40
 msgid "Form Name"
 msgstr ""
 
-#: core/entries/hooks.php:41
-#: build/admin/form-analytics/index.js:1
+#: core/entries/hooks.php:42
 #: src/admin/form-analytics/components/stats/trafficsum.js:92
 #: src/admin/form-analytics/components/stats/trafficsummary.js:86
 #: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:17
 msgid "Referral"
 msgstr ""
 
-#: core/entries/hooks.php:43
+#: core/entries/hooks.php:44
 msgid "Email Verified"
 msgstr ""
 
-#: core/entries/hooks.php:46
-#: core/forms/hooks.php:46
+#: core/entries/hooks.php:47
+#: core/forms/hooks.php:63
 msgid "Actions"
 msgstr ""
 
-#: core/entries/hooks.php:85
-#: traits/common-controls.php:136
-#: traits/common-controls.php:977
+#: core/entries/hooks.php:86
+#: traits/common-controls.php:153
+#: traits/common-controls.php:994
 #: traits/quiz-control.php:303
 #: traits/quiz-control.php:393
 #: traits/quiz-control.php:476
@@ -1792,17 +1723,17 @@ msgstr ""
 #: widgets/number/number.php:64
 #: widgets/radio/radio.php:154
 #: widgets/range/range.php:111
-#: widgets/range/range.php:159
-#: widgets/range/range.php:184
+#: widgets/range/range.php:157
+#: widgets/range/range.php:182
 #: widgets/select/select.php:109
 #: widgets/switch/switch.php:60
 #: widgets/time/time.php:85
 msgid "Yes"
 msgstr ""
 
-#: core/entries/hooks.php:87
-#: traits/common-controls.php:137
-#: traits/common-controls.php:978
+#: core/entries/hooks.php:88
+#: traits/common-controls.php:154
+#: traits/common-controls.php:995
 #: traits/quiz-control.php:304
 #: traits/quiz-control.php:394
 #: traits/quiz-control.php:477
@@ -1821,36 +1752,50 @@ msgstr ""
 #: widgets/number/number.php:65
 #: widgets/radio/radio.php:155
 #: widgets/range/range.php:112
-#: widgets/range/range.php:160
-#: widgets/range/range.php:185
+#: widgets/range/range.php:158
+#: widgets/range/range.php:183
 #: widgets/select/select.php:110
 #: widgets/switch/switch.php:69
 #: widgets/time/time.php:86
 msgid "No"
 msgstr ""
 
-#: core/entries/hooks.php:114
+#: core/entries/hooks.php:121
+#: core/forms/hooks.php:182
+msgid "Restore"
+msgstr ""
+
+#: core/entries/hooks.php:123
+#: core/forms/hooks.php:184
+msgid "Delete Permanently"
+msgstr ""
+
+#: core/entries/hooks.php:123
+msgid "Delete this entry permanently? This cannot be undone."
+msgstr ""
+
+#: core/entries/hooks.php:131
 #: core/entries/meta-data.php:260
-#: core/forms/hooks.php:159
+#: core/forms/hooks.php:192
 msgid "View"
 msgstr ""
 
-#: core/entries/hooks.php:117
+#: core/entries/hooks.php:134
 msgid "Export PDF"
 msgstr ""
 
-#: core/entries/hooks.php:119
+#: core/entries/hooks.php:136
 msgid "Export PDF is a premium feature. Upgrade for premium acess"
 msgstr ""
 
-#: core/entries/hooks.php:122
-#: core/forms/hooks.php:163
+#: core/entries/hooks.php:139
+#: core/forms/hooks.php:196
 #: plugin.php:595
 #: plugin.php:608
 msgid "Move to Trash"
 msgstr ""
 
-#: core/entries/hooks.php:122
+#: core/entries/hooks.php:139
 msgid "Move this entry to trash?"
 msgstr ""
 
@@ -1986,11 +1931,27 @@ msgstr ""
 msgid "You must active at least one field of these fields \"store entries/ Confirmation/ Notification/ REST API/ MailChimp/ Slack/ Zapier\". "
 msgstr ""
 
-#: core/forms/api.php:459
+#: core/forms/api.php:429
+msgid "You must be logged in to create a form."
+msgstr ""
+
+#: core/forms/api.php:437
+msgid "You are not allowed to create forms."
+msgstr ""
+
+#: core/forms/api.php:551
 msgid "Not Authorized"
 msgstr ""
 
-#: core/forms/builder.php:38
+#: core/forms/builder.php:45
+msgid "The requested form could not be found."
+msgstr ""
+
+#: core/forms/builder.php:108
+msgid "The form could not be created."
+msgstr ""
+
+#: core/forms/builder.php:153
 #: core/forms/views/modal-editor.php:109
 msgid "Thank you! Form submitted successfully."
 msgstr ""
@@ -2034,8 +1995,8 @@ msgstr ""
 
 #: core/forms/cpt.php:558
 #: widgets/form.php:74
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:612
+#: src/admin/form-modal/components/form-picker-modal/form-picker-modal.js:138
+#: src/admin/form-modal/components/form-picker-modal/saved-form-panel.js:60
 msgid "Edit Form"
 msgstr ""
 
@@ -2080,37 +2041,79 @@ msgstr ""
 msgid "metform form"
 msgstr ""
 
-#: core/forms/hooks.php:42
+#: core/forms/hooks.php:59
 msgid "Shortcode"
 msgstr ""
 
-#: core/forms/hooks.php:44
+#: core/forms/hooks.php:61
 msgid "Views/ Conversion"
 msgstr ""
 
-#: core/forms/hooks.php:59
+#: core/forms/hooks.php:76
 msgid "View submission failure log"
 msgstr ""
 
-#: core/forms/hooks.php:59
+#: core/forms/hooks.php:76
 msgid "Submission failure log"
 msgstr ""
 
-#: core/forms/hooks.php:85
-#: core/forms/hooks.php:90
+#: core/forms/hooks.php:102
+#: core/forms/hooks.php:107
 msgid "CSV"
 msgstr ""
 
-#: core/forms/hooks.php:111
+#: core/forms/hooks.php:128
 msgid "Upgrade for premium access."
 msgstr ""
 
-#: core/forms/hooks.php:161
+#: core/forms/hooks.php:184
+msgid "Delete this form permanently? This cannot be undone."
+msgstr ""
+
+#: core/forms/hooks.php:194
 msgid "Edit with Elementor"
 msgstr ""
 
-#: core/forms/hooks.php:163
+#: core/forms/hooks.php:196
 msgid "Move this form to trash?"
+msgstr ""
+
+#: core/forms/template-library/access.php:122
+msgid "This template is available in MetForm Pro. Please upgrade your plan to import it."
+msgstr ""
+
+#: core/forms/template-library/import.php:82
+msgid "Elementor must be active to import a form template."
+msgstr ""
+
+#: core/forms/template-library/import.php:151
+msgid "Quiz forms require MetForm Pro."
+msgstr ""
+
+#: core/forms/template-library/remote-api.php:175
+msgid "A valid template ID is required."
+msgstr ""
+
+#. translators: %d: HTTP status code returned by the template library.
+#: core/forms/template-library/remote-api.php:248
+#, php-format
+msgid "The template library returned HTTP %d."
+msgstr ""
+
+#: core/forms/template-library/remote-api.php:262
+msgid "The template library returned an unreadable response."
+msgstr ""
+
+#: core/forms/template-library/source.php:102
+msgid "MetForm Templates"
+msgstr ""
+
+#: core/forms/template-library/source.php:267
+msgid "The selected template does not contain a form."
+msgstr ""
+
+#: core/forms/template-library/source.php:458
+msgid "The MetForm template library is read-only."
 msgstr ""
 
 #: core/forms/views/modal-editor.php:46
@@ -3163,14 +3166,6 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: core/forms/views/modal-form-template-item.php:22
-msgid "Buy Pro"
-msgstr ""
-
-#: core/forms/views/modal-form-template-item.php:26
-msgid "Demo"
-msgstr ""
-
 #: core/integrations/crm/hubspot/loader.php:43
 msgid "CRM & Marketing"
 msgstr ""
@@ -3273,8 +3268,13 @@ msgstr ""
 msgid "Access denied."
 msgstr ""
 
-#: core/integrations/google-recaptcha.php:38
-#: core/integrations/google-recaptcha.php:71
+#: core/integrations/google-recaptcha.php:35
+#: core/integrations/google-recaptcha.php:76
+msgid "Captcha verification request failed."
+msgstr ""
+
+#: core/integrations/google-recaptcha.php:46
+#: core/integrations/google-recaptcha.php:87
 msgid "Captcha is not verified."
 msgstr ""
 
@@ -3724,14 +3724,16 @@ msgid "Facebook Messenger"
 msgstr ""
 
 #: core/integrations/onboard/views/settings-sections/usersettings.php:304
-#: traits/common-controls.php:355
-#: traits/common-controls.php:547
-#: traits/common-controls.php:903
-#: traits/common-controls.php:944
+#: traits/common-controls.php:372
+#: traits/common-controls.php:564
+#: traits/common-controls.php:920
+#: traits/common-controls.php:961
 #: widgets/email/email.php:179
-#: widgets/file-upload/file-upload.php:344
-#: widgets/file-upload/file-upload.php:375
+#: widgets/file-upload/file-upload.php:345
+#: widgets/file-upload/file-upload.php:376
 #: widgets/gdpr-consent/gdpr-consent.php:189
+#: widgets/multi-select/multi-select.php:359
+#: widgets/multi-select/multi-select.php:389
 #: widgets/select/select.php:422
 #: widgets/select/select.php:456
 #: widgets/select/select.php:490
@@ -4045,7 +4047,7 @@ msgstr ""
 #: widgets/checkbox/checkbox.php:231
 #: widgets/date/date.php:445
 #: widgets/email/email.php:118
-#: widgets/file-upload/file-upload.php:231
+#: widgets/file-upload/file-upload.php:232
 #: widgets/listing-fname/listing-fname.php:80
 #: widgets/listing-lname/listing-lname.php:80
 #: widgets/multi-select/multi-select.php:178
@@ -4054,7 +4056,7 @@ msgstr ""
 #: widgets/password/password.php:78
 #: widgets/radio/radio.php:226
 #: widgets/radio/radio.php:236
-#: widgets/range/range.php:216
+#: widgets/range/range.php:214
 #: widgets/rating/rating.php:100
 #: widgets/recaptcha/recaptcha.php:75
 #: widgets/select/select.php:241
@@ -4076,7 +4078,7 @@ msgid "Button alignment"
 msgstr ""
 
 #: traits/button-controls.php:45
-#: traits/common-controls.php:42
+#: traits/common-controls.php:59
 #: widgets/simple-captcha/simple-captcha.php:79
 #: widgets/simple-message/simple-message.php:82
 msgid "Left"
@@ -4088,7 +4090,7 @@ msgid "Center"
 msgstr ""
 
 #: traits/button-controls.php:53
-#: widgets/file-upload/file-upload.php:324
+#: widgets/file-upload/file-upload.php:325
 #: widgets/simple-message/simple-message.php:90
 msgid "Right"
 msgstr ""
@@ -4163,16 +4165,17 @@ msgstr ""
 
 #: traits/button-controls.php:158
 #: traits/button-controls.php:481
-#: traits/common-controls.php:386
-#: traits/common-controls.php:578
-#: traits/common-controls.php:609
-#: traits/common-controls.php:959
+#: traits/common-controls.php:403
+#: traits/common-controls.php:595
+#: traits/common-controls.php:626
+#: traits/common-controls.php:976
 #: widgets/checkbox/checkbox.php:267
 #: widgets/email/email.php:204
-#: widgets/file-upload/file-upload.php:411
+#: widgets/file-upload/file-upload.php:412
 #: widgets/gdpr-consent/gdpr-consent.php:220
 #: widgets/gdpr-consent/gdpr-consent.php:312
 #: widgets/listing-optin/listing-optin.php:152
+#: widgets/multi-select/multi-select.php:285
 #: widgets/radio/radio.php:293
 #: widgets/rating/rating.php:135
 #: widgets/select/select.php:353
@@ -4186,14 +4189,15 @@ msgid "Padding"
 msgstr ""
 
 #: traits/button-controls.php:178
-#: traits/common-controls.php:373
-#: traits/common-controls.php:565
-#: traits/common-controls.php:834
-#: traits/common-controls.php:890
-#: traits/common-controls.php:933
+#: traits/common-controls.php:390
+#: traits/common-controls.php:582
+#: traits/common-controls.php:851
+#: traits/common-controls.php:907
+#: traits/common-controls.php:950
 #: widgets/email/email.php:194
 #: widgets/gdpr-consent/gdpr-consent.php:207
-#: widgets/range/range.php:397
+#: widgets/multi-select/multi-select.php:342
+#: widgets/range/range.php:395
 #: widgets/rating/rating.php:275
 #: widgets/simple-captcha/simple-captcha.php:189
 #: widgets/simple-message/simple-message.php:119
@@ -4205,11 +4209,12 @@ msgstr ""
 #: traits/button-controls.php:196
 #: traits/button-controls.php:324
 #: traits/button-controls.php:405
-#: traits/common-controls.php:643
+#: traits/common-controls.php:660
 #: widgets/checkbox/checkbox.php:308
-#: widgets/file-upload/file-upload.php:337
+#: widgets/file-upload/file-upload.php:338
 #: widgets/gdpr-consent/gdpr-consent.php:353
 #: widgets/listing-optin/listing-optin.php:193
+#: widgets/multi-select/multi-select.php:352
 #: widgets/radio/radio.php:333
 #: widgets/rating/rating.php:168
 #: widgets/select/select.php:415
@@ -4231,14 +4236,15 @@ msgstr ""
 #: traits/button-controls.php:225
 #: traits/button-controls.php:348
 #: traits/button-controls.php:430
-#: traits/common-controls.php:706
-#: widgets/file-upload/file-upload.php:368
+#: traits/common-controls.php:723
+#: widgets/file-upload/file-upload.php:369
+#: widgets/multi-select/multi-select.php:382
 #: widgets/select/select.php:449
 msgid "Hover"
 msgstr ""
 
 #: traits/button-controls.php:255
-#: traits/common-controls.php:765
+#: traits/common-controls.php:782
 msgid "Focus"
 msgstr ""
 
@@ -4248,8 +4254,8 @@ msgid "Border Type"
 msgstr ""
 
 #: traits/button-controls.php:291
-#: traits/common-controls.php:146
-#: traits/common-controls.php:177
+#: traits/common-controls.php:163
+#: traits/common-controls.php:194
 #: widgets/switch/switch.php:244
 #: widgets/switch/switch.php:328
 #: widgets/switch/switch.php:425
@@ -4314,11 +4320,13 @@ msgid "Color"
 msgstr ""
 
 #: traits/button-controls.php:373
-#: traits/common-controls.php:291
-#: traits/common-controls.php:847
-#: widgets/file-upload/file-upload.php:444
-#: widgets/range/range.php:374
-#: widgets/range/range.php:460
+#: traits/common-controls.php:308
+#: traits/common-controls.php:864
+#: widgets/file-upload/file-upload.php:445
+#: widgets/multi-select/multi-select.php:234
+#: widgets/multi-select/multi-select.php:309
+#: widgets/range/range.php:372
+#: widgets/range/range.php:458
 #: widgets/rating/rating.php:237
 #: widgets/select/select.php:298
 #: widgets/select/select.php:377
@@ -4338,172 +4346,172 @@ msgstr ""
 msgid "Vertical Align"
 msgstr ""
 
-#: traits/common-controls.php:24
+#: traits/common-controls.php:41
 #: widgets/simple-captcha/simple-captcha.php:61
 msgid "Show Label"
 msgstr ""
 
-#: traits/common-controls.php:26
+#: traits/common-controls.php:43
 #: traits/quiz-control.php:488
 #: widgets/simple-captcha/simple-captcha.php:63
 msgid "Show"
 msgstr ""
 
-#: traits/common-controls.php:27
+#: traits/common-controls.php:44
 #: traits/quiz-control.php:489
 #: widgets/simple-captcha/simple-captcha.php:64
 msgid "Hide"
 msgstr ""
 
-#: traits/common-controls.php:30
+#: traits/common-controls.php:47
 #: widgets/simple-captcha/simple-captcha.php:67
 msgid "for adding label on input turn it on. Don't want to use label? turn it off."
 msgstr ""
 
-#: traits/common-controls.php:37
-#: widgets/file-upload/file-upload.php:320
+#: traits/common-controls.php:54
+#: widgets/file-upload/file-upload.php:321
 msgid "Position"
 msgstr ""
 
-#: traits/common-controls.php:41
+#: traits/common-controls.php:58
 #: widgets/file-upload/file-upload.php:91
-#: widgets/range/range.php:340
+#: widgets/range/range.php:338
 #: widgets/simple-captcha/simple-captcha.php:78
 msgid "Top"
 msgstr ""
 
-#: traits/common-controls.php:50
+#: traits/common-controls.php:67
 #: widgets/simple-captcha/simple-captcha.php:87
 msgid "Select label position. where you want to see it. top of the input or left of the input."
 msgstr ""
 
-#: traits/common-controls.php:58
+#: traits/common-controls.php:75
 #: widgets/simple-captcha/simple-captcha.php:110
 msgid "Label : "
 msgstr ""
 
-#: traits/common-controls.php:61
+#: traits/common-controls.php:78
 #: widgets/simple-captcha/simple-captcha.php:113
 msgid "Enter here label of input"
 msgstr ""
 
-#: traits/common-controls.php:72
+#: traits/common-controls.php:89
 msgid "Name : "
 msgstr ""
 
-#: traits/common-controls.php:84
+#: traits/common-controls.php:101
 #: traits/quiz-control.php:40
 msgid "Name"
 msgstr ""
 
-#: traits/common-controls.php:87
+#: traits/common-controls.php:104
 msgid "Enter here name of the input"
 msgstr ""
 
-#: traits/common-controls.php:88
+#: traits/common-controls.php:105
 #: traits/quiz-control.php:44
 msgid "Name is must required. Enter name without space or any special character. use only underscore/ hyphen (_/-) for multiple word. Name must be different."
 msgstr ""
 
-#: traits/common-controls.php:98
+#: traits/common-controls.php:115
 msgid "Fixed Field Name : "
 msgstr ""
 
-#: traits/common-controls.php:109
+#: traits/common-controls.php:126
 msgid "Place holder"
 msgstr ""
 
-#: traits/common-controls.php:112
+#: traits/common-controls.php:129
 #: traits/quiz-control.php:347
 msgid "Enter here place holder"
 msgstr ""
 
-#: traits/common-controls.php:120
+#: traits/common-controls.php:137
 #: traits/quiz-control.php:161
 #: widgets/simple-captcha/simple-captcha.php:123
 msgid "Help Text : "
 msgstr ""
 
-#: traits/common-controls.php:123
+#: traits/common-controls.php:140
 #: widgets/simple-captcha/simple-captcha.php:126
 msgid "Type your help text here"
 msgstr ""
 
-#: traits/common-controls.php:134
+#: traits/common-controls.php:151
 msgid "Required ?"
 msgstr ""
 
-#: traits/common-controls.php:140
+#: traits/common-controls.php:157
 msgid "Is this field is required for submit the form?. Make it \"Yes\"."
 msgstr ""
 
-#: traits/common-controls.php:147
+#: traits/common-controls.php:164
 msgid "By character length"
 msgstr ""
 
-#: traits/common-controls.php:151
+#: traits/common-controls.php:168
 msgid "By Word length"
 msgstr ""
 
-#: traits/common-controls.php:155
-#: traits/common-controls.php:177
+#: traits/common-controls.php:172
+#: traits/common-controls.php:194
 msgid "By expression based"
 msgstr ""
 
-#: traits/common-controls.php:162
-#: traits/common-controls.php:174
+#: traits/common-controls.php:179
+#: traits/common-controls.php:191
 msgid "Validation type"
 msgstr ""
 
-#: traits/common-controls.php:177
+#: traits/common-controls.php:194
 msgid "By range"
 msgstr ""
 
-#: traits/common-controls.php:184
+#: traits/common-controls.php:201
 msgid "Min Value"
 msgstr ""
 
-#: traits/common-controls.php:196
+#: traits/common-controls.php:213
 msgid "Max Value"
 msgstr ""
 
-#: traits/common-controls.php:209
+#: traits/common-controls.php:226
 #: widgets/range/range.php:79
 msgid "Min Length"
 msgstr ""
 
-#: traits/common-controls.php:220
+#: traits/common-controls.php:237
 #: widgets/range/range.php:89
 msgid "Max Length"
 msgstr ""
 
-#: traits/common-controls.php:233
+#: traits/common-controls.php:250
 msgid "Expression for validate "
 msgstr ""
 
-#: traits/common-controls.php:236
+#: traits/common-controls.php:253
 msgid "Ex: [a-zA-Z]+ "
 msgstr ""
 
-#: traits/common-controls.php:247
-#: traits/common-controls.php:249
+#: traits/common-controls.php:264
+#: traits/common-controls.php:266
 msgid "Warning message"
 msgstr ""
 
-#: traits/common-controls.php:250
+#: traits/common-controls.php:267
 #: widgets/checkbox/checkbox.php:449
 #: widgets/date/date.php:720
 #: widgets/email/email.php:256
-#: widgets/file-upload/file-upload.php:504
+#: widgets/file-upload/file-upload.php:505
 #: widgets/gdpr-consent/gdpr-consent.php:493
 #: widgets/listing-fname/listing-fname.php:171
 #: widgets/listing-lname/listing-lname.php:171
 #: widgets/listing-optin/listing-optin.php:333
-#: widgets/multi-select/multi-select.php:272
+#: widgets/multi-select/multi-select.php:473
 #: widgets/number/number.php:183
 #: widgets/password/password.php:170
 #: widgets/radio/radio.php:475
-#: widgets/range/range.php:508
+#: widgets/range/range.php:506
 #: widgets/rating/rating.php:323
 #: widgets/select/select.php:583
 #: widgets/switch/switch.php:590
@@ -4515,21 +4523,24 @@ msgstr ""
 msgid "This field is required."
 msgstr ""
 
-#: traits/common-controls.php:276
-#: traits/common-controls.php:878
-#: widgets/range/range.php:473
+#: traits/common-controls.php:293
+#: traits/common-controls.php:895
+#: widgets/multi-select/multi-select.php:267
+#: widgets/range/range.php:471
 #: widgets/rating/rating.php:288
 #: widgets/select/select.php:335
 #: widgets/switch/switch.php:178
 msgid "Box Shadow"
 msgstr ""
 
-#: traits/common-controls.php:284
-#: traits/common-controls.php:694
-#: traits/common-controls.php:752
-#: traits/common-controls.php:812
+#: traits/common-controls.php:301
+#: traits/common-controls.php:711
+#: traits/common-controls.php:769
+#: traits/common-controls.php:829
 #: widgets/button/button.php:90
-#: widgets/file-upload/file-upload.php:436
+#: widgets/file-upload/file-upload.php:437
+#: widgets/multi-select/multi-select.php:258
+#: widgets/multi-select/multi-select.php:333
 #: widgets/rating/rating.php:191
 #: widgets/rating/rating.php:224
 #: widgets/select/select.php:326
@@ -4537,26 +4548,27 @@ msgstr ""
 msgid "Border"
 msgstr ""
 
-#: traits/common-controls.php:323
-#: traits/common-controls.php:515
+#: traits/common-controls.php:340
+#: traits/common-controls.php:532
 #: widgets/gdpr-consent/gdpr-consent.php:157
-#: widgets/range/range.php:251
-#: widgets/range/range.php:306
-#: widgets/range/range.php:405
+#: widgets/range/range.php:249
+#: widgets/range/range.php:304
+#: widgets/range/range.php:403
 #: widgets/simple-captcha/simple-captcha.php:143
 #: widgets/switch/switch.php:144
 msgid "Width"
 msgstr ""
 
-#: traits/common-controls.php:400
-#: traits/common-controls.php:592
-#: traits/common-controls.php:625
+#: traits/common-controls.php:417
+#: traits/common-controls.php:609
+#: traits/common-controls.php:642
 #: widgets/checkbox/checkbox.php:278
 #: widgets/email/email.php:215
-#: widgets/file-upload/file-upload.php:423
+#: widgets/file-upload/file-upload.php:424
 #: widgets/gdpr-consent/gdpr-consent.php:234
 #: widgets/gdpr-consent/gdpr-consent.php:323
 #: widgets/listing-optin/listing-optin.php:163
+#: widgets/multi-select/multi-select.php:297
 #: widgets/radio/radio.php:304
 #: widgets/rating/rating.php:147
 #: widgets/select/select.php:365
@@ -4567,46 +4579,48 @@ msgstr ""
 msgid "Margin"
 msgstr ""
 
-#: traits/common-controls.php:415
+#: traits/common-controls.php:432
 #: widgets/gdpr-consent/gdpr-consent.php:251
 #: widgets/simple-captcha/simple-captcha.php:231
 msgid "Required Indicator Color:"
 msgstr ""
 
-#: traits/common-controls.php:467
+#: traits/common-controls.php:484
 #: widgets/gdpr-consent/gdpr-consent.php:269
 #: widgets/recaptcha/recaptcha.php:83
 #: widgets/simple-captcha/simple-captcha.php:247
 msgid "Warning Text Color:"
 msgstr ""
 
-#: traits/common-controls.php:487
+#: traits/common-controls.php:504
 #: widgets/gdpr-consent/gdpr-consent.php:288
 #: widgets/recaptcha/recaptcha.php:99
 #: widgets/simple-captcha/simple-captcha.php:263
 msgid "Warning Text Typography"
 msgstr ""
 
-#: traits/common-controls.php:650
-#: traits/common-controls.php:713
-#: traits/common-controls.php:772
+#: traits/common-controls.php:667
+#: traits/common-controls.php:730
+#: traits/common-controls.php:789
 #: widgets/rating/rating.php:175
 #: widgets/rating/rating.php:208
 msgid "Input Color"
 msgstr ""
 
-#: traits/common-controls.php:681
-#: traits/common-controls.php:740
-#: traits/common-controls.php:798
-#: widgets/file-upload/file-upload.php:357
-#: widgets/file-upload/file-upload.php:388
+#: traits/common-controls.php:698
+#: traits/common-controls.php:757
+#: traits/common-controls.php:815
+#: widgets/file-upload/file-upload.php:358
+#: widgets/file-upload/file-upload.php:389
+#: widgets/multi-select/multi-select.php:371
+#: widgets/multi-select/multi-select.php:401
 #: widgets/select/select.php:438
 #: widgets/select/select.php:472
 #: widgets/select/select.php:506
 msgid "Background"
 msgstr ""
 
-#: traits/common-controls.php:975
+#: traits/common-controls.php:992
 msgid "Get Value From URL?"
 msgstr ""
 
@@ -4713,7 +4727,6 @@ msgid "Enter name of the input"
 msgstr ""
 
 #: traits/quiz-control.php:55
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizDifficulty.js:235
 msgid "Question"
 msgstr ""
@@ -4921,7 +4934,6 @@ msgstr ""
 #: traits/quiz-control.php:374
 #: widgets/multi-select/multi-select.php:91
 #: widgets/select/select.php:92
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:398
 msgid "Status"
 msgstr ""
@@ -5126,15 +5138,15 @@ msgstr ""
 msgid "Show update & fix related important messages, essential tutorials and promotional images on WP Dashboard"
 msgstr ""
 
-#: utils/util.php:689
+#: utils/util.php:734
 msgid "Plain permalink is not supported with MetForm. We recommend to use post name as your permalink settings."
 msgstr ""
 
-#: utils/util.php:695
+#: utils/util.php:740
 msgid "Change Permalink"
 msgstr ""
 
-#: utils/util.php:721
+#: utils/util.php:766
 msgid "Permalink Structure Updated!"
 msgstr ""
 
@@ -5324,16 +5336,16 @@ msgstr ""
 #: widgets/checkbox/checkbox.php:424
 #: widgets/date/date.php:658
 #: widgets/email/email.php:229
-#: widgets/file-upload/file-upload.php:459
+#: widgets/file-upload/file-upload.php:460
 #: widgets/gdpr-consent/gdpr-consent.php:468
 #: widgets/listing-fname/listing-fname.php:131
 #: widgets/listing-lname/listing-lname.php:131
 #: widgets/listing-optin/listing-optin.php:308
-#: widgets/multi-select/multi-select.php:238
+#: widgets/multi-select/multi-select.php:439
 #: widgets/number/number.php:157
 #: widgets/password/password.php:129
 #: widgets/radio/radio.php:450
-#: widgets/range/range.php:484
+#: widgets/range/range.php:482
 #: widgets/rating/rating.php:298
 #: widgets/select/select.php:533
 #: widgets/simple-captcha/simple-captcha.php:358
@@ -5720,7 +5732,7 @@ msgstr ""
 
 #: widgets/date/date.php:472
 #: widgets/email/email.php:147
-#: widgets/file-upload/file-upload.php:258
+#: widgets/file-upload/file-upload.php:259
 #: widgets/listing-fname/listing-fname.php:107
 #: widgets/listing-lname/listing-lname.php:107
 #: widgets/multi-select/multi-select.php:214
@@ -5785,7 +5797,7 @@ msgstr ""
 #: widgets/email/email.php:159
 #: widgets/listing-fname/listing-fname.php:119
 #: widgets/listing-lname/listing-lname.php:119
-#: widgets/multi-select/multi-select.php:226
+#: widgets/multi-select/multi-select.php:427
 #: widgets/number/number.php:145
 #: widgets/password/password.php:117
 #: widgets/select/select.php:521
@@ -5862,193 +5874,194 @@ msgstr ""
 msgid "128"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:163
+#. translators: %s: Maximum upload file size.
+#: widgets/file-upload/file-upload.php:164
 #, php-format
-msgid "Deafult maximum upload file size: %s"
+msgid "Default maximum upload file size: %s"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:165
+#: widgets/file-upload/file-upload.php:166
 msgid "You can increase your upload file size."
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:175
+#: widgets/file-upload/file-upload.php:176
 msgid "File Types : "
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:179
+#: widgets/file-upload/file-upload.php:180
 msgid ".jpg"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:180
+#: widgets/file-upload/file-upload.php:181
 msgid ".jpeg"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:181
+#: widgets/file-upload/file-upload.php:182
 msgid ".gif"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:182
+#: widgets/file-upload/file-upload.php:183
 msgid ".png"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:183
+#: widgets/file-upload/file-upload.php:184
 msgid ".ico"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:184
+#: widgets/file-upload/file-upload.php:185
 msgid ".pdf"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:185
+#: widgets/file-upload/file-upload.php:186
 msgid ".doc"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:186
+#: widgets/file-upload/file-upload.php:187
 msgid ".docx"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:187
+#: widgets/file-upload/file-upload.php:188
 msgid ".ppt"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:188
+#: widgets/file-upload/file-upload.php:189
 msgid ".pptx"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:189
+#: widgets/file-upload/file-upload.php:190
 msgid ".pps"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:190
+#: widgets/file-upload/file-upload.php:191
 msgid ".ppsx"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:191
+#: widgets/file-upload/file-upload.php:192
 msgid ".odt"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:192
+#: widgets/file-upload/file-upload.php:193
 msgid ".xls"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:193
+#: widgets/file-upload/file-upload.php:194
 msgid ".xlsx"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:194
+#: widgets/file-upload/file-upload.php:195
 msgid ".psd"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:195
+#: widgets/file-upload/file-upload.php:196
 msgid ".mp3"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:196
+#: widgets/file-upload/file-upload.php:197
 msgid ".m4a"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:197
+#: widgets/file-upload/file-upload.php:198
 msgid ".ogg"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:198
+#: widgets/file-upload/file-upload.php:199
 msgid ".wav"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:199
+#: widgets/file-upload/file-upload.php:200
 msgid ".mp4"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:200
+#: widgets/file-upload/file-upload.php:201
 msgid ".m4v"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:201
+#: widgets/file-upload/file-upload.php:202
 msgid ".mov"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:202
+#: widgets/file-upload/file-upload.php:203
 msgid ".wmv"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:203
+#: widgets/file-upload/file-upload.php:204
 msgid ".avi"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:204
+#: widgets/file-upload/file-upload.php:205
 msgid ".mpg"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:205
+#: widgets/file-upload/file-upload.php:206
 msgid ".ogv"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:206
+#: widgets/file-upload/file-upload.php:207
 msgid ".3gp"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:207
+#: widgets/file-upload/file-upload.php:208
 msgid ".3g2"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:208
+#: widgets/file-upload/file-upload.php:209
 msgid ".zip"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:209
+#: widgets/file-upload/file-upload.php:210
 msgid ".csv"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:210
+#: widgets/file-upload/file-upload.php:211
 msgid ".stp"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:211
+#: widgets/file-upload/file-upload.php:212
 msgid ".step"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:212
+#: widgets/file-upload/file-upload.php:213
 msgid ".stl"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:213
+#: widgets/file-upload/file-upload.php:214
 msgid ".webp"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:214
+#: widgets/file-upload/file-upload.php:215
 msgid ".iges"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:215
+#: widgets/file-upload/file-upload.php:216
 msgid ".igs"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:216
+#: widgets/file-upload/file-upload.php:217
 msgid ".heic"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:268
+#: widgets/file-upload/file-upload.php:269
 msgid "Icon Size"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:296
+#: widgets/file-upload/file-upload.php:297
 msgid "Icon Spacing"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:311
+#: widgets/file-upload/file-upload.php:312
 msgid "File Name:"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:325
+#: widgets/file-upload/file-upload.php:326
 msgid "Bottom"
 msgstr ""
 
-#: widgets/file-upload/file-upload.php:507
+#: widgets/file-upload/file-upload.php:508
 msgid "Invalid file extension"
 msgstr ""
 
 #. translators: File size limit in kilobytes for the MetForm plugin. %s is the dynamic file size limit.
-#: widgets/file-upload/file-upload.php:511
+#: widgets/file-upload/file-upload.php:512
 #, php-format
 msgid "File size cannot exceed %s kb"
 msgstr ""
@@ -6182,6 +6195,20 @@ msgstr ""
 msgid "Multi Select List"
 msgstr ""
 
+#: widgets/multi-select/multi-select.php:226
+#: widgets/select/select.php:290
+msgid "Options Wrapper"
+msgstr ""
+
+#: widgets/multi-select/multi-select.php:277
+#: widgets/select/select.php:345
+msgid "Option"
+msgstr ""
+
+#: widgets/multi-select/multi-select.php:410
+msgid "Border Color"
+msgstr ""
+
 #: widgets/number/number.php:20
 msgid "Number"
 msgstr ""
@@ -6192,7 +6219,7 @@ msgstr ""
 
 #: widgets/number/number.php:74
 #: widgets/range/range.php:133
-#: widgets/range/range.php:145
+#: widgets/range/range.php:144
 msgid "Default Value"
 msgstr ""
 
@@ -6254,7 +6281,7 @@ msgid "Add space after radio"
 msgstr ""
 
 #: widgets/range/range.php:20
-#: widgets/range/range.php:297
+#: widgets/range/range.php:295
 msgid "Range Slider"
 msgstr ""
 
@@ -6270,49 +6297,49 @@ msgstr ""
 msgid "<strong>Important Note : </strong> For taking dual range input, You have to enter dual default value in the field Value (Exactly bottom of this notice field. ). Example: 10, 20"
 msgstr ""
 
-#: widgets/range/range.php:157
+#: widgets/range/range.php:155
 msgid "Enable Suffix"
 msgstr ""
 
-#: widgets/range/range.php:169
+#: widgets/range/range.php:167
 msgid "Suffix Text"
 msgstr ""
 
-#: widgets/range/range.php:182
+#: widgets/range/range.php:180
 msgid "Enable Prefix"
 msgstr ""
 
-#: widgets/range/range.php:195
+#: widgets/range/range.php:193
 msgid "Prefix Text"
 msgstr ""
 
-#: widgets/range/range.php:243
+#: widgets/range/range.php:241
 msgid "Range Track"
 msgstr ""
 
-#: widgets/range/range.php:266
-#: widgets/range/range.php:324
-#: widgets/range/range.php:427
+#: widgets/range/range.php:264
+#: widgets/range/range.php:322
+#: widgets/range/range.php:425
 #: widgets/switch/switch.php:161
 #: widgets/textarea/textarea.php:114
 msgid "Height"
 msgstr ""
 
-#: widgets/range/range.php:285
+#: widgets/range/range.php:283
 msgid "Input Track Background"
 msgstr ""
 
-#: widgets/range/range.php:358
-#: widgets/range/range.php:442
+#: widgets/range/range.php:356
+#: widgets/range/range.php:440
 msgid "Range Slider Background"
 msgstr ""
 
-#: widgets/range/range.php:367
-#: widgets/range/range.php:452
+#: widgets/range/range.php:365
+#: widgets/range/range.php:450
 msgid "Range Slider Border"
 msgstr ""
 
-#: widgets/range/range.php:388
+#: widgets/range/range.php:386
 msgid "Counter"
 msgstr ""
 
@@ -6347,8 +6374,7 @@ msgstr ""
 
 #: widgets/select/select.php:21
 #: widgets/select/select.php:278
-#: build/admin/admin-shell/index.js:1
-#: src/admin/admin-shell/index.js:283
+#: src/admin/admin-shell/index.js:295
 msgid "Select"
 msgstr ""
 
@@ -6387,14 +6413,6 @@ msgstr ""
 
 #: widgets/select/select.php:194
 msgid "Enter a CSV File URL"
-msgstr ""
-
-#: widgets/select/select.php:290
-msgid "Options Wrapper"
-msgstr ""
-
-#: widgets/select/select.php:345
-msgid "Option"
 msgstr ""
 
 #: widgets/select/select.php:483
@@ -6553,7 +6571,6 @@ msgid "Use time 24H"
 msgstr ""
 
 #: widgets/url/url.php:20
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/stats/topReferrers.js:99
 msgid "URL"
 msgstr ""
@@ -6576,920 +6593,538 @@ msgstr ""
 msgid "Get the %1$sPro version%2$s for more awesome elements and powerful modules."
 msgstr ""
 
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-analytics/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:63
-#: src/admin/form-analytics/components/stats/formType.js:7
-#: src/admin/form-picker-modal/FormPickerModal.js:647
-msgid "Quiz"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:243
-#: src/admin/add-new-form-modal/modal.js:379
-#: src/admin/add-new-form-modal/modal.js:496
-msgid "Invalid form ID returned from server."
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:265
-#: src/admin/add-new-form-modal/modal.js:402
-#: src/admin/add-new-form-modal/modal.js:513
-msgid "Unknown error occurred"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:96
-#: src/admin/add-new-form-modal/modal.js:424
-msgid "Please enter a form name"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:553
-#: src/admin/form-analytics/components/sidebar/sidebar.js:12
-#: src/admin/form-picker-modal/FormPickerModal.js:41
-msgid "Contact Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:554
-#: src/admin/form-picker-modal/FormPickerModal.js:42
-msgid "Conditional Logic Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:556
-#: src/admin/form-picker-modal/FormPickerModal.js:43
-msgid "Feedback Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:557
-#: src/admin/form-picker-modal/FormPickerModal.js:44
-msgid "Calculation Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:558
-msgid "Multi-step Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:559
-#: src/admin/form-picker-modal/FormPickerModal.js:45
-msgid "Booking Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:560
-#: src/admin/form-picker-modal/FormPickerModal.js:46
-msgid "Product Order Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:561
-#: src/admin/form-picker-modal/FormPickerModal.js:47
-msgid "Loan Application Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:562
-#: src/admin/form-picker-modal/FormPickerModal.js:48
-msgid "Job Application Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:563
-#: src/admin/form-picker-modal/FormPickerModal.js:49
-msgid "Admission Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:564
-#: src/admin/form-picker-modal/FormPickerModal.js:50
-msgid "Support Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:565
-msgid "Newsletter Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:566
-msgid "Medical Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:567
-msgid "Other Forms"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:573
-#: src/admin/form-picker-modal/FormPickerModal.js:109
-msgid "All Quiz"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:574
-#: src/admin/form-picker-modal/FormPickerModal.js:110
-msgid "All General"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:657
-msgid "Ready-Made Form Templates"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:667
-msgid "Choose from pre-designed templates and get started fast"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:680
-#: src/admin/form-picker-modal/FormPickerModal.js:634
-msgid "Form Type"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:741
-#: src/admin/form-picker-modal/FormPickerModal.js:726
-msgid "Search a form template"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:175
-#: src/admin/add-new-form-modal/modal.js:811
-#: src/admin/form-picker-modal/FormPickerModal.js:759
-msgid "Blank Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:843
-#: src/admin/form-picker-modal/FormPickerModal.js:788
-msgid "Create from Scratch"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:1007
-msgid "Import Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:1024
-#: src/admin/form-picker-modal/FormPickerModal.js:974
-msgid "Live Preview"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:1046
-msgid "No templates found matching your criteria."
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:1073
-#: src/admin/form-picker-modal/FormPickerModal.js:1024
-msgid "Create Your Form"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:1108
-msgid "Enter your form name?"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:1117
-msgid ""
-"Enter the form name or leave it\n"
-"blank to use the default name."
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:1158
-msgid "Enter your form name..."
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:1201
-#: src/admin/form-picker-modal/FormPickerModal.js:1137
-msgid "Elementor"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:1221
-#: src/admin/form-picker-modal/FormPickerModal.js:1156
-msgid "MetForm Builder"
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:285
-#: src/admin/add-new-form-modal/modal.js:1253
-msgid "Importing..."
-msgstr ""
-
-#: build/admin/add-new-form-modal/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:1260
-#: src/admin/form-picker-modal/FormPickerModal.js:1192
-msgid "Import"
-msgstr ""
-
-#: build/admin/admin-shell/index.js:1
-#: src/admin/admin-shell/index.js:38
-#: src/admin/admin-shell/index.js:81
+#: src/admin/admin-shell/index.js:44
+#: src/admin/admin-shell/index.js:90
 msgid "Select Campaign"
 msgstr ""
 
-#: build/admin/admin-shell/index.js:1
-#: src/admin/admin-shell/index.js:371
+#: src/admin/admin-shell/index.js:386
 msgid "Select Sheet"
 msgstr ""
 
-#: build/admin/admin-shell/index.js:1
-#: src/admin/admin-shell/index.js:450
-#: src/admin/admin-shell/index.js:558
+#: src/admin/admin-shell/index.js:468
+#: src/admin/admin-shell/index.js:582
 msgid "Select Folder"
 msgstr ""
 
-#: build/admin/admin-shell/index.js:1
-#: src/admin/admin-shell/index.js:465
+#: src/admin/admin-shell/index.js:486
 msgid "No folders found"
 msgstr ""
 
-#: build/admin/admin-shell/index.js:1
-#: build/admin/form-analytics/index.js:1
-#: src/admin/admin-shell/index.js:644
-#: src/admin/admin-shell/index.js:701
-#: src/admin/admin-shell/index.js:726
+#: src/admin/admin-shell/index.js:671
+#: src/admin/admin-shell/index.js:731
+#: src/admin/admin-shell/index.js:759
 #: src/admin/form-analytics/components/quiz/answerStatistics.js:369
 msgid "Select a form"
 msgstr ""
 
-#: build/admin/admin-shell/index.js:1
-#: src/admin/admin-shell/index.js:824
+#: src/admin/admin-shell/index.js:860
 msgid "Please connect your HubSpot account."
 msgstr ""
 
-#: build/admin/admin-shell/index.js:1
-#: src/admin/admin-shell/index.js:829
+#: src/admin/admin-shell/index.js:868
 msgid "Please click the refresh button to fetch forms, and then select a form from the list."
 msgstr ""
 
-#: build/admin/admin-shell/index.js:1
-#: src/admin/admin-shell/index.js:1439
-msgid "Loading fields..."
-msgstr ""
-
-#: build/admin/admin-shell/index.js:1
-#: src/admin/admin-shell/index.js:1476
-msgid "No fields found. Please save the form with widgets first."
-msgstr ""
-
-#: build/admin/admin-shell/index.js:1
-#: src/admin/admin-shell/index.js:1540
-msgid "Error loading fields."
-msgstr ""
-
-#: build/admin/admin-shell/index.js:1
-#: src/admin/admin-shell/index.js:1546
-msgid "Failed to load MailerLite fields. Check your API key."
-msgstr ""
-
-#: build/admin/admin-shell/index.js:1
-#: src/admin/admin-shell/index.js:1434
-msgid "Please select a MailerLite group first."
-msgstr ""
-
-#: build/admin/admin-shell/index.js:1
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/admin-shell/index.js:1065
-#: src/admin/form-picker-modal/FormPickerModal.js:417
-#: src/admin/form-picker-modal/FormPickerModal.js:428
+#: src/admin/admin-shell/index.js:1107
+#: src/admin/form-modal/components/form-picker-modal/form-picker-modal.js:80
 msgid "Please select a form."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:5
-msgid "January"
+#: src/admin/admin-shell/index.js:1479
+msgid "Please select a MailerLite group first."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:6
-msgid "February"
+#: src/admin/admin-shell/index.js:1488
+msgid "Loading fields..."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:7
-msgid "March"
+#: src/admin/admin-shell/index.js:1529
+msgid "No fields found. Please save the form with widgets first."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:8
-msgid "April"
+#: src/admin/admin-shell/index.js:1596
+msgid "Error loading fields."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:9
-msgid "May"
+#: src/admin/admin-shell/index.js:1605
+msgid "Failed to load MailerLite fields. Check your API key."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:10
-msgid "June"
+#: src/admin/admin-shell/index.js:1743
+#: src/admin/form-picker-editor/index.js:263
+msgid "Leaving? Changes you made may not be saved."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:11
-msgid "July"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:12
-msgid "August"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:13
-msgid "September"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:14
-msgid "October"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:15
-msgid "November"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:16
-msgid "December"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:19
-msgid "MO"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:20
-msgid "TU"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:21
-msgid "WE"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:22
-msgid "TH"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:23
-msgid "FR"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:24
-msgid "SA"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:25
-msgid "SU"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:338
-msgid "Start date"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:365
-msgid "End date"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:402
-msgid "Previous month"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:422
-msgid "Next month"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:559
-#: src/admin/form-analytics/components/stats/dateRangePicker.js:19
-#: src/admin/form-analytics/components/stats/dateRangePicker.js:71
-msgid "Today"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:566
-msgid "Clear"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:573
-msgid "Done"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/browserPerformance.js:47
-#: src/admin/form-analytics/components/stats/submission.js:60
-#: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:43
-msgid "Loading traffic sources..."
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/browserPerformance.js:51
-msgid "Firefox"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/browserPerformance.js:52
-msgid "Chrome"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/browserPerformance.js:53
-msgid "Edge"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/browserPerformance.js:54
-msgid "Safari"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/browserPerformance.js:55
-msgid "Opera"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/browserPerformance.js:56
-msgid "Explorer"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/browserPerformance.js:72
-#: src/admin/form-analytics/components/device/browserPerformance.js:161
-msgid "Browser Performance"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/browserPerformance.js:75
-msgid "No browser data yet"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/browserPerformance.js:76
-#: src/admin/form-analytics/components/device/deviceDistribution.js:58
-msgid "Your browser data will appear once data comes in. Connect a source to start."
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/browserPerformance.js:89
-msgid "Sessions / Performance"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/deviceDistribution.js:40
-msgid "Loading device distribution..."
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/deviceDistribution.js:53
-#: src/admin/form-analytics/components/device/deviceDistribution.js:117
-msgid "Device Distribution"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/deviceDistribution.js:57
-msgid "No browser data yet."
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/deviceDistribution.js:75
-msgid "Desktop"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/deviceDistribution.js:76
-msgid "Mobile"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/device/deviceDistribution.js:77
-msgid "Tablet"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/devices.js:9
 msgid "Devices & Browsers"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/geographic.js:48
 msgid "Unknown"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/geographic.js:70
 msgid "Loading country data..."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/geographic.js:83
 #: src/admin/form-analytics/components/sidebar/sidebar.js:37
 msgid "Geographic"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/geographic.js:90
 msgid "Traffic by Country"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/geographic.js:98
 msgid "Top Country"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/geographic.js:104
 msgid "No country data yet"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/geographic.js:105
 msgid "Top countries by traffic will appear once visitors start submitting your form."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/geographic.js:115
 msgid "Country"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/geographic.js:116
 #: src/admin/form-analytics/components/stats/viewssub.js:100
 msgid "Views"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/geographic.js:117
 msgid "Conversion"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/geographic.js:118
 msgid "Rate"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/card.js:33
-#: src/admin/form-analytics/components/stats/trafficsum.js:62
-#: src/admin/form-analytics/components/stats/trafficsummary.js:41
-msgid "Loading..."
+#: src/admin/form-analytics/components/analytics/overview.js:82
+msgid "Total Views"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/viewssub.js:70
-msgid "Loading chart data..."
+#: src/admin/form-analytics/components/analytics/overview.js:87
+msgid "Total number of form page visits."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/submission.js:80
-#: src/admin/form-analytics/components/stats/viewssub.js:122
-msgid "Submissions"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/viewssub.js:192
-msgid "View & Submission By Date"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/topReferrers.js:41
-msgid "Loading referrers..."
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/topReferrers.js:77
-#: src/admin/form-analytics/components/stats/topReferrers.js:93
-msgid "Top Referrers"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/topReferrers.js:80
-msgid "No referrers yet"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/topReferrers.js:81
-msgid "Referrer data will appear once visitors start coming to your form. Share your form link to get started."
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/overview.js:93
 #: src/admin/form-analytics/components/sidebar/sidebar.js:29
 #: src/admin/form-analytics/components/stats/topReferrers.js:101
 msgid "Conversions"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/topReferrers.js:135
-msgid "Previous page"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/topReferrers.js:156
-msgid "Next page"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/trafficsum.js:90
-#: src/admin/form-analytics/components/stats/trafficsummary.js:76
-#: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:15
-msgid "Organic"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/trafficsum.js:91
-#: src/admin/form-analytics/components/stats/trafficsummary.js:81
-#: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:16
-msgid "Direct"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:55
-#: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:112
-msgid "Traffic Source Distribution"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:59
-msgid "No data yet"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/trafficsummary.js:64
-#: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:60
-msgid "Your traffic breakdown will appear once data comes in. Connect a source to start."
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/analytics/traffic.js:10
-msgid "Traffics & Sources Breakdown"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/submission.js:154
-msgid "Daily Submission Pattern"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/analytics/trends.js:8
-msgid "Trends"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/trafficsum.js:75
-#: src/admin/form-analytics/components/stats/trafficsum.js:122
-#: src/admin/form-analytics/components/stats/trafficsummary.js:58
-#: src/admin/form-analytics/components/stats/trafficsummary.js:95
-msgid "Top Traffic Source (Summary)"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/trafficsum.js:78
-#: src/admin/form-analytics/components/stats/trafficsummary.js:63
-msgid "No data available"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/analytics/overview.js:82
-msgid "Total Views"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/analytics/overview.js:87
-msgid "Total number of form page visits."
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/overview.js:98
 msgid "Number of successful form submissions."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/overview.js:104
 msgid "Conversion Rate"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/overview.js:109
 msgid "Percentage of visitors who submitted the form."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/overview.js:115
 msgid "Average Session"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/analytics/overview.js:120
 msgid "Average time users stayed before submitting or leaving."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
+#: src/admin/form-analytics/components/analytics/traffic.js:10
+msgid "Traffics & Sources Breakdown"
+msgstr ""
+
+#: src/admin/form-analytics/components/analytics/trends.js:8
+msgid "Trends"
+msgstr ""
+
+#: src/admin/form-analytics/components/card.js:33
+#: src/admin/form-analytics/components/stats/trafficsum.js:62
+#: src/admin/form-analytics/components/stats/trafficsummary.js:41
+msgid "Loading..."
+msgstr ""
+
+#: src/admin/form-analytics/components/device/browserPerformance.js:47
+#: src/admin/form-analytics/components/stats/submission.js:60
+#: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:43
+msgid "Loading traffic sources..."
+msgstr ""
+
+#: src/admin/form-analytics/components/device/browserPerformance.js:51
+msgid "Firefox"
+msgstr ""
+
+#: src/admin/form-analytics/components/device/browserPerformance.js:52
+msgid "Chrome"
+msgstr ""
+
+#: src/admin/form-analytics/components/device/browserPerformance.js:53
+msgid "Edge"
+msgstr ""
+
+#: src/admin/form-analytics/components/device/browserPerformance.js:54
+msgid "Safari"
+msgstr ""
+
+#: src/admin/form-analytics/components/device/browserPerformance.js:55
+msgid "Opera"
+msgstr ""
+
+#: src/admin/form-analytics/components/device/browserPerformance.js:56
+msgid "Explorer"
+msgstr ""
+
+#: src/admin/form-analytics/components/device/browserPerformance.js:72
+#: src/admin/form-analytics/components/device/browserPerformance.js:161
+msgid "Browser Performance"
+msgstr ""
+
+#: src/admin/form-analytics/components/device/browserPerformance.js:75
+msgid "No browser data yet"
+msgstr ""
+
+#: src/admin/form-analytics/components/device/browserPerformance.js:76
+#: src/admin/form-analytics/components/device/deviceDistribution.js:58
+msgid "Your browser data will appear once data comes in. Connect a source to start."
+msgstr ""
+
+#: src/admin/form-analytics/components/device/browserPerformance.js:89
+msgid "Sessions / Performance"
+msgstr ""
+
+#: src/admin/form-analytics/components/device/deviceDistribution.js:40
+msgid "Loading device distribution..."
+msgstr ""
+
+#: src/admin/form-analytics/components/device/deviceDistribution.js:53
+#: src/admin/form-analytics/components/device/deviceDistribution.js:117
+msgid "Device Distribution"
+msgstr ""
+
+#: src/admin/form-analytics/components/device/deviceDistribution.js:57
+msgid "No browser data yet."
+msgstr ""
+
+#: src/admin/form-analytics/components/device/deviceDistribution.js:75
+msgid "Desktop"
+msgstr ""
+
+#: src/admin/form-analytics/components/device/deviceDistribution.js:76
+msgid "Mobile"
+msgstr ""
+
+#: src/admin/form-analytics/components/device/deviceDistribution.js:77
+msgid "Tablet"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:5
+msgid "January"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:6
+msgid "February"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:7
+msgid "March"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:8
+msgid "April"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:9
+msgid "May"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:10
+msgid "June"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:11
+msgid "July"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:12
+msgid "August"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:13
+msgid "September"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:14
+msgid "October"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:15
+msgid "November"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:16
+msgid "December"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:19
+msgid "MO"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:20
+msgid "TU"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:21
+msgid "WE"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:22
+msgid "TH"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:23
+msgid "FR"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:24
+msgid "SA"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:25
+msgid "SU"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:338
+msgid "Start date"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:365
+msgid "End date"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:402
+msgid "Previous month"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:422
+msgid "Next month"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:559
+#: src/admin/form-analytics/components/stats/dateRangePicker.js:19
+#: src/admin/form-analytics/components/stats/dateRangePicker.js:71
+msgid "Today"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:566
+msgid "Clear"
+msgstr ""
+
+#: src/admin/form-analytics/components/dropdowns/dateRangePicker.js:573
+msgid "Done"
+msgstr ""
+
 #: src/admin/form-analytics/components/dropdowns/formPicker.js:35
 msgid "Untitled Form"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/dropdowns/formPicker.js:41
 msgid "All Quiz Forms"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/dropdowns/formPicker.js:42
 msgid "All Forms"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/dropdowns/formPicker.js:151
 msgid "Loading…"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: build/admin/form-picker-modal/index.js:1
 #: src/admin/form-analytics/components/dropdowns/formPicker.js:155
-#: src/admin/form-picker-modal/FormPickerModal.js:260
+#: src/admin/form-modal/components/form-picker-modal/form-dropdown.js:56
 msgid "Select a form…"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/formType.js:13
-msgid "Analytics Type"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:132
+msgid "Manual Grading"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:16
-msgid "OVERVIEW"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:140
+msgid "Radio Button"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:17
-msgid "View forms’ key metrics at a glance"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:141
+msgid "Dropdown"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:22
-msgid "TRAFFIC & SOURCES"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:142
+msgid "Checkbox (Multi-Select)"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:23
-msgid "See a detailed breakdown of the traffic"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:143
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:144
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:145
+msgid "Text-Field"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:28
-msgid "DEVICE & BROWSERS"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:146
+msgid "Number Field"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:29
-msgid "Compare performance across devices"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:211
+msgid "Common Answers"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:34
-msgid "GEOGRAPHIC"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:235
+msgid "No common answer data — requires manual review."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:35
-msgid "Map your form traffic by country and region"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:297
+msgid "Average"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:40
-msgid "TRENDS"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:307
+msgid "Median"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:41
-msgid "Spot submission patterns over time"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:317
+msgid "Range"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:49
-msgid "QUIZ OVERVIEW"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:370
+msgid "Choose a specific form from the dropdown above to view its answer statistics."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:50
-msgid "Summary of quiz performance"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:480
+msgid "Loading answer statistics…"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:55
-msgid "ANSWER STATISTICS"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:503
+msgid "No answer data yet"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:56
-msgid "Score distributions & pass rates"
+#: src/admin/form-analytics/components/quiz/answerStatistics.js:504
+msgid "Detailed answer statistics for each question will appear once your quiz starts receiving submissions."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:61
-msgid "DIFFICULTY"
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:22
+msgid "Easy"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/sidebar/sideBars.js:62
-msgid "Per-question stats & difficulty"
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:25
+msgid ">80%"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:28
+msgid "Medium"
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:31
+msgid "50%–80%"
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:34
+msgid "Hard"
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:37
+msgid "20%–50%"
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:40
+msgid "Very Hard"
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:43
+msgid "<20%"
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:90
+msgid "Skip Rate (%)"
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:167
+msgid "Loading difficulty data…"
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:205
+msgid "Question Difficulty Ranking"
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:218
+msgid "No difficulty data yet"
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:222
+msgid "Question difficulty rankings will appear once your quiz receives submissions."
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:241
+msgid "Difficulty"
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:271
+msgid "Difficulty Legend"
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:350
+msgid "Skip Rate by Question"
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:366
+msgid "No skip rate data yet"
+msgstr ""
+
+#: src/admin/form-analytics/components/quiz/quizDifficulty.js:370
+msgid "Skip rate data will appear once your quiz receives submissions."
+msgstr ""
+
 #: src/admin/form-analytics/components/quiz/quizOverview.js:113
 #: src/admin/form-analytics/components/quiz/quizOverview.js:174
 msgid "Correct / Wrong Breakdown"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:116
 msgid "No quiz data yet"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:117
 msgid "Correct and wrong answer breakdown will appear once quiz submissions come in."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:207
 msgid "Total"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:247
 msgid "Loading score distribution..."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:253
 msgid "Error loading distribution"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:278
 msgid "Students"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:315
 msgid "Score Distribution"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:351
 msgid "Avg Time to Complete"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:355
 #: src/admin/form-analytics/components/quiz/quizOverview.js:361
 #: src/admin/form-analytics/components/quiz/quizOverview.js:369
@@ -7497,69 +7132,56 @@ msgstr ""
 msgid "Benchmark"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:356
 #: src/admin/form-analytics/components/quiz/quizOverview.js:362
 #: src/admin/form-analytics/components/quiz/quizOverview.js:370
 msgid "On Track"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:359
 msgid "Completion Rate"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:365
 msgid "Abandonment Rate"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:377
 msgid "Loading metrics..."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:383
 msgid "Error loading metrics"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:390
 msgid "Quiz Completion Metrics"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:395
 msgid "Metric"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:396
 msgid "Value"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:451
 msgid "Loading quiz analytics..."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:457
 msgid "Error loading quiz data"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:512
 msgid "Average Score"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:513
 msgid "Average percentage score achieved by all quiz participants."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:544
 #: src/admin/form-analytics/components/quiz/quizOverview.js:577
 #: src/admin/form-analytics/components/quiz/quizOverview.js:659
@@ -7567,334 +7189,52 @@ msgstr ""
 msgid "—"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:545
 msgid "Highest Score"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:546
 msgid "Highest score achieved among all quiz submissions."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:578
 msgid "Lowest Score"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:579
 msgid "Lowest score recorded from submitted quizzes."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:620
 msgid "Correct/Wrong"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:621
 msgid "Percentage breakdown of correctly answered vs incorrectly answered questions."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:660
 msgid "Total Questions"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:661
 msgid "Total number of questions included in the selected quiz."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:697
 msgid "Most Skipped Question"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
 #: src/admin/form-analytics/components/quiz/quizOverview.js:698
 msgid "Question skipped most frequently by quiz participants."
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:22
-msgid "Easy"
+#: src/admin/form-analytics/components/sidebar/sidebar.js:11
+msgid "Select Form"
 msgstr ""
 
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:25
-msgid ">80%"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:28
-msgid "Medium"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:31
-msgid "50%–80%"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:34
-msgid "Hard"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:37
-msgid "20%–50%"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:40
-msgid "Very Hard"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:43
-msgid "<20%"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:90
-msgid "Skip Rate (%)"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:167
-msgid "Loading difficulty data…"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:205
-msgid "Question Difficulty Ranking"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:218
-msgid "No difficulty data yet"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:222
-msgid "Question difficulty rankings will appear once your quiz receives submissions."
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:241
-msgid "Difficulty"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:271
-msgid "Difficulty Legend"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:350
-msgid "Skip Rate by Question"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:366
-msgid "No skip rate data yet"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/quizDifficulty.js:370
-msgid "Skip rate data will appear once your quiz receives submissions."
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:132
-msgid "Manual Grading"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:140
-msgid "Radio Button"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:141
-msgid "Dropdown"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:142
-msgid "Checkbox (Multi-Select)"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:143
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:144
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:145
-msgid "Text-Field"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:146
-msgid "Number Field"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:211
-msgid "Common Answers"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:235
-msgid "No common answer data — requires manual review."
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:297
-msgid "Average"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:307
-msgid "Median"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:317
-msgid "Range"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:370
-msgid "Choose a specific form from the dropdown above to view its answer statistics."
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:480
-msgid "Loading answer statistics…"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:503
-msgid "No answer data yet"
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/quiz/answerStatistics.js:504
-msgid "Detailed answer statistics for each question will appear once your quiz starts receiving submissions."
-msgstr ""
-
-#: build/admin/form-analytics/index.js:1
-#: src/admin/form-analytics/components/stats/lockDesign.js:31
-#: src/admin/form-analytics/components/stats/upgradeBanner.js:38
-msgid "Upgrade to Pro"
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:467
-msgid "Invalid form ID returned."
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/add-new-form-modal/modal.js:139
-#: src/admin/form-picker-modal/FormPickerModal.js:477
-msgid "Error creating form. Please try again."
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:500
-msgid " Edit Form"
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:514
-msgid "Select Saved Form"
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:525
-msgid "Create New Form"
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:548
-msgid "You will find your saved form URLs here"
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:554
-msgid "This section stores all the form URLs you've created or saved, making it easy to organize, access, and share them whenever needed."
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:563
-msgid "No forms created yet. Switch to, Create new form to create one."
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:619
-msgid "Save & Return"
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:958
-msgid "Create Form"
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:919
-msgid "Pro Upgrade"
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:994
-msgid "No template found matching your criteria."
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:1053
-msgid "What is your form name?"
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:1059
-msgid "Enter the form name or leave it blank to use the default."
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:1098
-msgid "Enter your form name…"
-msgstr ""
-
-#: build/admin/form-picker-modal/index.js:1
-#: src/admin/form-picker-modal/FormPickerModal.js:1188
-msgid "Creating…"
-msgstr ""
-
-#: build/admin/onboarding/index.js:1
-#: src/admin/onboarding/index.js:599
-msgid "Please enter a valid email address."
-msgstr ""
-
-#: build/frontend/app/index.js:1
-#: src/frontend/app/components/response-message/response-message.js:19
-msgid "This is a sample success message."
-msgstr ""
-
-#: src/admin/add-new-form-modal/modal.js:156
-msgid "Creating..."
-msgstr ""
-
-#. translators: %s: Error message returned while creating a form.
-#: src/admin/add-new-form-modal/modal.js:269
-#, js-format
-msgid "Error creating blank form: %s"
-msgstr ""
-
-#. translators: %s: Error message returned while importing a template.
-#: src/admin/add-new-form-modal/modal.js:406
-#, js-format
-msgid "Error importing template: %s"
+#: src/admin/form-analytics/components/sidebar/sidebar.js:12
+msgid "Contact Form"
 msgstr ""
 
 #: src/admin/form-analytics/components/sidebar/sidebar.js:13
@@ -7915,6 +7255,70 @@ msgstr ""
 
 #: src/admin/form-analytics/components/sidebar/sidebar.js:33
 msgid "Devices"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:16
+msgid "OVERVIEW"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:17
+msgid "View forms’ key metrics at a glance"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:22
+msgid "TRAFFIC & SOURCES"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:23
+msgid "See a detailed breakdown of the traffic"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:28
+msgid "DEVICE & BROWSERS"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:29
+msgid "Compare performance across devices"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:34
+msgid "GEOGRAPHIC"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:35
+msgid "Map your form traffic by country and region"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:40
+msgid "TRENDS"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:41
+msgid "Spot submission patterns over time"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:49
+msgid "QUIZ OVERVIEW"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:50
+msgid "Summary of quiz performance"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:55
+msgid "ANSWER STATISTICS"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:56
+msgid "Score distributions & pass rates"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:61
+msgid "DIFFICULTY"
+msgstr ""
+
+#: src/admin/form-analytics/components/sidebar/sideBars.js:62
+msgid "Per-question stats & difficulty"
 msgstr ""
 
 #: src/admin/form-analytics/components/stats/dateRangePicker.js:26
@@ -7938,6 +7342,14 @@ msgstr ""
 msgid "Custom Range"
 msgstr ""
 
+#: src/admin/form-analytics/components/stats/formType.js:7
+msgid "Quiz"
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/formType.js:13
+msgid "Analytics Type"
+msgstr ""
+
 #: src/admin/form-analytics/components/stats/lockDesign.js:14
 msgid "Unlock detailed insights"
 msgstr ""
@@ -7946,6 +7358,232 @@ msgstr ""
 msgid "Get full breakdowns, source comparisons, and trend history to access advanced analytics."
 msgstr ""
 
+#: src/admin/form-analytics/components/stats/lockDesign.js:31
+#: src/admin/form-analytics/components/stats/upgradeBanner.js:38
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/submission.js:80
+#: src/admin/form-analytics/components/stats/viewssub.js:122
+msgid "Submissions"
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/submission.js:154
+msgid "Daily Submission Pattern"
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/topReferrers.js:41
+msgid "Loading referrers..."
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/topReferrers.js:77
+#: src/admin/form-analytics/components/stats/topReferrers.js:93
+msgid "Top Referrers"
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/topReferrers.js:80
+msgid "No referrers yet"
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/topReferrers.js:81
+msgid "Referrer data will appear once visitors start coming to your form. Share your form link to get started."
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/topReferrers.js:135
+msgid "Previous page"
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/topReferrers.js:156
+msgid "Next page"
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/trafficsum.js:75
+#: src/admin/form-analytics/components/stats/trafficsum.js:122
+#: src/admin/form-analytics/components/stats/trafficsummary.js:58
+#: src/admin/form-analytics/components/stats/trafficsummary.js:95
+msgid "Top Traffic Source (Summary)"
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/trafficsum.js:78
+#: src/admin/form-analytics/components/stats/trafficsummary.js:63
+msgid "No data available"
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/trafficsum.js:90
+#: src/admin/form-analytics/components/stats/trafficsummary.js:76
+#: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:15
+msgid "Organic"
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/trafficsum.js:91
+#: src/admin/form-analytics/components/stats/trafficsummary.js:81
+#: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:16
+msgid "Direct"
+msgstr ""
+
 #: src/admin/form-analytics/components/stats/trafficsum.js:96
 msgid "Percentage"
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/trafficsummary.js:64
+#: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:60
+msgid "Your traffic breakdown will appear once data comes in. Connect a source to start."
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/viewssub.js:70
+msgid "Loading chart data..."
+msgstr ""
+
+#: src/admin/form-analytics/components/stats/viewssub.js:192
+msgid "View & Submission By Date"
+msgstr ""
+
+#: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:55
+#: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:112
+msgid "Traffic Source Distribution"
+msgstr ""
+
+#: src/admin/form-analytics/components/traffics/trafficSourcesChart.js:59
+msgid "No data yet"
+msgstr ""
+
+#: src/admin/form-modal/components/add-new-form-modal/add-new-form-modal.js:61
+#: src/admin/form-modal/components/form-picker-modal/form-picker-modal.js:100
+msgid "Please enter a form name"
+msgstr ""
+
+#: src/admin/form-modal/components/add-new-form-modal/add-new-form-modal.js:78
+#: src/admin/form-modal/components/form-picker-modal/form-picker-modal.js:120
+msgid "Could not create the form."
+msgstr ""
+
+#: src/admin/form-modal/components/add-new-form-modal/add-new-form-modal.js:88
+msgid "Ready-Made Form Templates"
+msgstr ""
+
+#: src/admin/form-modal/components/add-new-form-modal/add-new-form-modal.js:98
+msgid "Choose from pre-designed templates and get started fast"
+msgstr ""
+
+#: src/admin/form-modal/components/form-picker-modal/form-picker-modal.js:150
+msgid "Select Saved Form"
+msgstr ""
+
+#: src/admin/form-modal/components/form-picker-modal/form-picker-modal.js:161
+msgid "Create New Form"
+msgstr ""
+
+#: src/admin/form-modal/components/form-picker-modal/saved-form-panel.js:30
+msgid "You will find your saved form URLs here"
+msgstr ""
+
+#: src/admin/form-modal/components/form-picker-modal/saved-form-panel.js:36
+msgid "This section stores all the form URLs you've created or saved, making it easy to organize, access, and share them whenever needed."
+msgstr ""
+
+#: src/admin/form-modal/components/form-picker-modal/saved-form-panel.js:67
+msgid "Save & Return"
+msgstr ""
+
+#: src/admin/form-modal/components/form-picker-modal/saved-form-panel.js:73
+msgid "No forms created yet. Switch to, Create new form to create one."
+msgstr ""
+
+#: src/admin/form-modal/components/shared/form-type-filter.js:24
+#: src/admin/form-modal/components/shared/form-type-filter.js:27
+msgid "Form Type"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/name-dialog.js:44
+msgid "Elementor"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/name-dialog.js:53
+msgid "MetForm Builder"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/name-dialog.js:71
+msgid "Create Your Form"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/name-dialog.js:89
+msgid "What is your form name?"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/name-dialog.js:90
+msgid "Enter your form name?"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/name-dialog.js:93
+msgid "Enter the form name or leave it blank to use the default."
+msgstr ""
+
+#: src/admin/form-modal/components/shared/name-dialog.js:107
+msgid "Enter your form name…"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/name-dialog.js:108
+msgid "Enter your form name..."
+msgstr ""
+
+#: src/admin/form-modal/components/shared/name-dialog.js:131
+msgid "Importing..."
+msgstr ""
+
+#: src/admin/form-modal/components/shared/name-dialog.js:134
+msgid "Import"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/template-card.js:46
+#: src/admin/form-modal/components/shared/template-card.js:55
+msgid "Create from Scratch"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/template-card.js:67
+msgid "Blank Template"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/template-card.js:116
+msgid "Get Pro"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/template-card.js:133
+msgid "Create Form"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/template-card.js:134
+msgid "Import Form"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/template-card.js:148
+msgid "Live Preview"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/template-grid.js:48
+msgid "No templates found matching your criteria."
+msgstr ""
+
+#: src/admin/form-modal/components/shared/template-loading.js:49
+msgid "Loading templates…"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/template-toolbar.js:38
+msgid "Syncing…"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/template-toolbar.js:39
+msgid "Sync"
+msgstr ""
+
+#: src/admin/form-modal/components/shared/template-toolbar.js:64
+#: src/admin/form-modal/components/shared/template-toolbar.js:71
+msgid "Search a form template"
+msgstr ""
+
+#: src/admin/onboarding/index.js:599
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: src/frontend/app/components/response-message/response-message.js:19
+msgid "This is a sample success message."
 msgstr ""

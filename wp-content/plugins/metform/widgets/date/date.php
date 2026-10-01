@@ -766,7 +766,7 @@ Class MetForm_Input_Date extends Widget_Base{
 					options=${<?php echo json_encode( $dateConfig ); ?>}
 					value=${parent.getValue('<?php echo esc_attr( $mf_input_name ); ?>')}
 					onInput=${parent.handleDateTime}
-					aria-invalid=${validation.errors['<?php echo esc_attr( $mf_input_name ); ?>'] ? 'true' : 'false'}
+					aria-invalid="${validation.errors['<?php echo esc_attr( $mf_input_name ); ?>'] ? 'true' : 'false'}"
 					onReady=${(dates, dateStr, instance) => props.DateWidget(
 		instance,
 		'<?php echo esc_attr( $locale ) ?>',

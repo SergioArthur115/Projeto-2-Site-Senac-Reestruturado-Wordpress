@@ -348,7 +348,7 @@ Class MetForm_Input_Rating extends Widget_Base{
                             class="mf-input"
                             <?php if ( !$is_edit_mode ): ?>
                                 onClick=${parent.handleRating}
-                                aria-invalid=${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}
+                                aria-invalid="${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}"
                                 ref=${ el => parent.activateValidation(<?php echo json_encode($configData); ?>, el) }
                                 defaultChecked=${<?php echo esc_attr( $i ); ?> == parent.getValue('<?php echo esc_attr( $mf_input_name ); ?>')}
                             <?php endif; ?>

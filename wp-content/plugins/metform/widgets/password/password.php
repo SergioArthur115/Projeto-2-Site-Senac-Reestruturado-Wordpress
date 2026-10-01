@@ -175,7 +175,7 @@ Class MetForm_Input_Password extends Widget_Base{
 						'expression'	=> isset($mf_input_validation_expression) && !empty(trim($mf_input_validation_expression)) ? trim($mf_input_validation_expression) : 'null'
 					];
 				?>
-					aria-invalid=${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}
+					aria-invalid="${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}"
 					ref=${ el => parent.activateValidation(<?php echo json_encode($configData); ?>, el) }
 				<?php endif; ?>
 			/>

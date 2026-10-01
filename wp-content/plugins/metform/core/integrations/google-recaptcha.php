@@ -28,10 +28,18 @@ class Google_Recaptcha {
         ];
 
         $response = wp_remote_post( $endpoint, $options );
-        $responseKeys = json_decode($response['body'],true);
+        $this->return = [];
+
+        if ( is_wp_error( $response ) ) {
+            $this->return['status'] = 0;
+            $this->return['error'] = esc_html__('Captcha verification request failed.','metform');
+            return $this->return;
+        }
+
+        $responseKeys = json_decode(wp_remote_retrieve_body($response),true);
         $this->return['responseKeys'] = $responseKeys;
 
-        if($responseKeys["success"]) {
+        if(!empty($responseKeys["success"])) {
             $this->return['status'] = 1;
         } else {
             $this->return['status'] = 0;
@@ -61,10 +69,18 @@ class Google_Recaptcha {
 
         $response = wp_remote_post( $endpoint, $options );
 
-        $responseKeys = json_decode($response['body'],true);
+        $this->return = [];
+
+        if ( is_wp_error( $response ) ) {
+            $this->return['status'] = 0;
+            $this->return['error'] = esc_html__('Captcha verification request failed.','metform');
+            return $this->return;
+        }
+
+        $responseKeys = json_decode(wp_remote_retrieve_body($response),true);
         $this->return['responseKeys'] = $responseKeys;
 
-        if($responseKeys["success"]) {
+        if(!empty($responseKeys["success"])) {
             $this->return['status'] = 1;
         } else {
             $this->return['status'] = 0;

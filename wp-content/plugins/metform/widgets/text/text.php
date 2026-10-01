@@ -201,7 +201,7 @@ Class MetForm_Input_Text extends Widget_Base{
 				<?php if ( !$is_edit_mode ): ?>
 					onInput=${parent.handleChange}
 					onBlur=${parent.handleChange}
-					aria-invalid=${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}
+					aria-invalid="${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}"
 					ref=${el =>{
 						<?php if ( isset($quizData) && ($quizData['correctPoint'] != 0 || $quizData['incorrectPoint'] != 0) ) { ?>
 						!parent.state.answers["<?php echo esc_attr($mf_input_name); ?>"] && (

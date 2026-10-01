@@ -29,6 +29,17 @@ class Util{
 		return ( isset( $data_all[ $key ] ) && $data_all[ $key ] != '' ) ? $data_all[ $key ] : $default;
 	}
 
+	/**
+	 * Restrict a field name (mf_input_name) to [A-Za-z0-9_-[]].
+	 *
+	 * The name is echoed into JS string literals inside the "text/mf" template,
+	 * which is run via new Function() after &#8216;/&#8220; etc. are decoded to quotes,
+	 * so esc_attr() alone does not keep it inside the string.
+	 */
+	public static function sanitize_input_name( $name ) {
+		return is_string( $name ) ? preg_replace( '/[^A-Za-z0-9_\-\[\]]/', '', $name ) : '';
+	}
+
 	public static function save_settings( $new_data = array() ) {
 		// Ensure $new_data is always an array
 		if ( ! is_array( $new_data ) ) {
@@ -82,8 +93,19 @@ class Util{
      * @since 1.3.1
      * @access public
      */
+    /**
+     * Wrap a widget string into the JS template literal the frontend compiles
+     * with new Function(). Escape it for that context first: a backtick or
+     * "${" would break out and run as code (esc_html() leaves both alone).
+     * Backslash goes first so a trailing one cannot eat the next escape.
+     */
     public static function react_entity_support($str, $render_on_editor) {
 		if ( !\Elementor\Plugin::$instance->editor->is_edit_mode() || $render_on_editor ):
+			  $str = str_replace(
+				  array( '\\', '`', '${' ),
+				  array( '\\\\', '\\`', '\\${' ),
+				  (string) $str
+			  );
 			  $str = '${ parent.decodeEntities(`'. $str .'`) } ';
 		endif;
 		
@@ -369,9 +391,22 @@ class Util{
 		return $content;
 	}
 	
+	
 	public static function render_elementor_content($content_id){
 		$elementor_instance = \Elementor\Plugin::instance();
-		return $elementor_instance->frontend->get_builder_content_for_display( $content_id );
+
+		// Form documents can be rendered from editor/AJAX contexts where
+		// Elementor's normal `wp_enqueue_scripts` registration has not run.
+		// Register the base stylesheet before Elementor enqueues
+		// `elementor-post-{id}`, which declares it as a dependency.
+		if ( ! wp_style_is( 'elementor-frontend', 'registered' ) ) {
+			$elementor_instance->frontend->register_styles();
+		}
+
+		// Embedded forms are separate Elementor documents. Request their
+		// generated CSS explicitly because the current page's Elementor CSS
+		// file does not contain the form document's control styles.
+		return $elementor_instance->frontend->get_builder_content_for_display( $content_id, true );
 	}
 
 	public static function img_meta($id){
@@ -486,6 +521,16 @@ class Util{
 	 *                                 set this to true.
 	 */
 	public static function render_form_content($form, $widget_id, $is_trusted_source = false){
+		if ( is_numeric( $form ) ) {
+			$post = get_post( (int) $form );
+			if ( ! $post || 'metform-form' !== $post->post_type ) {
+				return '';
+			}
+			if ( ! current_user_can( 'read_post', $post->ID ) ) {
+				return '';
+			}
+		}
+
 		$rest_url = get_rest_url();
 		$form_unique_name = (is_numeric($form)) ? ($widget_id.'-'.$form) : $widget_id;
 		$form_id = (is_numeric($form)) ? $form : $widget_id;

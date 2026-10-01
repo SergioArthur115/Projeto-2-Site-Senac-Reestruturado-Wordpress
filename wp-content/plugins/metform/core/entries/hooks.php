@@ -16,7 +16,8 @@ class Hooks
         add_filter('parse_query', [$this, 'query_filter']);
         add_filter('wp_mail_from_name', [$this, 'wp_mail_from']);
         add_filter('upload_mimes', [$this, 'metfom_additional_upload_mimes']);
-        
+        add_filter('wp_untrash_post_status', [$this, 'untrash_to_previous_status'], 10, 3);
+
 
         // Check if file deletion is enabled in settings
         $settings = get_option('metform_option__settings');
@@ -110,6 +111,22 @@ class Hooks
                 $trash_icon    = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 5.66675L14.4093 15.4141C14.3666 16.1178 13.7834 16.6667 13.0783 16.6667H6.92164C6.21659 16.6667 5.6334 16.1178 5.59075 15.4141L5 5.66675" stroke="#A32D2D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 5.66659H7.33333M7.33333 5.66659L8.16017 3.73731C8.26522 3.49219 8.50625 3.33325 8.77293 3.33325H11.2271C11.4937 3.33325 11.7348 3.49219 11.8398 3.73731L12.6667 5.66659M7.33333 5.66659H12.6667M16 5.66659H12.6667" stroke="#A32D2D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.3335 13V9" stroke="#A32D2D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.6665 13V9" stroke="#A32D2D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
                 $lock_icon     = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 13 14" fill="none"><path d="M10.225 6.025h-8.4a1.2 1.2 0 0 0-1.2 1.2v4.2a1.2 1.2 0 0 0 1.2 1.2h8.4a1.2 1.2 0 0 0 1.2-1.2v-4.2a1.2 1.2 0 0 0-1.2-1.2m-7.2 0v-2.4a3 3 0 1 1 6 0v2.4" stroke="#2271B1" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+                // Trashed entries can't be viewed or re-trashed; offer Restore / Delete Permanently instead.
+                if ( get_post_status( $post_id ) === 'trash' ) {
+                    $restore_url = wp_nonce_url( admin_url( 'post.php?post=' . $post_id . '&action=untrash' ), 'untrash-post_' . $post_id );
+                    $delete_url  = get_delete_post_link( $post_id, '', true );
+                    $restore_icon = '<svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 8a6 6 0 1 0 1.76-4.24L2 5.5" stroke="#585960" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 2v3.5h3.5" stroke="#585960" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+                    $output  = '<div class="mf-entry-actions">';
+                    $output .= '<a href="' . esc_url( $restore_url ) . '" class="mf-entry-action-btn mf-entry-action-restore" data-mf-tooltip="' . esc_attr__( 'Restore', 'metform' ) . '">' . $restore_icon . '</a>';
+                    if ( $delete_url ) {
+                        $output .= '<a href="' . esc_url( $delete_url ) . '" class="mf-entry-action-btn mf-entry-action-trash" data-mf-tooltip="' . esc_attr__( 'Delete Permanently', 'metform' ) . '" onclick="return confirm(\'' . esc_js( __( 'Delete this entry permanently? This cannot be undone.', 'metform' ) ) . '\')">' . $trash_icon . '</a>';
+                    }
+                    $output .= '</div>';
+                    \MetForm\Utils\Util::metform_content_renderer( $output );
+                    break;
+                }
+
                 $output  = '<div class="mf-entry-actions">';
                 $output .= '<a href="' . esc_url( $view_url ) . '" class="mf-entry-action-btn mf-entry-action-view" data-mf-tooltip="' . esc_attr__( 'View', 'metform' ) . '">' . $view_icon . '</a>';
 
@@ -131,6 +148,21 @@ class Hooks
             return [];
         }
         return $actions;
+    }
+
+    /**
+     * Restore trashed entries to their pre-trash status instead of WP's default 'draft'.
+     *
+     * @param string $new_status
+     * @param int    $post_id
+     * @param string $previous_status
+     * @return string
+     */
+    public function untrash_to_previous_status( $new_status, $post_id, $previous_status ) {
+        if ( get_post_type( $post_id ) === 'metform-entry' && ! empty( $previous_status ) ) {
+            return $previous_status;
+        }
+        return $new_status;
     }
 
     public function query_filter($query)

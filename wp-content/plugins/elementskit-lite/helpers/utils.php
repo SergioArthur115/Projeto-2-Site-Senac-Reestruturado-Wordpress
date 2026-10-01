@@ -302,11 +302,57 @@ if ( ! empty( $contact_forms ) && ! is_wp_error( $contact_forms ) ) {
 		return $array;
 	}
 
-	public static function render_elementor_content_css( $content_id ) {
-		if ( class_exists( '\Elementor\Core\Files\CSS\Post' ) ) {
-			$css_file = new \Elementor\Core\Files\CSS\Post( $content_id );
-			$css_file->enqueue();
+	/**
+	 * Whether an ID belongs to a saved Elementor document.
+	 *
+	 * Revisions are rejected: `update_post_meta()` redirects a revision's writes to its
+	 * parent, so generating Post CSS for one overwrites the parent's `_elementor_css`
+	 * with rules scoped to the revision's ID and the parent renders unstyled.
+	 *
+	 * @since 4.0.7
+	 * @param int $post_id Post ID.
+	 * @return bool
+	 */
+	public static function is_elementor_document( $post_id ) {
+		$post_id = absint( $post_id );
+		if ( ! $post_id || ! class_exists( '\Elementor\Plugin' ) ) {
+			return false;
 		}
+
+		$post = get_post( $post_id );
+		if ( ! $post || 'revision' === $post->post_type ) {
+			return false;
+		}
+
+		$document = \Elementor\Plugin::$instance->documents->get( $post_id );
+
+		return $document && $document->is_built_with_elementor();
+	}
+
+	public static function render_elementor_content_css( $content_id ) {
+		if ( ! class_exists( '\Elementor\Core\Files\CSS\Post' ) || ! self::is_elementor_document( $content_id ) ) {
+			return;
+		}
+
+		/*
+		 * With the "Internal Embedding" print method Elementor prints the CSS on the spot
+		 * when its `elementor-frontend` handle is not registered yet. Called before
+		 * `wp_enqueue_scripts` (e.g. on `wp`), that puts a <style> tag ahead of the
+		 * doctype and breaks redirects, feeds and standards mode - so wait for it.
+		 */
+		if ( ! did_action( 'wp_enqueue_scripts' ) && ! is_admin() && ! wp_doing_ajax() && ! ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+			add_action(
+				'wp_enqueue_scripts',
+				static function () use ( $content_id ) {
+					self::render_elementor_content_css( $content_id );
+				},
+				20
+			);
+			return;
+		}
+
+		$css_file = new \Elementor\Core\Files\CSS\Post( $content_id );
+		$css_file->enqueue();
 	}
 
 	public static function render_elementor_content( $content_id, $has_css = false ) {

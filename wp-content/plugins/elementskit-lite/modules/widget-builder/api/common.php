@@ -65,12 +65,23 @@ class Common extends \ElementsKit_Lite\Core\Handler_Api {
 
 		//update_post_meta( $id, '_wp_page_template', 'elementor_canvas' );
 		update_post_meta( $id, 'elementskit_custom_widget_data', $data );
-		\ElementsKit_Lite\Modules\Widget_Builder\Widget_File::instance()->create( $data, $id );
+		$widget_file = \ElementsKit_Lite\Modules\Widget_Builder\Widget_File::instance();
+		if ( ! $widget_file->create( $data, $id ) ) {
+			return array(
+				'success' => false,
+				'message' => array_merge(
+					array( esc_html__( 'Widget data saved, but the widget file could not be written. Check that the uploads directory is writable, then save again.', 'elementskit-lite' ) ),
+					$widget_file->get_warnings()
+				),
+				'push_id' => $id,
+			);
+		}
 
 		return array(
 			'success' => true,
-			'message' => array(
-				esc_html__( 'Widget data saved!', 'elementskit-lite' ),
+			'message' => array_merge(
+				array( esc_html__( 'Widget data saved!', 'elementskit-lite' ) ),
+				$widget_file->get_warnings()
 			),
 			'push_id' => $id,
 		);

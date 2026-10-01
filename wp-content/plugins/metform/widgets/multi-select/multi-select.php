@@ -221,6 +221,207 @@ Class MetForm_Input_Multi_Select extends Widget_Base{
         $this->end_controls_section();
 
         $this->start_controls_section(
+			'options_section',
+			[
+				'label' => esc_html__( 'Options Wrapper', 'metform' ),
+				'tab' => Controls_Manager::TAB_STYLE,
+			]
+        );
+
+		$this->add_responsive_control(
+			'mf_multiselect_options_border_radius',
+			[
+				'label' => esc_html__( 'Border Radius', 'metform' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => ['px','%'],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+						'step' => 1,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					]
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mf-input-multiselect .mf_multiselect__menu' => 'border-radius: {{SIZE}}{{UNIT}}; overflow: auto;',
+				],
+			]
+		);
+
+        $this->add_group_control(
+            Group_Control_Border::get_type(),
+            [
+                'name' => 'mf_multiselect_options_border',
+                'label' => esc_html__( 'Border', 'metform' ),
+                'selector' => '{{WRAPPER}} .mf-input-multiselect .mf_multiselect__menu',
+            ]
+        );
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			[
+				'name' => 'mf_multiselect_options_box_shadow',
+				'label' => esc_html__( 'Box Shadow', 'metform' ),
+                'selector' => '{{WRAPPER}} .mf-input-multiselect .mf_multiselect__menu',
+			]
+		);
+
+        $this->end_controls_section();
+
+		$this->start_controls_section(
+			'option_section',
+			[
+				'label' => esc_html__( 'Option', 'metform' ),
+				'tab' => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'mf_multiselect_option_padding',
+			[
+				'label' => esc_html__( 'Padding', 'metform' ),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em' ],
+				'selectors' => [
+					'{{WRAPPER}} .mf-input-multiselect .mf_multiselect__option' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'mf_multiselect_option_margin',
+			[
+				'label' => esc_html__( 'Margin', 'metform' ),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em' ],
+				'selectors' => [
+					'{{WRAPPER}} .mf-input-multiselect .mf_multiselect__option' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'mf_multiselect_option_border_radius',
+			[
+				'label' => esc_html__( 'Border Radius', 'metform' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => ['px','%'],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+						'step' => 1,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					]
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mf-input-multiselect .mf_multiselect__option' => 'border-radius: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name' => 'mf_multiselect_option_border',
+				'label' => esc_html__( 'Border', 'metform' ),
+				'selector' => '{{WRAPPER}} .mf-input-multiselect .mf_multiselect__option',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name' => 'mf_multiselect_option_typography',
+				'label' => esc_html__( 'Typography', 'metform' ),
+				'selector' => '{{WRAPPER}} .mf-input-multiselect .mf_multiselect__option',
+			]
+		);
+
+		$this->start_controls_tabs( 'mf_multiselect_option_style' );
+
+		$this->start_controls_tab(
+			'mf_multiselect_option_tabnormal',
+			[
+				'label' => esc_html__( 'Normal', 'metform' ),
+			]
+		);
+
+		$this->add_control(
+			'mf_multiselect_option_colornormal',
+			[
+				'label' => esc_html__( 'Color', 'metform' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .mf-input-multiselect .mf_multiselect__option' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name' => 'mf_multiselect_option_backgroundnormal',
+				'label' => esc_html__( 'Background', 'metform' ),
+				'types' => [ 'classic', 'gradient' ],
+				'selector' => '{{WRAPPER}} .mf-input-multiselect .mf_multiselect__option',
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'mf_multiselect_option_tabhover',
+			[
+				'label' => esc_html__( 'Hover', 'metform' ),
+			]
+		);
+
+		$this->add_control(
+			'mf_multiselect_option_colorhover',
+			[
+				'label' => esc_html__( 'Color', 'metform' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .mf-input-multiselect .mf_multiselect__option:hover, {{WRAPPER}} .mf-input-multiselect .mf_multiselect__option.mf_multiselect__option--is-focused' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name' => 'mf_multiselect_option_backgroundhover',
+				'label' => esc_html__( 'Background', 'metform' ),
+				'types' => [ 'classic', 'gradient' ],
+				'selector' => '{{WRAPPER}} .mf-input-multiselect .mf_multiselect__option:hover, {{WRAPPER}} .mf-input-multiselect .mf_multiselect__option.mf_multiselect__option--is-focused',
+			]
+		);
+
+		$this->add_control(
+			'mf_multiselect_option_border_colorhover',
+			[
+				'label' => esc_html__( 'Border Color', 'metform' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .mf-input-multiselect .mf_multiselect__option:hover, {{WRAPPER}} .mf-input-multiselect .mf_multiselect__option.mf_multiselect__option--is-focused' => 'border-color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		$this->end_controls_section();
+
+        $this->start_controls_section(
 			'placeholder_section',
 			[
 				'label' => esc_html__( 'Place Holder', 'metform' ),

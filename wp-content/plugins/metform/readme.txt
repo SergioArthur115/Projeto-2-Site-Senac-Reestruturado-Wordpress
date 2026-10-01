@@ -3,7 +3,7 @@ Contributors: Roxnor, Ataurr, aion11
 Tags: form builder, Elementor form, contact form builder, Multi step form, custom form
 Requires at least: 6.0
 Tested up to: 7.1
-Stable tag: 4.3.0
+Stable tag: 4.3.1
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -274,6 +274,22 @@ If you like using the MetForm form builder, then consider checking out our other
 **Check out** [Tutorials, Tips & Tricks](https://wpmet.com/blog)! 👌
 
 == Changelog ==
+
+= Version: 4.3.1 // 2026-09-30 =
+- Added: Early asset loading for MetForm shortcodes in regular post content.
+- Added: Fallback style loading for assets discovered after `wp_head()`.
+- Added: Advanced styling controls for Multi Select options.
+- Improved: Frontend script loading for shortcode-rendered forms.
+- Improved: Support for widget-specific and MetForm Pro frontend assets.
+- Improved: Prevented duplicate stylesheet output when multiple forms are rendered on the same page.
+- Improved: Forms and Entries list action-status handling.
+- Fixed: Missing MetForm styles when rendering forms with the `[metform]` shortcode.
+- Fixed: Elementor control and responsive styles not applying to shortcode forms.
+- Fixed: CSS loading issues when MetForm is used inside Elementor's Shortcode widget.
+- Fixed: Security issues involving data exposure, email HTML injection, debug-file disclosure, and stored XSS.
+- Fixed: Submission failure logging for REST API rejections, including expired nonces.
+- Fixed: Google reCAPTCHA v2/v3 validation and improved error handling for failed verification requests.
+- Fixed: Security hardening for form field names to prevent a stored XSS issue reported via Patchstack.
 
 = Version: 4.3.0 // 2026-08-30 =
 

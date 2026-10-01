@@ -220,7 +220,7 @@ Class MetForm_Input_Time extends Widget_Base{
 					options=${<?php echo json_encode( $timeConfig ); ?>}
 					value=${parent.getValue('<?php echo esc_attr( $mf_input_name ); ?>')}
 					onInput=${parent.handleDateTime}
-					aria-invalid=${validation.errors['<?php echo esc_attr( $mf_input_name ); ?>'] ? 'true' : 'false'}
+					aria-invalid="${validation.errors['<?php echo esc_attr( $mf_input_name ); ?>'] ? 'true' : 'false'}"
 					onReady=${
     ( dates, dateStr, instance ) => {
         if( instance.input.nextSibling ) {

@@ -20,6 +20,22 @@ class Install_Tracker {
 	const OPTION_KEY = 'wpmet_onboarded_plugins';
 
 	/**
+	 * Option name used to flag that an onboarding email has been collected.
+	 *
+	 * @since 3.9.5
+	 * @var string
+	 */
+	const EMAIL_COLLECTED_KEY = 'wpmet_onboard_email_collected';
+
+	/**
+	 * Option name used to store the collected onboarding email address.
+	 *
+	 * @since 3.9.5
+	 * @var string
+	 */
+	const COLLECTED_EMAIL_KEY = 'wpmet_onboard_collected_email';
+
+	/**
 	 * Onboarding status options used by known Wpmet plugins.
 	 *
 	 * @since 3.9.5
@@ -97,7 +113,7 @@ class Install_Tracker {
 	}
 
 	/**
-	 * Store the collected onboarding email in the shared registry.
+	 * Store the collected onboarding email in its own options.
 	 *
 	 * @since 3.9.5
 	 *
@@ -109,23 +125,25 @@ class Install_Tracker {
 			return;
 		}
 
-		$registry                              = self::get_registry();
-		$registry['_shared']['email']           = sanitize_email( $email );
-		$registry['_shared']['email_collected'] = true;
-		$registry['_shared']['updated_at']      = time();
-		self::save_registry( $registry );
+		update_option( self::EMAIL_COLLECTED_KEY, true, false );
+		update_option( self::COLLECTED_EMAIL_KEY, $email, false );
 	}
 
 	/**
-	 * Get the email address stored in the shared onboarding registry.
+	 * Get the collected onboarding email address.
 	 *
 	 * @since 3.9.5
 	 *
 	 * @return string Sanitized email address, or an empty string when unavailable.
 	 */
 	public static function get_collected_email(): string {
-		$registry = self::get_registry();
-		$email    = isset( $registry['_shared']['email'] ) ? $registry['_shared']['email'] : '';
+		$email = (string) get_option( self::COLLECTED_EMAIL_KEY, '' );
+
+		if ( ! is_email( $email ) ) {
+			// Fall back to the legacy entry kept in the shared registry.
+			$registry = self::get_registry();
+			$email    = isset( $registry['_shared']['email'] ) ? $registry['_shared']['email'] : '';
+		}
 
 		return is_email( $email ) ? sanitize_email( $email ) : '';
 	}
@@ -138,6 +156,11 @@ class Install_Tracker {
 	 * @return bool True when an email address has been collected.
 	 */
 	public static function has_collected_email(): bool {
+		if ( get_option( self::EMAIL_COLLECTED_KEY ) ) {
+			return true;
+		}
+
+		// Fall back to the legacy entry kept in the shared registry.
 		$registry = self::get_registry();
 
 		return ! empty( $registry['_shared']['email_collected'] );

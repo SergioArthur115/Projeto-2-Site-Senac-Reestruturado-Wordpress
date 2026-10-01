@@ -62,7 +62,9 @@ Class Cpt extends \MetForm\Base\Cpt {
             'query_var'             => true,
             'exclude_from_search'   => true,
             'capability_type'       => 'page',
-            'show_in_rest'          => true,
+            // Force-published entries hold submitter data; REST isn't gated by
+            // 'public', so exposing it would leak every entry to anonymous callers.
+            'show_in_rest'          => false,
             'rest_base'             => $this->get_name(),
         );
 

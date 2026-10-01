@@ -4,7 +4,7 @@ Tags: Elementor addons, mega menu builder,  header footer builder, elementor add
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 4.0.6
+Stable tag: 4.0.7
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -357,6 +357,13 @@ ElementsKit is brought to you by Wpmet, a name **trusted by 10,00,000 satisfied 
 Visit  [wpmet](https://wpmet.com/?utm_source=org&utm_medium=readme) for essential WordPress [Tutorials, Tips & Tricks](https://wpmet.com/blog)!
 
 == Changelog ==
+= ElementsKit Elementor Addons Version: 4.0.7 (2026-09-29) =
+* Security: Enhanced Widget Builder output escaping to prevent stored XSS vulnerabilities.
+* Improved: Post title output escaping in the Blog Posts widget's Block and Grid With Thumb layouts.
+* Fixed: Stored XSS vulnerability in the Blog Posts widget's featured image alt attributes.
+* Fixed: Taxonomy archives overwriting Elementor template CSS.
+* Fixed: Image Accordion functionality in the editor when used with Atomic Flexbox elements.
+
 = ElementsKit Elementor Addons Version: 4.0.6 (2026-09-21) =
 * Added: Support for Elementor Atomic Elements.
 * Added: Blog Post image widget image position control responisve

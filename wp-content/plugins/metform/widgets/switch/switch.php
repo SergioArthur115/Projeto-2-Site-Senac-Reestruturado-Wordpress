@@ -611,7 +611,7 @@ Class MetForm_Input_Switch extends Widget_Base{
 					class="mf-input mf-input-control mf-input-switch-box <?php echo esc_attr($class); ?>" id="mf-input-switch-<?php echo esc_attr($this->get_id()); ?>"
 					<?php if ( !$is_edit_mode ): ?>
 						onInput=${ parent.handleSwitch }
-						aria-invalid=${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}
+						aria-invalid="${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}"
 						ref=${el => parent.activateValidation(<?php echo json_encode($configData); ?>, el)}
 					<?php endif; ?>
 					/>

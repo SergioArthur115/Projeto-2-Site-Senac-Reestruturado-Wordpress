@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: ElementsKit Lite 4.0.6\n"
+"Project-Id-Version: ElementsKit Lite 4.0.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/elementskit-lite\n"
-"POT-Creation-Date: 2026-09-21 06:39:55+00:00\n"
+"POT-Creation-Date: 2026-09-29 09:34:01+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1368,6 +1368,11 @@ msgstr ""
 
 #: libs/stories/views/template.php:145 plugin.php:189
 msgid "Facebook Community"
+msgstr ""
+
+#: libs/template/compiler.php:520
+#. translators: 1: template placeholder, 2: where it was used
+msgid "Placeholder {{%1$s}} was removed: it is not allowed in %2$s."
 msgstr ""
 
 #: mcp/abilities.php:65 mcp/server.php:35
@@ -2842,7 +2847,7 @@ msgid "Enable Section"
 msgstr ""
 
 #: modules/widget-builder/api/common.php:28
-#: modules/widget-builder/api/common.php:86
+#: modules/widget-builder/api/common.php:97
 msgid "Not enough permission."
 msgstr ""
 
@@ -2851,6 +2856,12 @@ msgid "Invalid data."
 msgstr ""
 
 #: modules/widget-builder/api/common.php:73
+msgid ""
+"Widget data saved, but the widget file could not be written. Check that the "
+"uploads directory is writable, then save again."
+msgstr ""
+
+#: modules/widget-builder/api/common.php:83
 msgid "Widget data saved!"
 msgstr ""
 
@@ -2894,11 +2905,11 @@ msgstr ""
 msgid "No Widgets found in Trash."
 msgstr ""
 
-#: modules/widget-builder/init.php:71
+#: modules/widget-builder/init.php:110
 msgid "ElementsKit Custom"
 msgstr ""
 
-#: modules/widget-builder/init.php:112
+#: modules/widget-builder/init.php:151
 msgid "Builder"
 msgstr ""
 
